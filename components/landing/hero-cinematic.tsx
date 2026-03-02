@@ -538,7 +538,7 @@ export function HeroCinematic() {
         {/* Sprite del águila real animada (pseudo-3D) */}
         <div
           ref={flightRef}
-          className="absolute top-[6%] right-[4%] w-[320px] md:w-[420px] lg:w-[520px] pointer-events-none z-[60]"
+          className="absolute top-[10%] right-[2%] w-[200px] md:w-[380px] lg:w-[520px] pointer-events-none z-[60]"
           style={{ transformStyle: "preserve-3d" }}
         >
           <div
