@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect, type MutableRefObject } from "react"
+import { useRef, useEffect, useState, type MutableRefObject } from "react"
 import { ArrowRight, MessageCircle } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -273,6 +273,90 @@ function MobileCircuitBurst({
   )
 }
 
+/* Simple looping typewriter with completion hook */
+function TypewriterLine({
+  phrases,
+  speed = 42,
+  hold = 1400,
+  eraseSpeed = 26,
+  className = "",
+  containerRef,
+  textRef,
+  onPhraseComplete,
+}: {
+  phrases: string[]
+  speed?: number
+  hold?: number
+  eraseSpeed?: number
+  className?: string
+  containerRef?: MutableRefObject<HTMLSpanElement | null>
+  textRef?: MutableRefObject<HTMLSpanElement | null>
+  onPhraseComplete?: (index: number) => void
+}) {
+  const [display, setDisplay] = useState("")
+  const [phraseIndex, setPhraseIndex] = useState(0)
+  const calledRef = useRef<number | null>(null)
+  const prefersReduceMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+  useEffect(() => {
+    if (phrases.length === 0) return
+    if (prefersReduceMotion) {
+      setDisplay(phrases[0])
+      if (onPhraseComplete) onPhraseComplete(0)
+      return
+    }
+
+    let active = true
+    let t: ReturnType<typeof setTimeout> | null = null
+
+    const type = (pIndex: number, charIndex: number) => {
+      if (!active) return
+      const phrase = phrases[pIndex]
+      if (charIndex <= phrase.length) {
+        setDisplay(phrase.slice(0, charIndex))
+        t = setTimeout(() => type(pIndex, charIndex + 1), speed)
+      } else {
+        if (calledRef.current !== pIndex) {
+          onPhraseComplete?.(pIndex)
+          calledRef.current = pIndex
+        }
+        t = setTimeout(() => erase(pIndex, phrase.length - 1), hold)
+      }
+    }
+
+    const erase = (pIndex: number, charIndex: number) => {
+      if (!active) return
+      const phrase = phrases[pIndex]
+      if (charIndex >= 0) {
+        setDisplay(phrase.slice(0, charIndex))
+        t = setTimeout(() => erase(pIndex, charIndex - 1), eraseSpeed)
+      } else {
+        const next = (pIndex + 1) % phrases.length
+        setPhraseIndex(next)
+        calledRef.current = null
+        t = setTimeout(() => type(next, 0), speed * 2)
+      }
+    }
+
+    type(phraseIndex, 0)
+
+    return () => {
+      active = false
+      if (t) clearTimeout(t)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phrases.join("|"), speed, hold, eraseSpeed])
+
+  return (
+    <span ref={containerRef} className={`inline-flex items-baseline ${className}`}>
+      <span ref={textRef} className="tw-line">
+        {display}
+      </span>
+      <span className="tw-caret ml-[1px] inline-block">|</span>
+    </span>
+  )
+}
+
 /* ─────────────────────────────────────────────
    Main cinematic hero with GSAP pinned scroll
    ───────────────────────────────────────────── */
@@ -283,6 +367,7 @@ export function HeroCinematic() {
   const flightRef = useRef<HTMLDivElement>(null)
   const line1Ref = useRef<HTMLSpanElement>(null)
   const line2Ref = useRef<HTMLSpanElement>(null)
+  const typewriterTextRef = useRef<HTMLSpanElement>(null)
   const subtextRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const tagRef = useRef<HTMLParagraphElement>(null)
@@ -295,6 +380,7 @@ export function HeroCinematic() {
   const eagleWrapRef = useRef<HTMLDivElement>(null)
   const eagleMainRef = useRef<HTMLDivElement>(null)
   const eagleGlowRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = useRef(false)
 
   const infoPoints = [
     { title: "Implementacion guiada", body: "Blueprint + acompanamiento hasta el go-live." },
@@ -309,6 +395,10 @@ export function HeroCinematic() {
   mobilePathsRef.current.length = 4
   mobileSignalsRef.current.length = 2
   const parallaxMounted = useRef(false)
+
+  useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  }, [])
   /* Eagle flight intro */
   useEffect(() => {
     if (!flightRef.current) return
@@ -410,6 +500,93 @@ export function HeroCinematic() {
     return () => window.removeEventListener("mousemove", onMove)
   }, [])
 
+  const triggerSurge = (phraseIndex: number) => {
+    const isMobile = window.matchMedia("(max-width: 767px)").matches
+    const motionScale = prefersReducedMotion.current ? 0 : isMobile ? 0.5 : 1
+
+    if (typewriterTextRef.current) {
+      gsap.to(typewriterTextRef.current, {
+        color: "#6DF3B6",
+        duration: 0.2,
+        ease: "power1.out",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto",
+      })
+    }
+
+    const pathTargets = isMobile ? mobilePathsRef.current : circuitRefs.current
+    const signalTargets = isMobile ? mobileSignalsRef.current : gsap.utils.toArray<SVGPathElement>(".vc-signal")
+
+    gsap.to(pathTargets, {
+      opacity: prefersReducedMotion.current ? 0.28 : 0.38,
+      duration: 0.22,
+      ease: "power1.out",
+      yoyo: true,
+      repeat: 1,
+      overwrite: "auto",
+    })
+
+    if (!prefersReducedMotion.current) {
+      gsap.fromTo(
+        pathTargets,
+        { strokeDashoffset: 180 },
+        { strokeDashoffset: 0, duration: 0.38, ease: "power2.out", overwrite: "auto" },
+      )
+      gsap.to(signalTargets, {
+        opacity: 0.55,
+        duration: 0.18,
+        ease: "power1.out",
+        yoyo: true,
+        repeat: 1,
+        overwrite: "auto",
+      })
+      gsap.fromTo(
+        signalTargets,
+        { strokeDashoffset: 120 },
+        { strokeDashoffset: -260, duration: 0.42, ease: "linear", overwrite: "auto" },
+      )
+    }
+
+    if (flightRef.current) {
+      const kickX = motionScale * -6
+      const kickY = motionScale * -4
+      const kickScale = 1 + motionScale * 0.018
+
+      gsap.to(flightRef.current, {
+        x: `+=${kickX}`,
+        y: `+=${kickY}`,
+        scale: kickScale,
+        filter: "brightness(1.04) saturate(1.03)",
+        duration: 0.18,
+        ease: "power2.out",
+        overwrite: "auto",
+      })
+      gsap.to(flightRef.current, {
+        x: `-=${kickX}`,
+        y: `-=${kickY}`,
+        scale: 1,
+        filter: "brightness(1) saturate(1)",
+        duration: 0.35,
+        ease: "power2.out",
+        delay: 0.18,
+        overwrite: "auto",
+      })
+    }
+
+    if (eagleGlowRef.current && !prefersReducedMotion.current) {
+      gsap.to(eagleGlowRef.current, {
+        opacity: 1,
+        filter: "blur(10px)",
+        duration: 0.18,
+        ease: "power1.out",
+        overwrite: "auto",
+        yoyo: true,
+        repeat: 1,
+      })
+    }
+  }
+
   /* GSAP ScrollTrigger timeline (pinned hero) */
   useEffect(() => {
     let mm: gsap.MatchMedia | null = null
@@ -475,15 +652,15 @@ export function HeroCinematic() {
           tl.to(
             flightRef.current,
             {
-              y: 18,
-              rotateY: -2,
-              rotateZ: -1,
-              scale: 0.98,
-              duration: 0.65,
-              ease: "sine.inOut",
-            },
-            0.28,
-          )
+            y: 18,
+            rotateY: -2,
+            rotateZ: -1,
+            scale: 0.98,
+            duration: 0.65,
+            ease: "sine.inOut",
+          },
+          0.28,
+        )
         } else {
           tl.to(
             flightRef.current,
@@ -641,7 +818,7 @@ export function HeroCinematic() {
             duration: 0.15,
             ease: "power2.out",
           },
-          0.7,
+            0.7,
         )
 
         tl.to(
@@ -843,9 +1020,13 @@ export function HeroCinematic() {
               <span ref={line1Ref} className="block text-balance">
                 Tu negocio no necesita m&aacute;s esfuerzo.
               </span>
-              <span ref={line2Ref} className="block text-viridian mt-2 text-balance">
-                Necesita un sistema.
-              </span>
+              <TypewriterLine
+                phrases={["Necesita un sistema."]}
+                className="block text-viridian mt-2 text-balance"
+                containerRef={line2Ref}
+                textRef={typewriterTextRef}
+                onPhraseComplete={(idx) => triggerSurge(idx)}
+              />
             </h1>
 
             {/* Subtext */}
