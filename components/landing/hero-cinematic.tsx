@@ -490,9 +490,9 @@ export function HeroCinematic() {
             {
               motionPath: {
                 path: [
-                  { x: -60, y: -12 },
-                  { x: -120, y: -26 },
-                  { x: -180, y: 4 },
+                  { x: -22, y: -8 },
+                  { x: -34, y: 6 },
+                  { x: -40, y: 20 },
                 ],
                 curviness: 1.2,
               },
@@ -608,9 +608,9 @@ export function HeroCinematic() {
             {
               motionPath: {
                 path: [
-                  { x: -180, y: 4 },
-                  { x: -120, y: 36 },
-                  { x: -58, y: 58 },
+                  { x: -40, y: 22 },
+                  { x: -30, y: 36 },
+                  { x: -24, y: 52 },
                 ],
                 curviness: 1.1,
               },
@@ -720,8 +720,8 @@ export function HeroCinematic() {
         />
 
         {/* Info markers that appear as el aguila comparte datos (solo desktop) */}
-        <div className="absolute inset-0 pointer-events-none hidden md:block">
-          <div className="absolute left-[8%] top-[18%] w-[2px] h-[64%] bg-gradient-to-b from-viridian/50 via-viridian/20 to-transparent blur-[1px]" />
+        <div className="absolute inset-0 pointer-events-none hidden lg:block">
+          <div className="absolute left-[6%] top-[12%] w-[2px] h-[70%] bg-gradient-to-b from-viridian/50 via-viridian/20 to-transparent blur-[1px]" />
           {/* Circuitos que se dibujan al vuelo */}
           <svg
             className="absolute inset-0 w-full h-full"
@@ -755,25 +755,26 @@ export function HeroCinematic() {
               </linearGradient>
             </defs>
           </svg>
-          {infoPoints.map((point, idx) => (
-            <div
-              key={point.title}
-              ref={(el) => {
-                if (el) infoRefs.current[idx] = el
-              }}
-              className="absolute max-w-[75vw] md:max-w-xs rounded-2xl border border-viridian/30 bg-background/70 shadow-[0_25px_60px_rgba(0,0,0,0.25)] backdrop-blur-md p-4 text-left pointer-events-none"
-              style={{
-                top: `${20 + idx * 18}%`,
-                left: idx % 2 === 0 ? "8%" : "16%",
-              }}
-            >
-              <p className="hidden md:block text-xs font-mono uppercase tracking-[0.18em] text-viridian mb-1">
-                {String(idx + 1).padStart(2, "0")} · Datos al vuelo
-              </p>
-              <p className="text-lg font-semibold text-foreground">{point.title}</p>
-              <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{point.body}</p>
-            </div>
-          ))}
+          <div className="absolute left-[6%] top-0 h-full w-[340px] max-w-[32vw]">
+            {infoPoints.map((point, idx) => (
+              <div
+                key={point.title}
+                ref={(el) => {
+                  if (el) infoRefs.current[idx] = el
+                }}
+                className="absolute w-full rounded-2xl border border-viridian/30 bg-background/70 shadow-[0_25px_60px_rgba(0,0,0,0.25)] backdrop-blur-md p-4 text-left pointer-events-none"
+                style={{
+                  top: `${20 + idx * 18}%`,
+                }}
+              >
+                <p className="hidden lg:block text-xs font-mono uppercase tracking-[0.18em] text-viridian mb-1">
+                  {String(idx + 1).padStart(2, "0")} · Datos al vuelo
+                </p>
+                <p className="text-lg font-semibold text-foreground">{point.title}</p>
+                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{point.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Chips: reducir para evitar ruido (solo desktop) */}
@@ -797,7 +798,7 @@ export function HeroCinematic() {
         {/* Sprite del águila real animada (pseudo-3D) */}
         <div
           ref={flightRef}
-          className="absolute top-[6px] left-1/2 -translate-x-1/2 w-[220px] md:top-[6%] md:right-[4%] md:left-auto md:translate-x-0 md:w-[420px] lg:w-[520px] pointer-events-none z-[60]"
+          className="absolute top-[6px] left-1/2 -translate-x-1/2 w-[220px] md:top-[6%] md:right-[4%] md:left-auto md:translate-x-0 md:w-[420px] lg:w-[520px] pointer-events-none z-10"
           style={{ transformStyle: "preserve-3d" }}
         >
           <div
@@ -827,7 +828,7 @@ export function HeroCinematic() {
         </div>
 
         {/* === Content === */}
-        <div className="relative z-10 flex h-full flex-col px-6 pb-6 md:pb-12">
+        <div className="relative z-20 isolate flex h-full flex-col px-6 pb-6 md:pb-12">
           <div className="flex-1 flex flex-col items-center justify-center text-center pt-[200px] sm:pt-[220px] md:pt-0">
             {/* Tag */}
             <p
