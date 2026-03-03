@@ -381,6 +381,7 @@ export function HeroCinematic() {
   const eagleMainRef = useRef<HTMLDivElement>(null)
   const eagleGlowRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useRef(false)
+  const headlinePhrases = ["Necesita un sistema.", "Necesita precisión.", "Necesita velocidad."]
 
   const infoPoints = [
     { title: "Implementacion guiada", body: "Blueprint + acompanamiento hasta el go-live." },
@@ -1021,7 +1022,7 @@ export function HeroCinematic() {
                 Tu negocio no necesita m&aacute;s esfuerzo.
               </span>
               <TypewriterLine
-                phrases={["Necesita un sistema."]}
+                phrases={headlinePhrases}
                 className="block text-viridian mt-2 text-balance"
                 containerRef={line2Ref}
                 textRef={typewriterTextRef}
