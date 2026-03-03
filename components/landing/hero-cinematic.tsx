@@ -216,11 +216,15 @@ function MobileCircuitBurst({
 
   return (
     <svg
-      className="absolute top-[72px] left-1/2 -translate-x-1/2 w-[360px] md:hidden pointer-events-none"
+      className="absolute top-[72px] left-1/2 -translate-x-1/2 w-[360px] md:hidden pointer-events-none z-5"
       viewBox="0 0 430 420"
       preserveAspectRatio="xMidYMid slice"
       aria-hidden="true"
-      style={{ opacity: 0.24 }}
+      style={{
+        opacity: 0.24,
+        WebkitMaskImage: "radial-gradient(circle at 50% 20%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 42%, rgba(0,0,0,0) 70%)",
+        maskImage: "radial-gradient(circle at 50% 20%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 42%, rgba(0,0,0,0) 70%)",
+      }}
     >
       <defs>
         <linearGradient id="burst-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -366,13 +370,13 @@ export function HeroCinematic() {
   const heroRef = useRef<HTMLElement>(null)
   const flightRef = useRef<HTMLDivElement>(null)
   const line1Ref = useRef<HTMLSpanElement>(null)
-  const line2Ref = useRef<HTMLSpanElement>(null)
+  const line2Ref = useRef<HTMLDivElement>(null)
+  const typewriterContainerRef = useRef<HTMLSpanElement>(null)
   const typewriterTextRef = useRef<HTMLSpanElement>(null)
   const subtextRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const tagRef = useRef<HTMLParagraphElement>(null)
   const glowBgRef = useRef<HTMLDivElement>(null)
-  const infoRefs = useRef<HTMLDivElement[]>([])
   const chipRefs = useRef<HTMLDivElement[]>([])
   const circuitRefs = useRef<SVGPathElement[]>([])
   const mobilePathsRef = useRef<SVGPathElement[]>([])
@@ -383,14 +387,7 @@ export function HeroCinematic() {
   const prefersReducedMotion = useRef(false)
   const headlinePhrases = ["Necesita un sistema.", "Necesita precisión.", "Necesita velocidad."]
 
-  const infoPoints = [
-    { title: "Implementacion guiada", body: "Blueprint + acompanamiento hasta el go-live." },
-    { title: "Panel en tiempo real", body: "Operaciones, ventas y cobranzas en una sola vista." },
-    { title: "Soporte cercano", body: "Equipo en Argentina, sin tickets eternos." },
-  ]
-
   // Mantener arrays del tamaño correcto en cada render
-  infoRefs.current.length = infoPoints.length
   chipRefs.current.length = 3
   circuitRefs.current.length = 3
   mobilePathsRef.current.length = 4
@@ -402,6 +399,7 @@ export function HeroCinematic() {
   }, [])
   /* Eagle flight intro */
   useEffect(() => {
+    if (window.matchMedia("(max-width: 767px)").matches) return
     if (!flightRef.current) return
     const target = document.getElementById("nav-brand")
     const navLogo = document.getElementById("nav-logo")
@@ -411,7 +409,6 @@ export function HeroCinematic() {
     gsap.set(navElements, { opacity: 1, scale: 1, transformOrigin: "left center" })
     gsap.set(flightRef.current, { opacity: 0, scale: 1, x: -260, y: 140, rotateZ: -4, transformOrigin: "center center" })
     gsap.set(glowBgRef.current, { opacity: 0.02 })
-    gsap.set(infoRefs.current, { opacity: 0, y: 30, scale: 0.96 })
     gsap.set(chipRefs.current, { opacity: 0.08, y: 18 })
     gsap.set(circuitRefs.current, { strokeDasharray: 220, strokeDashoffset: 220, opacity: 0.08 })
     const centerOffset = target
@@ -594,232 +591,129 @@ export function HeroCinematic() {
     let chipFloatTween: gsap.core.Tween | null = null
 
     const ctx = gsap.context(() => {
-      const createTimeline = ({ endPercent, isMobile }: { endPercent: number; isMobile: boolean }) => {
-        /* Initial states */
+      const setBaseState = () => {
         gsap.set([line1Ref.current, line2Ref.current, subtextRef.current, ctaRef.current, tagRef.current], {
           opacity: 0,
           y: 40,
         })
-        gsap.set(flightRef.current, { opacity: 0, scale: 1, x: 0, y: 0, rotateZ: 0, transformOrigin: "center center" })
+        gsap.set(flightRef.current, {
+          opacity: 0,
+          scale: 1,
+          x: 0,
+          y: 0,
+          rotateZ: 0,
+          rotateY: 0,
+          transformOrigin: "center center",
+        })
         gsap.set(glowBgRef.current, { opacity: 0.03 })
-        if (!isMobile) {
-          gsap.set(infoRefs.current, { opacity: 0, y: 30, scale: 0.96 })
-          gsap.set(chipRefs.current, { opacity: 0.08, y: 18 })
-        } else {
-          gsap.set(chipRefs.current, { opacity: 0 })
-          gsap.set(mobilePathsRef.current, { strokeDashoffset: 240, opacity: 0.18 })
-          gsap.set(mobileSignalsRef.current, { strokeDashoffset: 160, opacity: 0.12 })
-        }
+      }
 
-        /* Main pinned timeline */
+      const buildDesktopTimeline = () => {
+        setBaseState()
+        gsap.set(chipRefs.current, { opacity: 0.08, y: 18 })
+        gsap.set(circuitRefs.current, { strokeDasharray: 220, strokeDashoffset: 220, opacity: 0.08 })
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: wrapperRef.current,
             start: "top top",
-            end: `+=${endPercent}%`,
+            end: "+=240%",
             pin: heroRef.current,
-            scrub: 1.2,
+            scrub: 1.08,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
         })
 
-        /* Phase 1: Águila aparece + titular línea 1 (0% -> 35%) */
         tl.to(tagRef.current, { opacity: 1, y: 0, duration: 0.08, ease: "power2.out" }, 0)
+        tl.fromTo(
+          flightRef.current,
+          { opacity: 0, y: -10, x: -16, scale: 0.96, rotateZ: -4 },
+          { opacity: 1, y: 6, x: -8, scale: 1.05, rotateZ: -1, duration: 0.38, ease: "power2.out" },
+          0.04,
+        )
+        tl.to(
+          line1Ref.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.18,
+            ease: "power2.out",
+          },
+          0.12,
+        )
 
         tl.to(
           flightRef.current,
           {
-            opacity: 1,
-            y: isMobile ? 4 : 10,
-            scale: isMobile ? 1 : 1.05,
-            duration: 0.4,
-            ease: "power2.out",
-          },
-          0.04,
-        )
-
-        // Headline line 1
-        tl.to(line1Ref.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.15,
-          ease: "power2.out",
-        }, 0.1)
-
-        /* Phase 2: Eagle crosses + headline line 2 (35% -> 65%) */
-        // Vuelo lateral (acompaña la lectura)
-        if (isMobile) {
-          tl.to(
-            flightRef.current,
-            {
-            y: 18,
-            rotateY: -2,
-            rotateZ: -1,
+            motionPath: {
+              path: [
+                { x: -18, y: -6 },
+                { x: -24, y: 12 },
+                { x: -18, y: 26 },
+              ],
+              curviness: 1.1,
+            },
+            rotateZ: 1,
             scale: 0.98,
-            duration: 0.65,
+            duration: 0.68,
             ease: "sine.inOut",
           },
-          0.28,
+          0.32,
         )
-        } else {
-          tl.to(
-            flightRef.current,
-            {
-              motionPath: {
-                path: [
-                  { x: -22, y: -8 },
-                  { x: -34, y: 6 },
-                  { x: -40, y: 20 },
-                ],
-                curviness: 1.2,
-              },
-              duration: 0.7,
-              ease: "power1.inOut",
-              scale: 0.9,
-              rotateZ: -2,
-            },
-            0.32,
-          )
-        }
 
-        // Headline line 2 reveal
-        tl.to(line2Ref.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.15,
-          ease: "power2.out",
-        }, 0.4)
+        tl.to(
+          line2Ref.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.18,
+            ease: "power2.out",
+          },
+          0.7,
+        )
 
-        // Mobile circuit draw + signals
-        if (isMobile) {
-          tl.to(
-            mobilePathsRef.current,
-            {
-              strokeDashoffset: 0,
-              opacity: 0.26,
-              duration: 0.65,
-              stagger: 0.08,
-              ease: "power2.out",
-            },
-            0.46,
-          )
-          tl.fromTo(
-            mobileSignalsRef.current,
-            { strokeDashoffset: 160, opacity: 0.0 },
-            {
-              strokeDashoffset: -240,
-              opacity: 0.45,
-              duration: 0.6,
-              stagger: 0.06,
-              ease: "none",
-            },
-            0.60,
-          )
-          tl.to(
-            mobileSignalsRef.current,
-            {
-              opacity: 0.18,
-              duration: 0.25,
-            },
-            1.05,
-          )
-        }
+        tl.to(
+          circuitRefs.current,
+          {
+            strokeDashoffset: 0,
+            opacity: 0.24,
+            duration: 0.55,
+            stagger: 0.1,
+            ease: "power1.out",
+          },
+          0.46,
+        )
+        tl.to(
+          circuitRefs.current,
+          {
+            opacity: 0.16,
+            duration: 0.22,
+            stagger: 0.08,
+            ease: "sine.out",
+          },
+          1,
+        )
 
-        // Info points cascade + enciende chips conforme avanza
-        if (!isMobile) {
-          tl.to(infoRefs.current[0], { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: "power2.out" }, 0.3)
-          tl.to(infoRefs.current[1], { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: "power2.out" }, 0.44)
-          tl.to(infoRefs.current[2], { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: "power2.out" }, 0.58)
-          tl.to(chipRefs.current, { opacity: 0.35, y: 0, duration: 0.32, stagger: 0.08, ease: "power1.out" }, 0.34)
-          // Circuitos se dibujan cuando el águila pasa
-          tl.to(
-            circuitRefs.current,
-            {
-              strokeDashoffset: 0,
-              opacity: 0.22,
-              duration: 0.55,
-              stagger: 0.1,
-              ease: "power1.out",
-            },
-            0.58,
-          )
-          tl.to(
-            circuitRefs.current,
-            {
-              opacity: 0.3,
-              duration: 0.12,
-              stagger: 0.06,
-              ease: "power2.out",
-            },
-            0.95,
-          )
-          tl.to(
-            circuitRefs.current,
-            {
-              opacity: 0.18,
-              duration: 0.2,
-              stagger: 0.06,
-              ease: "power2.out",
-            },
-            1.08,
-          )
-        } else {
-          tl.to(
-            flightRef.current,
-            {
-              y: 28,
-              rotateY: 2.5,
-              rotateZ: 1,
-              scale: 0.96,
-              duration: 0.55,
-              ease: "power1.inOut",
-            },
-            0.68,
-          )
-        }
-
-        /* Phase 3: Plano descendente + CTA (65% -> 100%) */
-        if (!isMobile) {
-          tl.to(
-            flightRef.current,
-            {
-              motionPath: {
-                path: [
-                  { x: -40, y: 22 },
-                  { x: -30, y: 36 },
-                  { x: -24, y: 52 },
-                ],
-                curviness: 1.1,
-              },
-              rotateZ: 2,
-              scale: 0.94,
-              duration: 0.5,
-            },
-            0.65,
-          )
-        }
-
-        // Background glow intensifies
         tl.to(
           glowBgRef.current,
           {
-            opacity: isMobile ? 0.08 : 0.06,
-            duration: 0.35,
+            opacity: 0.06,
+            duration: 0.32,
+            ease: "power1.out",
           },
-          0.65,
+          0.52,
         )
 
-        // Subtext + CTA reveal
         tl.to(
           subtextRef.current,
           {
             opacity: 1,
             y: 0,
-            duration: 0.15,
+            duration: 0.16,
             ease: "power2.out",
           },
-            0.7,
+          0.64,
         )
 
         tl.to(
@@ -827,10 +721,166 @@ export function HeroCinematic() {
           {
             opacity: 1,
             y: 0,
-            duration: 0.15,
+            duration: 0.16,
             ease: "power2.out",
           },
-          0.78,
+          0.74,
+        )
+
+        return tl
+      }
+
+      const buildMobileTimeline = () => {
+        setBaseState()
+        gsap.set(chipRefs.current, { opacity: 0 })
+        gsap.set(mobilePathsRef.current, { strokeDashoffset: 240, opacity: 0.18 })
+        gsap.set(mobileSignalsRef.current, { strokeDashoffset: 160, opacity: 0.12 })
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapperRef.current,
+            start: "top top",
+            end: "+=185%",
+            pin: heroRef.current,
+            scrub: 1.05,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        })
+
+        tl.to(tagRef.current, { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 0)
+
+        tl.fromTo(
+          flightRef.current,
+          { opacity: 0, scale: 0.92, y: 22, x: 0, rotateZ: -6, rotateY: -6 },
+          { opacity: 1, scale: 1.08, y: 0, x: 0, rotateZ: -3, rotateY: -4, duration: 0.25, ease: "power2.out" },
+          0.04,
+        )
+
+        tl.to(
+          line1Ref.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.18,
+            ease: "power2.out",
+          },
+          0.12,
+        )
+
+        tl.to(
+          flightRef.current,
+          {
+            x: 70,
+            y: 14,
+            rotateZ: -6,
+            rotateY: -8,
+            scale: 1.06,
+            duration: 0.2,
+            ease: "power1.inOut",
+          },
+          0.26,
+        )
+        tl.to(
+          flightRef.current,
+          {
+            x: -60,
+            y: 40,
+            rotateZ: 6,
+            rotateY: 8,
+            scale: 0.98,
+            duration: 0.42,
+            ease: "sine.inOut",
+          },
+          0.46,
+        )
+
+        tl.to(
+          mobilePathsRef.current,
+          {
+            strokeDashoffset: 0,
+            opacity: 0.32,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power2.out",
+          },
+          0.3,
+        )
+        tl.fromTo(
+          mobileSignalsRef.current,
+          { strokeDashoffset: 160, opacity: 0 },
+          {
+            strokeDashoffset: -240,
+            opacity: 0.55,
+            duration: 0.58,
+            stagger: 0.08,
+            ease: "none",
+          },
+          0.38,
+        )
+        tl.to(
+          mobileSignalsRef.current,
+          {
+            opacity: 0.18,
+            duration: 0.28,
+          },
+          0.98,
+        )
+
+        tl.to(
+          line2Ref.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.18,
+            ease: "power2.out",
+          },
+          0.64,
+        )
+
+        tl.to(
+          flightRef.current,
+          {
+            x: -6,
+            y: 54,
+            rotateZ: 0,
+            rotateY: 0,
+            scale: 1.0,
+            duration: 0.32,
+            ease: "power2.out",
+          },
+          0.88,
+        )
+
+        tl.to(
+          glowBgRef.current,
+          {
+            opacity: 0.08,
+            duration: 0.32,
+          },
+          0.62,
+        )
+
+        tl.to(
+          subtextRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.16,
+            ease: "power2.out",
+          },
+          0.58,
+        )
+
+        tl.to(
+          ctaRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.16,
+            ease: "power2.out",
+          },
+          0.7,
         )
 
         return tl
@@ -838,7 +888,7 @@ export function HeroCinematic() {
 
       mm = ScrollTrigger.matchMedia({
         "(min-width: 768px)": () => {
-          const tl = createTimeline({ endPercent: 250, isMobile: false })
+          const tl = buildDesktopTimeline()
           chipFloatTween = gsap.to(chipRefs.current, {
             y: 8,
             rotateZ: 4,
@@ -853,7 +903,7 @@ export function HeroCinematic() {
             chipFloatTween?.kill()
           }
         },
-        "(max-width: 767px)": () => createTimeline({ endPercent: 160, isMobile: true }),
+        "(max-width: 767px)": () => buildMobileTimeline(),
       })
     }, wrapperRef)
 
@@ -865,7 +915,7 @@ export function HeroCinematic() {
   }, [])
 
   return (
-    <div ref={wrapperRef} className="relative overflow-hidden">
+    <div ref={wrapperRef} className="relative overflow-hidden overflow-x-hidden">
       <section
         ref={heroRef}
         className="relative h-[100svh] md:h-screen w-full overflow-hidden bg-background pt-[64px] sm:pt-[72px] md:pt-0 pb-12 md:pb-0"
@@ -874,14 +924,46 @@ export function HeroCinematic() {
         {/* === Background layers === */}
 
         {/* Circuit field directed to eagle */}
-        <CircuitField maskAt="78% 30%" className="hidden md:block" />
+        <CircuitField maskAt="78% 30%" className="hidden md:block z-0" />
+        <svg
+          className="absolute inset-0 hidden md:block pointer-events-none z-5"
+          viewBox="0 0 1200 800"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+        >
+          {[
+            "M980 180 C1030 220 1090 260 1160 300",
+            "M980 230 C1040 290 1100 330 1160 380",
+            "M980 280 C1040 360 1100 430 1160 500",
+          ].map((d, idx) => (
+            <path
+              key={`dc-${idx}`}
+              ref={(el) => {
+                if (el) circuitRefs.current[idx] = el
+              }}
+              d={d}
+              stroke="url(#desktop-circuit-stroke)"
+              strokeWidth={2.2}
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity={0.08}
+            />
+          ))}
+          <defs>
+            <linearGradient id="desktop-circuit-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#4eda9e" stopOpacity="0.65" />
+              <stop offset="100%" stopColor="#4eda9e" stopOpacity="0.1" />
+            </linearGradient>
+          </defs>
+        </svg>
         {/* Mobile burst-only circuits to avoid visual noise */}
         <MobileCircuitBurst pathsRef={mobilePathsRef} signalsRef={mobileSignalsRef} />
 
         {/* Soft radial viridian glow */}
         <div
           ref={glowBgRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[780px] h-[780px] md:w-[1100px] md:h-[1100px] rounded-full pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[780px] h-[780px] md:w-[1100px] md:h-[1100px] rounded-full pointer-events-none z-0"
           style={{
             background:
               "radial-gradient(circle, var(--viridian-glow) 0%, var(--viridian) 30%, transparent 70%)",
@@ -890,73 +972,15 @@ export function HeroCinematic() {
 
         {/* Subtle vignette edges */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none z-0"
           style={{
             background:
               "radial-gradient(ellipse at center, transparent 40%, var(--background) 100%)",
           }}
         />
 
-        {/* Info markers that appear as el aguila comparte datos (solo desktop) */}
-        <div className="absolute inset-0 pointer-events-none hidden lg:block">
-          <div className="absolute left-[6%] top-[12%] w-[2px] h-[70%] bg-gradient-to-b from-viridian/50 via-viridian/20 to-transparent blur-[1px]" />
-          {/* Circuitos que se dibujan al vuelo */}
-          <svg
-            className="absolute inset-0 w-full h-full"
-            viewBox="0 0 1200 800"
-            preserveAspectRatio="xMidYMid slice"
-            aria-hidden="true"
-          >
-            {[
-              "M1040 220 C1080 240 1120 260 1180 280",
-              "M1040 240 C1090 300 1135 330 1180 360",
-              "M1040 260 C1085 360 1135 420 1180 470",
-            ].map((d, idx) => (
-              <path
-                key={d}
-                ref={(el) => {
-                  if (el) circuitRefs.current[idx] = el
-                }}
-                d={d}
-                stroke="url(#circuit-stroke)"
-                strokeWidth={2.2}
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                opacity={0.08}
-              />
-            ))}
-            <defs>
-              <linearGradient id="circuit-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#4eda9e" stopOpacity="0.65" />
-                <stop offset="100%" stopColor="#4eda9e" stopOpacity="0.1" />
-              </linearGradient>
-            </defs>
-          </svg>
-          <div className="absolute left-[6%] top-0 h-full w-[340px] max-w-[32vw]">
-            {infoPoints.map((point, idx) => (
-              <div
-                key={point.title}
-                ref={(el) => {
-                  if (el) infoRefs.current[idx] = el
-                }}
-                className="absolute w-full rounded-2xl border border-viridian/30 bg-background/70 shadow-[0_25px_60px_rgba(0,0,0,0.25)] backdrop-blur-md p-4 text-left pointer-events-none"
-                style={{
-                  top: `${20 + idx * 18}%`,
-                }}
-              >
-                <p className="hidden lg:block text-xs font-mono uppercase tracking-[0.18em] text-viridian mb-1">
-                  {String(idx + 1).padStart(2, "0")} · Datos al vuelo
-                </p>
-                <p className="text-lg font-semibold text-foreground">{point.title}</p>
-                <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{point.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Chips: reducir para evitar ruido (solo desktop) */}
-        <div className="absolute inset-0 pointer-events-none hidden md:block">
+        <div className="absolute inset-0 pointer-events-none hidden md:block z-5">
           {[...Array(3)].map((_, idx) => (
             <div
               key={`chip-${idx}`}
@@ -976,7 +1000,7 @@ export function HeroCinematic() {
         {/* Sprite del águila real animada (pseudo-3D) */}
         <div
           ref={flightRef}
-          className="absolute top-[6px] left-1/2 -translate-x-1/2 w-[220px] md:top-[6%] md:right-[4%] md:left-auto md:translate-x-0 md:w-[420px] lg:w-[520px] pointer-events-none z-10"
+          className="absolute top-[52px] sm:top-[64px] left-1/2 -translate-x-1/2 w-[240px] sm:w-[260px] md:top-[6%] md:right-[4%] md:left-auto md:translate-x-0 md:w-[420px] lg:w-[520px] pointer-events-none z-10"
           style={{ transformStyle: "preserve-3d" }}
         >
           <div
@@ -1006,8 +1030,8 @@ export function HeroCinematic() {
         </div>
 
         {/* === Content === */}
-        <div className="relative z-20 isolate flex h-full flex-col px-6 pb-6 md:pb-12">
-          <div className="flex-1 flex flex-col items-center justify-center text-center pt-[200px] sm:pt-[220px] md:pt-0">
+        <div className="relative z-20 isolate flex h-full flex-col px-6 pb-8 md:pb-12">
+          <div className="flex-1 flex flex-col items-center text-center pt-[300px] sm:pt-[320px] md:pt-0 md:justify-center gap-4">
             {/* Tag */}
             <p
               ref={tagRef}
@@ -1017,26 +1041,30 @@ export function HeroCinematic() {
             </p>
 
             {/* Headline */}
-            <h1 className="text-[clamp(2.1rem,6vw,2.9rem)] md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight">
+            <h1 className="text-[clamp(2.2rem,6vw,3rem)] md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight max-w-3xl">
               <span ref={line1Ref} className="block text-balance">
                 Tu negocio no necesita m&aacute;s esfuerzo.
               </span>
-              <TypewriterLine
-                phrases={headlinePhrases}
-                className="block text-viridian mt-2 text-balance"
-                containerRef={line2Ref}
-                textRef={typewriterTextRef}
-                onPhraseComplete={(idx) => triggerSurge(idx)}
-              />
             </h1>
 
             {/* Subtext */}
             <p
               ref={subtextRef}
-              className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+              className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
               Sistemas web de gesti&oacute;n para negocios en Argentina.
             </p>
+
+            {/* Typewriter below subtitle */}
+            <div ref={line2Ref} className="mt-4 text-viridian text-xl md:text-2xl font-semibold">
+              <TypewriterLine
+                phrases={headlinePhrases}
+                className="block text-balance"
+                containerRef={typewriterContainerRef}
+                textRef={typewriterTextRef}
+                onPhraseComplete={(idx) => triggerSurge(idx)}
+              />
+            </div>
 
             {/* CTAs */}
             <div
