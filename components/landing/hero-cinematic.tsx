@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, type MutableRefObject } from "react"
 import { ArrowRight, MessageCircle } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -195,6 +195,84 @@ function MobileCircuitField() {
   )
 }
 
+function MobileCircuitBurst({
+  pathsRef,
+  signalsRef,
+}: {
+  pathsRef: MutableRefObject<SVGPathElement[]>
+  signalsRef: MutableRefObject<SVGPathElement[]>
+}) {
+  const basePaths = [
+    "M290 110 C330 120 360 145 410 160",
+    "M290 125 C335 150 360 180 410 220",
+    "M290 140 C330 190 360 230 410 280",
+    "M290 155 C325 230 350 280 400 340",
+  ]
+
+  const signalPaths = [
+    "M290 118 C330 136 358 168 408 208",
+    "M290 148 C330 206 352 248 398 300",
+  ]
+
+  return (
+    <svg
+      className="absolute top-[72px] left-1/2 -translate-x-1/2 w-[360px] md:hidden pointer-events-none"
+      viewBox="0 0 430 420"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+      style={{ opacity: 0.24 }}
+    >
+      <defs>
+        <linearGradient id="burst-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#4eda9e" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#4eda9e" stopOpacity="0.25" />
+        </linearGradient>
+      </defs>
+
+      <g fill="none" stroke="url(#burst-stroke)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+        {basePaths.map((d, idx) => (
+          <path
+            key={d}
+            d={d}
+            ref={(el) => {
+              if (el) pathsRef.current[idx] = el
+            }}
+            strokeDasharray={240}
+            strokeDashoffset={240}
+          />
+        ))}
+      </g>
+
+      <g fill="none" stroke="#4eda9e" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        {signalPaths.map((d, idx) => (
+          <path
+            key={`sg-${idx}`}
+            d={d}
+            ref={(el) => {
+              if (el) signalsRef.current[idx] = el
+            }}
+            strokeDasharray="160 60"
+            strokeDashoffset={160}
+            opacity={0.35}
+            className="vc-signal"
+          />
+        ))}
+      </g>
+
+      <g fill="#4eda9e">
+        {[
+          [410, 160],
+          [410, 220],
+          [410, 280],
+          [400, 340],
+        ].map(([x, y], idx) => (
+          <circle key={`nd-${idx}`} cx={x} cy={y} r={6} fillOpacity={0.65} />
+        ))}
+      </g>
+    </svg>
+  )
+}
+
 /* ─────────────────────────────────────────────
    Main cinematic hero with GSAP pinned scroll
    ───────────────────────────────────────────── */
@@ -212,6 +290,8 @@ export function HeroCinematic() {
   const infoRefs = useRef<HTMLDivElement[]>([])
   const chipRefs = useRef<HTMLDivElement[]>([])
   const circuitRefs = useRef<SVGPathElement[]>([])
+  const mobilePathsRef = useRef<SVGPathElement[]>([])
+  const mobileSignalsRef = useRef<SVGPathElement[]>([])
   const eagleWrapRef = useRef<HTMLDivElement>(null)
   const eagleMainRef = useRef<HTMLDivElement>(null)
   const eagleGlowRef = useRef<HTMLDivElement>(null)
@@ -226,6 +306,8 @@ export function HeroCinematic() {
   infoRefs.current.length = infoPoints.length
   chipRefs.current.length = 3
   circuitRefs.current.length = 3
+  mobilePathsRef.current.length = 4
+  mobileSignalsRef.current.length = 2
   const parallaxMounted = useRef(false)
   /* Eagle flight intro */
   useEffect(() => {
@@ -347,6 +429,8 @@ export function HeroCinematic() {
           gsap.set(chipRefs.current, { opacity: 0.08, y: 18 })
         } else {
           gsap.set(chipRefs.current, { opacity: 0 })
+          gsap.set(mobilePathsRef.current, { strokeDashoffset: 240, opacity: 0.18 })
+          gsap.set(mobileSignalsRef.current, { strokeDashoffset: 160, opacity: 0.12 })
         }
 
         /* Main pinned timeline */
@@ -391,12 +475,12 @@ export function HeroCinematic() {
           tl.to(
             flightRef.current,
             {
-              y: 14,
-              rotateY: -3,
-              rotateZ: -1.5,
+              y: 18,
+              rotateY: -2,
+              rotateZ: -1,
+              scale: 0.98,
               duration: 0.65,
               ease: "sine.inOut",
-              scale: 1.02,
             },
             0.28,
           )
@@ -428,6 +512,41 @@ export function HeroCinematic() {
           duration: 0.15,
           ease: "power2.out",
         }, 0.4)
+
+        // Mobile circuit draw + signals
+        if (isMobile) {
+          tl.to(
+            mobilePathsRef.current,
+            {
+              strokeDashoffset: 0,
+              opacity: 0.26,
+              duration: 0.65,
+              stagger: 0.08,
+              ease: "power2.out",
+            },
+            0.46,
+          )
+          tl.fromTo(
+            mobileSignalsRef.current,
+            { strokeDashoffset: 160, opacity: 0.0 },
+            {
+              strokeDashoffset: -240,
+              opacity: 0.45,
+              duration: 0.6,
+              stagger: 0.06,
+              ease: "none",
+            },
+            0.60,
+          )
+          tl.to(
+            mobileSignalsRef.current,
+            {
+              opacity: 0.18,
+              duration: 0.25,
+            },
+            1.05,
+          )
+        }
 
         // Info points cascade + enciende chips conforme avanza
         if (!isMobile) {
@@ -471,10 +590,10 @@ export function HeroCinematic() {
           tl.to(
             flightRef.current,
             {
-              y: 26,
-              rotateY: 3,
+              y: 28,
+              rotateY: 2.5,
               rotateZ: 1,
-              scale: 1.04,
+              scale: 0.96,
               duration: 0.55,
               ease: "power1.inOut",
             },
@@ -571,19 +690,20 @@ export function HeroCinematic() {
     <div ref={wrapperRef} className="relative overflow-hidden">
       <section
         ref={heroRef}
-        className="relative h-[100svh] md:h-screen w-full overflow-hidden bg-background pt-[84px] md:pt-0 pb-12 md:pb-0"
+        className="relative h-[100svh] md:h-screen w-full overflow-hidden bg-background pt-[64px] sm:pt-[72px] md:pt-0 pb-12 md:pb-0"
         style={{ perspective: "1200px" }}
       >
         {/* === Background layers === */}
 
         {/* Circuit field directed to eagle */}
         <CircuitField maskAt="78% 30%" className="hidden md:block" />
-        <MobileCircuitField />
+        {/* Mobile burst-only circuits to avoid visual noise */}
+        <MobileCircuitBurst pathsRef={mobilePathsRef} signalsRef={mobileSignalsRef} />
 
         {/* Soft radial viridian glow */}
         <div
           ref={glowBgRef}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[820px] h-[820px] md:w-[1100px] md:h-[1100px] rounded-full pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[780px] h-[780px] md:w-[1100px] md:h-[1100px] rounded-full pointer-events-none"
           style={{
             background:
               "radial-gradient(circle, var(--viridian-glow) 0%, var(--viridian) 30%, transparent 70%)",
@@ -677,7 +797,7 @@ export function HeroCinematic() {
         {/* Sprite del águila real animada (pseudo-3D) */}
         <div
           ref={flightRef}
-          className="absolute top-[8px] left-1/2 -translate-x-1/2 w-[220px] md:top-[6%] md:right-[4%] md:left-auto md:translate-x-0 md:w-[420px] lg:w-[520px] pointer-events-none z-[60]"
+          className="absolute top-[6px] left-1/2 -translate-x-1/2 w-[220px] md:top-[6%] md:right-[4%] md:left-auto md:translate-x-0 md:w-[420px] lg:w-[520px] pointer-events-none z-[60]"
           style={{ transformStyle: "preserve-3d" }}
         >
           <div
@@ -708,7 +828,7 @@ export function HeroCinematic() {
 
         {/* === Content === */}
         <div className="relative z-10 flex h-full flex-col px-6 pb-6 md:pb-12">
-          <div className="flex-1 flex flex-col items-center justify-center text-center pt-[220px] sm:pt-[240px] md:pt-0">
+          <div className="flex-1 flex flex-col items-center justify-center text-center pt-[200px] sm:pt-[220px] md:pt-0">
             {/* Tag */}
             <p
               ref={tagRef}
@@ -718,7 +838,7 @@ export function HeroCinematic() {
             </p>
 
             {/* Headline */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight">
+            <h1 className="text-[clamp(2.1rem,6vw,2.9rem)] md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight">
               <span ref={line1Ref} className="block text-balance">
                 Tu negocio no necesita m&aacute;s esfuerzo.
               </span>

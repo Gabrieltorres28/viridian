@@ -17,16 +17,16 @@ export function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/85 backdrop-blur-2xl shadow-[0_10px_40px_rgba(0,0,0,0.25)]"
+      className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/90 md:bg-background/85 backdrop-blur-sm md:backdrop-blur-2xl shadow-[0_10px_24px_rgba(0,0,0,0.18)] md:shadow-[0_10px_40px_rgba(0,0,0,0.25)]"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 md:px-6 py-2 md:py-5 h-[56px] md:h-auto">
         <motion.a
           id="nav-brand"
           href="#"
-          className="flex items-center gap-3"
+          className="flex items-center gap-2 md:gap-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
@@ -46,9 +46,9 @@ export function Navbar() {
               id="nav-logo"
               src="/eagle-real.png"
               alt="Viridian Core"
-              width={150}
-              height={86}
-              className="select-none"
+              width={72}
+              height={48}
+              className="select-none w-10 h-10 md:w-[120px] md:h-[70px]"
               priority
             />
           </motion.div>
@@ -63,10 +63,10 @@ export function Navbar() {
             }}
             transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut", delay: 0.2 }}
           >
-            <div id="nav-wordmark" className="text-lg font-semibold tracking-[0.12em] uppercase text-foreground">
+            <div id="nav-wordmark" className="text-sm md:text-lg font-semibold tracking-[0.08em] md:tracking-[0.12em] uppercase text-foreground">
               Viridian
             </div>
-            <div className="text-sm font-semibold tracking-[0.3em] text-viridian uppercase">
+            <div className="text-xs md:text-sm font-semibold tracking-[0.18em] md:tracking-[0.3em] text-viridian uppercase">
               Core
             </div>
           </motion.div>
