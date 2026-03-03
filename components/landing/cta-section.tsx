@@ -23,14 +23,28 @@ export function CtaSection() {
         transition={{ duration: 0.7 }}
       >
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-6 text-balance">
-          {"Orden\u00e1 tu negocio hoy."}
+          Te muestro una demo con tu caso
         </h2>
-        <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed">
-          {"Te mostramos c\u00f3mo funcionar\u00eda en tu rubro."}
+        <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-xl mx-auto leading-relaxed">
+          Precio claro después de un diagnóstico corto. Sin comprometer tus operaciones actuales.
         </p>
+        <ul className="text-left text-muted-foreground max-w-xl mx-auto space-y-2 mb-10">
+          <li className="flex items-start gap-2">
+            <span className="text-viridian">•</span>
+            <span>Demo real con tus procesos clave.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-viridian">•</span>
+            <span>Precio claro luego de diagnóstico.</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-viridian">•</span>
+            <span>Soporte y mantenimiento opcional.</span>
+          </li>
+        </ul>
 
         <a
-          href="https://wa.me/543751471708"
+          href="https://wa.me/543751471708?text=Hola%20quiero%20una%20demo%20con%20mi%20caso&source=landing&utm_source=landing&utm_medium=cta_final"
           target="_blank"
           rel="noopener noreferrer"
           className="group inline-flex items-center gap-2 text-foreground font-medium text-lg px-10 py-4 rounded-lg transition-all hover:shadow-[0_0_40px_rgba(78,218,158,0.35)] mobile-float"
@@ -39,7 +53,7 @@ export function CtaSection() {
               "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
           }}
         >
-          {"Solicitar demostraci\u00f3n"}
+          Pedir demo por WhatsApp
           <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
         </a>
 

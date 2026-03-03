@@ -1,56 +1,74 @@
 "use client"
 
 import { motion } from "motion/react"
-import { ExternalLink, Info } from "lucide-react"
+import { BadgeInfo, ExternalLink } from "lucide-react"
 
 const projects = [
   {
-    name: "Sitio institucional ISIPP",
-    description:
-      "Sitio institucional para el Instituto Superior de Informática (ISIPP).",
+    client: "ISIPP",
+    industry: "Educación",
+    problem: "Inscripciones y consultas dispersas entre mails y llamadas.",
+    solution: "Portal web con formularios dirigidos y derivación automática.",
+    impact: "Consultas centralizadas y derivación automática. Menos idas y vueltas por WhatsApp/llamadas.",
+    metric: "Métrica a medir: tiempo de alta y mensajes repetidos",
     url: "https://isipp.com.ar",
-    tags: ["Landing", "Next.js", "SEO", "Typescript"],
+    demoAvailable: true,
   },
   {
-    name: "Gestor de pedidos para restaurantes - Saas Menu Digital",
-    description:
-      "SaaS de menú digital para restaurantes con pedidos que llegan directo a WhatsApp.",
+    client: "SaaS Menú Digital",
+    industry: "Gastronomía",
+    problem: "Pedidos entraban por múltiples números y se perdían.",
+    solution: "Menú digital con pedidos centralizados directo a WhatsApp.",
+    impact: "Pedidos centralizados en un flujo único. Menos confusión en hora pico.",
+    metric: "Métrica a medir: pedidos reenviados o mal tomados",
     url: "https://saas-menu-digital.vercel.app",
-    tags: ["SaaS", "Next.js", "WhatsApp"],
+    demoAvailable: true,
   },
   {
-    name: "Gestor de gimansio - GymFLow",
-    description:
-      "Sistema para gimnasio: altas de socios, pagos, control de asistencia y métricas de retención.",
+    client: "GymFlow",
+    industry: "Fitness",
+    problem: "Seguimiento manual de socios y pagos atrasados.",
+    solution: "Dashboard de socios, pagos y asistencia con alertas.",
+    impact: "Vencimientos y pagos con seguimiento. Lista de socios más ordenada y controlable.",
+    metric: "Métrica a medir: pagos vencidos y socios sin datos",
     url: "https://gymflow-beta.vercel.app",
-    tags: ["Producto", "Next.js", "Prisma"],
+    demoAvailable: true,
   },
   {
-    name: "Sistema para un restaurante - Acapulco Burrito",
-    description:
-      "Sistema para restaurante: gestión de menú, pedidos y flujo de cocina en tiempo real.",
+    client: "Acapulco Burrito",
+    industry: "Restaurante",
+    problem: "Tickets de cocina se traspapelaban y demoraban entregas.",
+    solution: "KDS simple con flujo de pedidos y estados en tiempo real.",
+    impact: "Flujo de pedidos visible en cocina. Menos re-trabajo y menos confusión.",
+    metric: "Métrica a medir: pedidos re-hechos o demorados",
     url: "https://acapulco-burrito.vercel.app",
-    tags: ["Sistema", "Next.js", "Typescript"],
+    demoAvailable: false,
   },
   {
-    name: "Sitio para empresa de grúas - Gruas Torres",
-    description:
-      "Sitio de una empresa de grúas y logística con generación de leads y contacto rápido.",
+    client: "Grúas Torres",
+    industry: "Servicios",
+    problem: "Leads entraban sin priorización ni datos claves.",
+    solution: "Landing con captación guiada y alerta instantánea al equipo.",
+    impact: "Captación guiada + registro ordenado de leads. Mejor seguimiento del equipo.",
+    metric: "Métrica a medir: leads con datos completos y seguimiento",
     url: "https://gruastorres-oficial.vercel.app",
-    tags: ["Landing", "Next.js", "Leads"],
+    demoAvailable: false,
   },
   {
-    name: "Sistema para trámites de jubilaciones y medicamentos - Gestor de Trámites",
-    description:
-      "Sistema para gestores que manejan trámites de jubilaciones y medicamentos: altas, seguimiento y recordatorios.",
+    client: "Gestor de Trámites",
+    industry: "Servicios",
+    problem: "Recordatorios y seguimiento de expedientes manual en planillas.",
+    solution: "Tablero de trámites con vencimientos y avisos automáticos.",
+    impact: "Vencimientos con alertas. Menos seguimiento manual repetitivo.",
+    metric: "Métrica a medir: recordatorios enviados y vencimientos al día",
     url: "https://gestor-tramites.vercel.app",
-    tags: ["Trámites", "Next.js", "Automations"],
+    demoAvailable: true,
   },
 ]
 
 export function ProjectsSection() {
   return (
-    <section id="demos" className="relative py-32 px-6">
+    <section id="casos" className="relative py-32 px-6">
       {/* Subtle bg accent */}
       <div
         className="absolute bottom-0 right-0 w-[500px] h-[500px] opacity-[0.03]"
@@ -69,17 +87,17 @@ export function ProjectsSection() {
           transition={{ duration: 0.7 }}
         >
           <p className="text-viridian font-mono text-sm tracking-[0.2em] uppercase mb-4">
-            Portfolio
+            Casos reales
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight text-balance">
-            {"Sistemas en acci\u00f3n"}
+            Soluciones en producción, listas para demo
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, i) => (
             <motion.div
-              key={project.name}
+              key={project.client}
               className="group relative bg-card border border-border rounded-xl p-7 flex flex-col transition-all hover:border-viridian/40 hover:scale-[1.02] mobile-float"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -92,27 +110,46 @@ export function ProjectsSection() {
               }} />
 
               <div className="relative flex flex-col flex-1">
-                <h3 className="text-lg font-semibold text-foreground mb-2">
-                  {project.name}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-1">
-                  {project.description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs font-mono text-viridian bg-viridian/10 px-2.5 py-1 rounded-md"
-                    >
-                      {tag}
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div>
+                    <p className="text-sm uppercase tracking-[0.18em] text-viridian font-mono">
+                      {project.industry}
+                    </p>
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {project.client}
+                    </h3>
+                  </div>
+                  {project.demoAvailable ? (
+                    <span className="inline-flex items-center gap-1 text-xs text-viridian font-semibold bg-viridian/10 border border-viridian/30 px-2.5 py-1 rounded-full">
+                      <BadgeInfo className="w-3.5 h-3.5" />
+                      Demo disponible
                     </span>
-                  ))}
+                  ) : (
+                    <span className="text-xs text-muted-foreground px-2 py-1 rounded-full border border-border/80">
+                      Grabado breve
+                    </span>
+                  )}
                 </div>
 
-                {/* Buttons */}
-                <div className="flex gap-3">
+                <dl className="space-y-2 text-sm text-muted-foreground leading-relaxed flex-1">
+                  <div>
+                    <dt className="font-semibold text-foreground">Problema</dt>
+                    <dd>{project.problem}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-semibold text-foreground">Solución</dt>
+                    <dd>{project.solution}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-semibold text-foreground">Impacto</dt>
+                    <dd className="text-viridian font-medium">{project.impact}</dd>
+                    {project.metric ? (
+                      <p className="text-xs text-muted-foreground/80 mt-1">{project.metric}</p>
+                    ) : null}
+                  </div>
+                </dl>
+
+                <div className="flex gap-3 mt-6">
                   <a
                     href={project.url}
                     target="_blank"
@@ -123,13 +160,12 @@ export function ProjectsSection() {
                     Ver demo
                   </a>
                   <a
-                    href={project.url}
+                    href="https://wa.me/543751471708?text=Hola%20quiero%20ver%20la%20demo%20de%20un%20caso%20similar"
                     target="_blank"
                     rel="noreferrer noopener"
                     className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground border border-border hover:border-viridian/30 px-4 py-2 rounded-lg transition-all"
                   >
-                    <Info className="w-3.5 h-3.5" />
-                    {"M\u00e1s detalles"}
+                    Pedir walkthrough
                   </a>
                 </div>
               </div>

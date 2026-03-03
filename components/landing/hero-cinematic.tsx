@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState, type MutableRefObject } from "react"
-import { ArrowRight, MessageCircle } from "lucide-react"
+import { ArrowRight, Dot, MessageCircle } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { MotionPathPlugin } from "gsap/MotionPathPlugin"
@@ -13,12 +13,12 @@ function CircuitField({ maskAt = "75% 35%", className = "" }: { maskAt?: string;
     <div
       className={`absolute inset-0 pointer-events-none ${className}`}
       style={{
-        WebkitMaskImage: `radial-gradient(circle at ${maskAt}, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 78%)`,
-        maskImage: `radial-gradient(circle at ${maskAt}, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 78%)`,
+        WebkitMaskImage: `radial-gradient(circle at ${maskAt}, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 32%, rgba(0,0,0,0) 58%)`,
+        maskImage: `radial-gradient(circle at ${maskAt}, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 32%, rgba(0,0,0,0) 58%)`,
       }}
     >
       <svg
-        className="w-full h-full opacity-[0.22]"
+        className="w-full h-full opacity-[0.16] blur-[0.6px]"
         viewBox="0 0 1200 800"
         preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
@@ -49,15 +49,14 @@ function CircuitField({ maskAt = "75% 35%", className = "" }: { maskAt?: string;
           </pattern>
         </defs>
 
-        <rect width="1200" height="800" fill="url(#microgrid)" opacity="0.55" />
+        <rect width="1200" height="800" fill="url(#microgrid)" opacity="0.38" />
 
-        <g stroke="url(#trk)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.9">
+        <g stroke="url(#trk)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.42">
           <path d="M520 210H820Q900 210 960 250L1120 360" />
-          <path d="M480 320H760Q840 320 900 360L1120 500" />
           <path d="M560 430H820Q900 430 980 470L1180 610" />
         </g>
 
-        <g stroke="url(#trk)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" opacity="0.85">
+        <g stroke="url(#trk)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" opacity="0.35" className="blur-[0.4px]">
           <path d="M640 210V150Q640 120 670 120H760" />
           <path d="M720 210V260Q720 300 760 300H860" />
           <path d="M820 210V170Q820 140 850 140H940" />
@@ -71,7 +70,7 @@ function CircuitField({ maskAt = "75% 35%", className = "" }: { maskAt?: string;
           <path d="M980 470V430Q980 400 1010 400H1120" />
         </g>
 
-        <g stroke="#40826D" strokeOpacity="0.22" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+        <g stroke="#40826D" strokeOpacity="0.12" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" className="blur-[0.4px]">
           <path d="M930 140V100Q930 80 950 80H1040" />
           <path d="M860 300V260Q860 240 880 240H980" />
           <path d="M900 410V450Q900 470 920 470H1010" />
@@ -82,13 +81,9 @@ function CircuitField({ maskAt = "75% 35%", className = "" }: { maskAt?: string;
         <g filter="url(#glow)">
           {[
             [520, 210, 6],
-            [760, 320, 5],
             [900, 360, 5],
             [980, 470, 5],
-            [1120, 360, 4],
-            [1120, 500, 4],
             [680, 520, 4],
-            [850, 140, 4],
             [1040, 300, 4],
           ].map(([x, y, r], i) => (
             <circle key={i} cx={x} cy={y} r={r} fill="#4eda9e" fillOpacity="0.55" className="vc-node" />
@@ -114,7 +109,7 @@ function CircuitField({ maskAt = "75% 35%", className = "" }: { maskAt?: string;
           ))}
         </g>
 
-        <g filter="url(#glow)" opacity="0.85">
+        <g filter="url(#glow)" opacity="0.55" className="blur-[0.4px]">
           <path
             d="M520 210H820Q900 210 960 250L1120 360"
             stroke="#4eda9e"
@@ -122,14 +117,6 @@ function CircuitField({ maskAt = "75% 35%", className = "" }: { maskAt?: string;
             strokeLinecap="round"
             strokeDasharray="16 30"
             className="vc-signal vc-delay0"
-          />
-          <path
-            d="M480 320H760Q840 320 900 360L1120 500"
-            stroke="#4eda9e"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeDasharray="16 30"
-            className="vc-signal vc-delay1"
           />
           <path
             d="M560 430H820Q900 430 980 470L1180 610"
@@ -150,12 +137,12 @@ function MobileCircuitField() {
     <div
       className="absolute inset-0 pointer-events-none md:hidden"
       style={{
-        WebkitMaskImage: "radial-gradient(circle at 50% 18%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 42%, rgba(0,0,0,0) 72%)",
-        maskImage: "radial-gradient(circle at 50% 18%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 42%, rgba(0,0,0,0) 72%)",
+        WebkitMaskImage: "radial-gradient(circle at 50% 18%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 34%, rgba(0,0,0,0) 60%)",
+        maskImage: "radial-gradient(circle at 50% 18%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 34%, rgba(0,0,0,0) 60%)",
       }}
     >
       <svg
-        className="w-full h-full opacity-30"
+        className="w-full h-full opacity-22 blur-[0.5px]"
         viewBox="0 0 440 700"
         preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
@@ -379,17 +366,24 @@ export function HeroCinematic() {
   const glowBgRef = useRef<HTMLDivElement>(null)
   const chipRefs = useRef<HTMLDivElement[]>([])
   const circuitRefs = useRef<SVGPathElement[]>([])
+  const circuitSignalRefs = useRef<SVGPathElement[]>([])
   const mobilePathsRef = useRef<SVGPathElement[]>([])
   const mobileSignalsRef = useRef<SVGPathElement[]>([])
   const eagleWrapRef = useRef<HTMLDivElement>(null)
   const eagleMainRef = useRef<HTMLDivElement>(null)
   const eagleGlowRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useRef(false)
-  const headlinePhrases = ["Necesita un sistema.", "Necesita precisión.", "Necesita velocidad."]
+  const headlinePhrases = ["Cobros atrasados te frenan.", "Pedidos se pierden en WhatsApp.", "Stock sin control = plata perdida."]
+  const typicalResults = [
+    { title: "Ahorro", desc: "Operaciones en un solo flujo sin copiar/pegar datos." },
+    { title: "Menos errores", desc: "Validaciones y campos obligatorios para evitar duplicados." },
+    { title: "Stock y cobros", desc: "Estado visible en 1 clic para tomar decisiones al día." },
+  ]
 
   // Mantener arrays del tamaño correcto en cada render
   chipRefs.current.length = 3
   circuitRefs.current.length = 3
+  circuitSignalRefs.current.length = 0
   mobilePathsRef.current.length = 4
   mobileSignalsRef.current.length = 2
   const parallaxMounted = useRef(false)
@@ -410,7 +404,7 @@ export function HeroCinematic() {
     gsap.set(flightRef.current, { opacity: 0, scale: 1, x: -260, y: 140, rotateZ: -4, transformOrigin: "center center" })
     gsap.set(glowBgRef.current, { opacity: 0.02 })
     gsap.set(chipRefs.current, { opacity: 0.08, y: 18 })
-    gsap.set(circuitRefs.current, { strokeDasharray: 220, strokeDashoffset: 220, opacity: 0.08 })
+        gsap.set(circuitRefs.current, { strokeDasharray: 260, strokeDashoffset: 260, opacity: 0.08 })
     const centerOffset = target
       ? {
           x: target.getBoundingClientRect().left + target.getBoundingClientRect().width / 2 - window.innerWidth / 2,
@@ -492,6 +486,7 @@ export function HeroCinematic() {
           ease: "power2.out",
         })
       }
+
     }
 
     window.addEventListener("mousemove", onMove, { passive: true })
@@ -605,13 +600,14 @@ export function HeroCinematic() {
           rotateY: 0,
           transformOrigin: "center center",
         })
-        gsap.set(glowBgRef.current, { opacity: 0.03 })
+        gsap.set(glowBgRef.current, { opacity: 0.025 })
+        gsap.set(circuitSignalRefs.current, { strokeDasharray: 260, strokeDashoffset: 260, opacity: 0 })
       }
 
       const buildDesktopTimeline = () => {
         setBaseState()
         gsap.set(chipRefs.current, { opacity: 0.08, y: 18 })
-        gsap.set(circuitRefs.current, { strokeDasharray: 220, strokeDashoffset: 220, opacity: 0.08 })
+        gsap.set(circuitRefs.current, { strokeDasharray: 260, strokeDashoffset: 260, opacity: 0.06 })
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -677,22 +673,33 @@ export function HeroCinematic() {
           circuitRefs.current,
           {
             strokeDashoffset: 0,
-            opacity: 0.24,
-            duration: 0.55,
+            opacity: 0.14,
+            duration: 0.6,
             stagger: 0.1,
             ease: "power1.out",
           },
           0.46,
         )
+        // signals removidos para limpiar laterales
         tl.to(
           circuitRefs.current,
           {
             opacity: 0.16,
-            duration: 0.22,
-            stagger: 0.08,
+            duration: 0.24,
+            stagger: 0.1,
             ease: "sine.out",
           },
           1,
+        )
+        tl.to(
+          [eagleGlowRef.current, flightRef.current],
+          {
+            opacity: 1,
+            filter: "drop-shadow(0 0 26px rgba(255,232,120,0.55)) brightness(1.08)",
+            duration: 0.4,
+            ease: "power2.out",
+          },
+          0.62,
         )
 
         tl.to(
@@ -925,6 +932,7 @@ export function HeroCinematic() {
 
         {/* Circuit field directed to eagle */}
         <CircuitField maskAt="78% 30%" className="hidden md:block z-0" />
+        {/* Mobile burst-only circuits to avoid visual noise */}
         <svg
           className="absolute inset-0 hidden md:block pointer-events-none z-5"
           viewBox="0 0 1200 800"
@@ -959,6 +967,15 @@ export function HeroCinematic() {
         </svg>
         {/* Mobile burst-only circuits to avoid visual noise */}
         <MobileCircuitBurst pathsRef={mobilePathsRef} signalsRef={mobileSignalsRef} />
+
+        {/* Dark vignette to keep headline area clean */}
+        <div
+          className="absolute inset-0 pointer-events-none z-5"
+          style={{
+            background:
+              "radial-gradient(circle at 60% 38%, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 32%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.65) 78%)",
+          }}
+        />
 
         {/* Soft radial viridian glow */}
         <div
@@ -1041,9 +1058,9 @@ export function HeroCinematic() {
             </p>
 
             {/* Headline */}
-            <h1 className="text-[clamp(2.2rem,6vw,3rem)] md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight max-w-3xl">
+            <h1 className="text-[clamp(2.3rem,6vw,3.4rem)] md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight max-w-3xl">
               <span ref={line1Ref} className="block text-balance">
-                Tu negocio no necesita m&aacute;s esfuerzo.
+                Dejá el Excel y el caos operativo.
               </span>
             </h1>
 
@@ -1052,7 +1069,7 @@ export function HeroCinematic() {
               ref={subtextRef}
               className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Sistemas web de gesti&oacute;n para negocios en Argentina.
+              Para pymes y equipos en Argentina que quieren automatizar cobros, stock y clientes en semanas, sin vueltas.
             </p>
 
             {/* Typewriter below subtitle */}
@@ -1067,33 +1084,53 @@ export function HeroCinematic() {
             </div>
 
             {/* CTAs */}
-            <div
-              ref={ctaRef}
-              className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 mobile-float w-full"
-            >
+            <div ref={ctaRef} className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 mobile-float w-full">
               <a
-                href="#demos"
+                href="https://wa.me/543751471708?text=Hola%20quisiera%20una%20demo%20de%20Viridian%20Core&source=landing&utm_source=landing&utm_medium=hero_cta"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex w-full sm:w-auto justify-center items-center gap-2 text-foreground font-medium px-8 py-3.5 rounded-lg transition-all hover:shadow-[0_0_30px_rgba(78,218,158,0.35)]"
                 style={{
                   background: "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
                 }}
               >
-                Ver demos
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <MessageCircle className="w-4 h-4" />
+                Pedir demo por WhatsApp
               </a>
               <a
-                href="https://wa.me/543751471708"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#casos"
                 className="inline-flex w-full sm:w-auto justify-center items-center gap-2 text-foreground font-medium px-8 py-3.5 rounded-lg transition-all hover:shadow-[0_0_24px_rgba(78,218,158,0.25)]"
                 style={{
                   background: "linear-gradient(135deg, rgba(23,77,58,0.85) 0%, rgba(47,143,102,0.85) 50%, rgba(78,218,158,0.9) 100%)",
                   border: "1px solid rgba(78,218,158,0.25)",
                 }}
               >
-                <MessageCircle className="w-4 h-4" />
-                Hablar por WhatsApp
+                Ver casos
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
+            </div>
+            <p className="text-sm text-white/70 mt-2">Respuesta en el día. Demo real en 10 min.</p>
+
+            {/* Resultados típicos compactos */}
+            <div className="mt-6 w-full max-w-3xl mx-auto">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-viridian font-mono mb-2">
+                <Dot className="w-4 h-4" />
+                Resultados típicos
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {typicalResults.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-md px-4 py-3 flex items-start gap-3 text-left"
+                  >
+                    <div className="mt-1 w-2 h-2 rounded-full bg-viridian/80" />
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold text-foreground">{item.title}</p>
+                      <p className="text-sm text-white/75 leading-snug">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

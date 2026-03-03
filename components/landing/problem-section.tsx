@@ -10,24 +10,32 @@ const cards = [
     title: "Control de clientes",
     description:
       "Centralizá toda la información de tus clientes, historial de compras y contacto en un solo lugar.",
+    backDetail:
+      "Sin historial compartido los leads se enfrían, se repiten contactos y se pierden renovaciones. Nadie sabe cuál fue el último compromiso ni qué se prometió.",
   },
   {
     icon: CreditCard,
     title: "Registro de pagos",
     description:
       "Llevá un registro claro de cobros, deudas y pagos pendientes sin planillas de Excel.",
+    backDetail:
+      "Cobros dispersos y conciliaciones manuales ocultan la mora real: cobranzas llegan tarde, se pierden intereses y tu reputación se resiente.",
   },
   {
     icon: Package,
     title: "Gestión de stock",
     description:
       "Controlá tu inventario en tiempo real con alertas de stock bajo y movimientos automáticos.",
+    backDetail:
+      "Sin trazabilidad vendés lo que no tenés, entregás tarde y compras de más. Cada error en stock achica el margen y rompe la experiencia del cliente.",
   },
   {
     icon: BarChart3,
     title: "Reportes financieros claros",
     description:
       "Visualizá ingresos, egresos y márgenes con dashboards claros y accionables.",
+    backDetail:
+      "Cierres tardíos y decisiones a ciegas: no ves contribución por línea, no proyectás flujo y terminas gestionando por intuición en vez de datos.",
   },
 ]
 
@@ -141,7 +149,7 @@ export function ProblemSection() {
                         Detalle
                       </p>
                       <p className="mt-4 text-base leading-relaxed">
-                        {card.description}
+                        {card.backDetail}
                       </p>
                     </div>
                     <div className="text-sm font-semibold tracking-[0.14em] uppercase opacity-80">
