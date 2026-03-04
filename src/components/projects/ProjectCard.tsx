@@ -14,7 +14,10 @@ export function ProjectCard({ project }: { project: Project }) {
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(project.whatsappText)}`
 
   return (
-    <div className="group relative flex h-full flex-col gap-5 rounded-xl border border-border bg-card/70 p-6 transition-all hover:-translate-y-1 hover:border-viridian/40 hover:shadow-[0_20px_60px_rgba(20,40,34,0.55)]">
+    <div
+      id={project.id}
+      className="group relative flex h-full flex-col gap-5 rounded-xl border border-border bg-card/70 p-6 transition-all hover:-translate-y-1 hover:border-viridian/40 hover:shadow-[0_20px_60px_rgba(20,40,34,0.55)]"
+    >
       <div
         className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{

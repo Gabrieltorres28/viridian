@@ -28,10 +28,8 @@ export function ProjectsSection() {
   )
 
   const filteredProjects = useMemo(() => {
-    return projects
-      .filter((project) => project.id !== featuredProject?.id)
-      .filter((project) => category === "Todos" || project.category === category)
-  }, [category, featuredProject])
+    return projects.filter((project) => category === "Todos" || project.category === category)
+  }, [category])
 
   const shouldShowFeatured =
     featuredProject && (category === "Todos" || featuredProject.category === category)
@@ -63,7 +61,25 @@ export function ProjectsSection() {
           <p className="mt-3 text-base text-muted-foreground">
             Filtrá por industria y abrí la demo o pedí la implementación que necesitás.
           </p>
-          <CategoryChips categories={CATEGORY_OPTIONS} selected={category} onSelect={setCategory} />
+          <CategoryChips
+            categories={CATEGORY_OPTIONS}
+            selected={category}
+            onSelect={(cat) => {
+              setCategory(cat)
+              if (typeof window === "undefined") return
+              const targetId =
+                cat === "Todos"
+                  ? "demos"
+                  : projects.find((p) => p.category === cat)?.id
+              if (!targetId) return
+              requestAnimationFrame(() => {
+                document.getElementById(targetId)?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              })
+            }}
+          />
         </motion.div>
 
         {shouldShowFeatured ? (
@@ -79,29 +95,32 @@ export function ProjectsSection() {
         ) : null}
 
         <motion.div
+          key={category}
           className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           transition={{ staggerChildren: 0.08 }}
         >
-          {filteredProjects.map((project, idx) => (
-            <motion.div
-              key={project.id}
-              custom={idx}
-              variants={{
-                hidden: { opacity: 0, y: 26 },
-                show: (i: number) => ({
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 0.38, ease: "easeOut", delay: i * 0.05 },
-                }),
-              }}
-            >
-              <ProjectCard project={project} />
-            </motion.div>
-          ))}
-          {filteredProjects.length === 0 ? (
+          {filteredProjects
+            .filter((project) => !(shouldShowFeatured && project.featured))
+            .map((project, idx) => (
+              <motion.div
+                key={project.id}
+                custom={idx}
+                variants={{
+                  hidden: { opacity: 0, y: 26 },
+                  show: (i: number) => ({
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.38, ease: "easeOut", delay: i * 0.05 },
+                  }),
+                }}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          {filteredProjects.length === 0 && !shouldShowFeatured ? (
             <div className="col-span-full rounded-xl border border-border bg-card/60 p-8 text-center text-muted-foreground">
               No hay proyectos en esta categoría todavía. Elegí otra o pedí uno a medida.
             </div>

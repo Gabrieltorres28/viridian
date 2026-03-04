@@ -14,7 +14,10 @@ export function FeaturedProject({ project }: { project: Project }) {
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(project.whatsappText)}`
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-viridian/30 bg-gradient-to-br from-[#0d1a16] via-[#0f221b] to-[#0a1511] p-6 md:p-10 shadow-[0_30px_120px_rgba(20,40,34,0.65)]">
+    <div
+      id={project.id}
+      className="relative overflow-hidden rounded-2xl border border-viridian/30 bg-gradient-to-br from-[#0d1a16] via-[#0f221b] to-[#0a1511] p-6 md:p-10 shadow-[0_30px_120px_rgba(20,40,34,0.65)]"
+    >
       <div
         className="pointer-events-none absolute -left-10 -top-10 h-52 w-52 rounded-full opacity-40"
         style={{

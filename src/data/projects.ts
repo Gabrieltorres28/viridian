@@ -43,7 +43,7 @@ export const projects: Project[] = [
   {
     id: "menu-digital",
     status: "DEMO FUNCIONAL",
-    category: "Restaurante",
+    category: "Gastronomía",
     title: "Menú Digital + Pedidos por WhatsApp",
     subtitle: "Carta autogestionable con pedidos unificados al mismo número.",
     bullets: [
