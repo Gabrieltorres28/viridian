@@ -2,10 +2,10 @@ export type ProjectStatus = "EN PRODUCCIÓN" | "DEMO FUNCIONAL" | "GRABADO BREVE
 export type ProjectCategory =
   | "Educación"
   | "Gastronomía"
+  | "Restaurante"
   | "Fitness"
   | "Municipal"
   | "Servicios"
-  | "Comercio"
 
 export type Project = {
   id: string
@@ -37,13 +37,13 @@ export const projects: Project[] = [
     impactLine: "Admisiones sin idas y vueltas; consultas trazables desde el día 1.",
     demoUrl: "https://isipp.com.ar",
     whatsappText: "Hola, quiero este sistema de inscripciones centralizadas como ISIPP.",
-    image: undefined,
+    image: "/isipp.png",
     featured: true,
   },
   {
     id: "menu-digital",
     status: "DEMO FUNCIONAL",
-    category: "Gastronomía",
+    category: "Restaurante",
     title: "Menú Digital + Pedidos por WhatsApp",
     subtitle: "Carta autogestionable con pedidos unificados al mismo número.",
     bullets: [
@@ -54,6 +54,7 @@ export const projects: Project[] = [
     impactLine: "Reduce errores en hora pico y centraliza los pedidos sin apps externas.",
     demoUrl: "https://saas-menu-digital.vercel.app",
     whatsappText: "Hola, quiero el sistema de Menú Digital con pedidos por WhatsApp.",
+    image: "/menu-saas.png",
   },
   {
     id: "gymflow",
@@ -69,11 +70,12 @@ export const projects: Project[] = [
     impactLine: "Menos fugas de pagos y socios ordenados en un solo panel.",
     demoUrl: "https://gymflow-beta.vercel.app",
     whatsappText: "Hola, quiero la solución de gestión para gimnasios (GymFlow).",
+    image: "/gestorgym.png",
   },
   {
     id: "acapulco-burrito",
     status: "GRABADO BREVE",
-    category: "Gastronomía",
+    category: "Restaurante",
     title: "KDS + Pedidos para Cocina",
     subtitle: "Flujo de pedidos en tiempo real para equipos de cocina pequeños.",
     bullets: [
@@ -84,11 +86,12 @@ export const projects: Project[] = [
     impactLine: "Menos confusión en cocina y entregas más previsibles.",
     demoUrl: "https://acapulco-burrito.vercel.app",
     whatsappText: "Hola, quiero el flujo KDS para cocina que vieron en Acapulco Burrito.",
+    image: "/acapulco-burrito.png",
   },
   {
     id: "gruastorres",
     status: "DEMO FUNCIONAL",
-    category: "Comercio",
+    category: "Servicios",
     title: "Captación de Leads B2B",
     subtitle: "Landing con priorización automática para equipos comerciales.",
     bullets: [
@@ -99,6 +102,7 @@ export const projects: Project[] = [
     impactLine: "Leads completos desde el primer contacto y menor tiempo de respuesta.",
     demoUrl: "https://gruastorres-oficial.vercel.app",
     whatsappText: "Hola, quiero el sistema de captación y priorización de leads B2B.",
+    image: "/gruastorres.png",
   },
   {
     id: "gestor-tramites",
@@ -114,5 +118,6 @@ export const projects: Project[] = [
     impactLine: "Menos seguimiento manual y vencimientos al día para el equipo.",
     demoUrl: "https://gestor-tramites.vercel.app",
     whatsappText: "Hola, quiero el gestor de trámites con vencimientos automáticos.",
+    image: "/gestor-tramites.png",
   },
 ]

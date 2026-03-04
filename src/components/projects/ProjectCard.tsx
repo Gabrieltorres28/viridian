@@ -40,14 +40,17 @@ export function ProjectCard({ project }: { project: Project }) {
 
       <div className="relative overflow-hidden rounded-lg border border-border/80 bg-card/50">
         {project.image ? (
-          <Image
-            src={project.image}
-            alt={`Captura de ${project.title}`}
-            width={960}
-            height={540}
-            className="h-44 w-full object-cover"
-            priority={project.featured}
-          />
+          <>
+            <Image
+              src={project.image}
+              alt={`Captura de ${project.title}`}
+              width={960}
+              height={540}
+              className="h-44 w-full object-cover brightness-[0.96] saturate-110"
+              priority={project.featured}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25" />
+          </>
         ) : (
           <div className="flex h-44 w-full items-center justify-center bg-gradient-to-br from-[#0f1f1a] via-[#12271f] to-[#0b1511] text-muted-foreground">
             <NotebookText className="h-9 w-9 text-viridian/70" />

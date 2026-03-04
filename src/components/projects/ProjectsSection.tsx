@@ -11,10 +11,10 @@ const CATEGORY_OPTIONS: ("Todos" | ProjectCategory)[] = [
   "Todos",
   "Educación",
   "Gastronomía",
+  "Restaurante",
   "Fitness",
-  "Municipal",
   "Servicios",
-  "Comercio",
+  "Municipal",
 ]
 
 type Category = (typeof CATEGORY_OPTIONS)[number]
@@ -58,7 +58,7 @@ export function ProjectsSection() {
             Catálogo de soluciones
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Demos listas para mostrar resultados
+            Catálogo de soluciones listas para adaptar
           </h2>
           <p className="mt-3 text-base text-muted-foreground">
             Filtrá por industria y abrí la demo o pedí la implementación que necesitás.
@@ -80,18 +80,23 @@ export function ProjectsSection() {
 
         <motion.div
           className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
+          transition={{ staggerChildren: 0.08 }}
         >
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, idx) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.45 }}
+              custom={idx}
+              variants={{
+                hidden: { opacity: 0, y: 26 },
+                show: (i: number) => ({
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.38, ease: "easeOut", delay: i * 0.05 },
+                }),
+              }}
             >
               <ProjectCard project={project} />
             </motion.div>

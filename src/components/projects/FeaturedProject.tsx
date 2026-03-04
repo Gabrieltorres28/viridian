@@ -100,14 +100,17 @@ export function FeaturedProject({ project }: { project: Project }) {
 
         <div className="relative overflow-hidden rounded-xl border border-viridian/20 bg-card/60">
           {project.image ? (
-            <Image
-              src={project.image}
-              alt={`Captura de ${project.title}`}
-              width={1200}
-              height={675}
-              className="h-full w-full object-cover"
-              priority
-            />
+            <>
+              <Image
+                src={project.image}
+                alt={`Captura de ${project.title}`}
+                width={1200}
+                height={675}
+                className="h-full w-full object-cover brightness-[0.96] saturate-110"
+                priority
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/30" />
+            </>
           ) : (
             <div className="flex h-full min-h-[240px] items-center justify-center bg-gradient-to-br from-[#0b1511] via-[#11241c] to-[#0d1a16] text-muted-foreground">
               <NotebookText className="h-10 w-10 text-viridian/70" />

@@ -73,7 +73,7 @@ export function Navbar() {
         </motion.a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-9">
           {links.map((link) => (
             <a
               key={link.href}
@@ -92,6 +92,7 @@ export function Navbar() {
               background:
                 "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
             }}
+            aria-label="Contactar por WhatsApp"
           >
             Contactar
           </a>
