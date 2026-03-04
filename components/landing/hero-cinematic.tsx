@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect, useState, type MutableRefObject } from "react"
+import { useRef, useEffect, type MutableRefObject } from "react"
 import { ArrowRight, Dot, MessageCircle } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -264,90 +264,6 @@ function MobileCircuitBurst({
   )
 }
 
-/* Simple looping typewriter with completion hook */
-function TypewriterLine({
-  phrases,
-  speed = 42,
-  hold = 1400,
-  eraseSpeed = 26,
-  className = "",
-  containerRef,
-  textRef,
-  onPhraseComplete,
-}: {
-  phrases: string[]
-  speed?: number
-  hold?: number
-  eraseSpeed?: number
-  className?: string
-  containerRef?: MutableRefObject<HTMLSpanElement | null>
-  textRef?: MutableRefObject<HTMLSpanElement | null>
-  onPhraseComplete?: (index: number) => void
-}) {
-  const [display, setDisplay] = useState("")
-  const [phraseIndex, setPhraseIndex] = useState(0)
-  const calledRef = useRef<number | null>(null)
-  const prefersReduceMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-
-  useEffect(() => {
-    if (phrases.length === 0) return
-    if (prefersReduceMotion) {
-      setDisplay(phrases[0])
-      if (onPhraseComplete) onPhraseComplete(0)
-      return
-    }
-
-    let active = true
-    let t: ReturnType<typeof setTimeout> | null = null
-
-    const type = (pIndex: number, charIndex: number) => {
-      if (!active) return
-      const phrase = phrases[pIndex]
-      if (charIndex <= phrase.length) {
-        setDisplay(phrase.slice(0, charIndex))
-        t = setTimeout(() => type(pIndex, charIndex + 1), speed)
-      } else {
-        if (calledRef.current !== pIndex) {
-          onPhraseComplete?.(pIndex)
-          calledRef.current = pIndex
-        }
-        t = setTimeout(() => erase(pIndex, phrase.length - 1), hold)
-      }
-    }
-
-    const erase = (pIndex: number, charIndex: number) => {
-      if (!active) return
-      const phrase = phrases[pIndex]
-      if (charIndex >= 0) {
-        setDisplay(phrase.slice(0, charIndex))
-        t = setTimeout(() => erase(pIndex, charIndex - 1), eraseSpeed)
-      } else {
-        const next = (pIndex + 1) % phrases.length
-        setPhraseIndex(next)
-        calledRef.current = null
-        t = setTimeout(() => type(next, 0), speed * 2)
-      }
-    }
-
-    type(phraseIndex, 0)
-
-    return () => {
-      active = false
-      if (t) clearTimeout(t)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phrases.join("|"), speed, hold, eraseSpeed])
-
-  return (
-    <span ref={containerRef} className={`inline-flex items-baseline ${className}`}>
-      <span ref={textRef} className="tw-line">
-        {display}
-      </span>
-      <span className="tw-caret ml-[1px] inline-block">|</span>
-    </span>
-  )
-}
-
 /* ─────────────────────────────────────────────
    Main cinematic hero with GSAP pinned scroll
    ───────────────────────────────────────────── */
@@ -358,8 +274,6 @@ export function HeroCinematic() {
   const flightRef = useRef<HTMLDivElement>(null)
   const line1Ref = useRef<HTMLSpanElement>(null)
   const line2Ref = useRef<HTMLDivElement>(null)
-  const typewriterContainerRef = useRef<HTMLSpanElement>(null)
-  const typewriterTextRef = useRef<HTMLSpanElement>(null)
   const subtextRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const tagRef = useRef<HTMLParagraphElement>(null)
@@ -373,7 +287,6 @@ export function HeroCinematic() {
   const eagleMainRef = useRef<HTMLDivElement>(null)
   const eagleGlowRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useRef(false)
-  const headlinePhrases = ["Cobros atrasados te frenan.", "Pedidos se pierden en WhatsApp.", "Stock sin control = plata perdida."]
   const typicalResults = [
     { title: "Ahorro", desc: "Operaciones en un solo flujo sin copiar/pegar datos." },
     { title: "Menos errores", desc: "Validaciones y campos obligatorios para evitar duplicados." },
@@ -402,7 +315,7 @@ export function HeroCinematic() {
 
     gsap.set(navElements, { opacity: 1, scale: 1, transformOrigin: "left center" })
     gsap.set(flightRef.current, { opacity: 0, scale: 1, x: -260, y: 140, rotateZ: -4, transformOrigin: "center center" })
-    gsap.set(glowBgRef.current, { opacity: 0.02 })
+    gsap.set(glowBgRef.current, { opacity: 0.012 })
     gsap.set(chipRefs.current, { opacity: 0.08, y: 18 })
         gsap.set(circuitRefs.current, { strokeDasharray: 260, strokeDashoffset: 260, opacity: 0.08 })
     const centerOffset = target
@@ -493,93 +406,6 @@ export function HeroCinematic() {
     return () => window.removeEventListener("mousemove", onMove)
   }, [])
 
-  const triggerSurge = (phraseIndex: number) => {
-    const isMobile = window.matchMedia("(max-width: 767px)").matches
-    const motionScale = prefersReducedMotion.current ? 0 : isMobile ? 0.5 : 1
-
-    if (typewriterTextRef.current) {
-      gsap.to(typewriterTextRef.current, {
-        color: "#6DF3B6",
-        duration: 0.2,
-        ease: "power1.out",
-        yoyo: true,
-        repeat: 1,
-        overwrite: "auto",
-      })
-    }
-
-    const pathTargets = isMobile ? mobilePathsRef.current : circuitRefs.current
-    const signalTargets = isMobile ? mobileSignalsRef.current : gsap.utils.toArray<SVGPathElement>(".vc-signal")
-
-    gsap.to(pathTargets, {
-      opacity: prefersReducedMotion.current ? 0.28 : 0.38,
-      duration: 0.22,
-      ease: "power1.out",
-      yoyo: true,
-      repeat: 1,
-      overwrite: "auto",
-    })
-
-    if (!prefersReducedMotion.current) {
-      gsap.fromTo(
-        pathTargets,
-        { strokeDashoffset: 180 },
-        { strokeDashoffset: 0, duration: 0.38, ease: "power2.out", overwrite: "auto" },
-      )
-      gsap.to(signalTargets, {
-        opacity: 0.55,
-        duration: 0.18,
-        ease: "power1.out",
-        yoyo: true,
-        repeat: 1,
-        overwrite: "auto",
-      })
-      gsap.fromTo(
-        signalTargets,
-        { strokeDashoffset: 120 },
-        { strokeDashoffset: -260, duration: 0.42, ease: "linear", overwrite: "auto" },
-      )
-    }
-
-    if (flightRef.current) {
-      const kickX = motionScale * -6
-      const kickY = motionScale * -4
-      const kickScale = 1 + motionScale * 0.018
-
-      gsap.to(flightRef.current, {
-        x: `+=${kickX}`,
-        y: `+=${kickY}`,
-        scale: kickScale,
-        filter: "brightness(1.04) saturate(1.03)",
-        duration: 0.18,
-        ease: "power2.out",
-        overwrite: "auto",
-      })
-      gsap.to(flightRef.current, {
-        x: `-=${kickX}`,
-        y: `-=${kickY}`,
-        scale: 1,
-        filter: "brightness(1) saturate(1)",
-        duration: 0.35,
-        ease: "power2.out",
-        delay: 0.18,
-        overwrite: "auto",
-      })
-    }
-
-    if (eagleGlowRef.current && !prefersReducedMotion.current) {
-      gsap.to(eagleGlowRef.current, {
-        opacity: 1,
-        filter: "blur(10px)",
-        duration: 0.18,
-        ease: "power1.out",
-        overwrite: "auto",
-        yoyo: true,
-        repeat: 1,
-      })
-    }
-  }
-
   /* GSAP ScrollTrigger timeline (pinned hero) */
   useEffect(() => {
     let mm: gsap.MatchMedia | null = null
@@ -600,7 +426,7 @@ export function HeroCinematic() {
           rotateY: 0,
           transformOrigin: "center center",
         })
-        gsap.set(glowBgRef.current, { opacity: 0.025 })
+        gsap.set(glowBgRef.current, { opacity: 0.015 })
         gsap.set(circuitSignalRefs.current, { strokeDasharray: 260, strokeDashoffset: 260, opacity: 0 })
       }
 
@@ -694,8 +520,8 @@ export function HeroCinematic() {
         tl.to(
           [eagleGlowRef.current, flightRef.current],
           {
-            opacity: 1,
-            filter: "drop-shadow(0 0 26px rgba(255,232,120,0.55)) brightness(1.08)",
+            opacity: 0.75,
+            filter: "drop-shadow(0 0 18px rgba(255,232,120,0.35)) brightness(1.03)",
             duration: 0.4,
             ease: "power2.out",
           },
@@ -759,8 +585,8 @@ export function HeroCinematic() {
 
         tl.fromTo(
           flightRef.current,
-          { opacity: 0, scale: 0.92, y: 22, x: 0, rotateZ: -6, rotateY: -6 },
-          { opacity: 1, scale: 1.08, y: 0, x: 0, rotateZ: -3, rotateY: -4, duration: 0.25, ease: "power2.out" },
+          { opacity: 0, scale: 0.9, y: 22, x: 0, rotateZ: -6, rotateY: -6 },
+          { opacity: 0.9, scale: 1.02, y: 4, x: 0, rotateZ: -3, rotateY: -4, duration: 0.25, ease: "power2.out" },
           0.04,
         )
 
@@ -778,12 +604,12 @@ export function HeroCinematic() {
         tl.to(
           flightRef.current,
           {
-            x: 70,
-            y: 14,
-            rotateZ: -6,
-            rotateY: -8,
-            scale: 1.06,
-            duration: 0.2,
+            x: 52,
+            y: 8,
+            rotateZ: -5,
+            rotateY: -7,
+            scale: 1.02,
+            duration: 0.24,
             ease: "power1.inOut",
           },
           0.26,
@@ -791,12 +617,12 @@ export function HeroCinematic() {
         tl.to(
           flightRef.current,
           {
-            x: -60,
-            y: 40,
-            rotateZ: 6,
-            rotateY: 8,
-            scale: 0.98,
-            duration: 0.42,
+            x: -46,
+            y: 34,
+            rotateZ: 4,
+            rotateY: 7,
+            scale: 0.97,
+            duration: 0.38,
             ease: "sine.inOut",
           },
           0.46,
@@ -849,10 +675,10 @@ export function HeroCinematic() {
           flightRef.current,
           {
             x: -6,
-            y: 54,
+            y: 48,
             rotateZ: 0,
             rotateY: 0,
-            scale: 1.0,
+            scale: 0.98,
             duration: 0.32,
             ease: "power2.out",
           },
@@ -862,7 +688,7 @@ export function HeroCinematic() {
         tl.to(
           glowBgRef.current,
           {
-            opacity: 0.08,
+            opacity: 0.06,
             duration: 0.32,
           },
           0.62,
@@ -1017,7 +843,7 @@ export function HeroCinematic() {
         {/* Sprite del águila real animada (pseudo-3D) */}
         <div
           ref={flightRef}
-          className="absolute top-[52px] sm:top-[64px] left-1/2 -translate-x-1/2 w-[240px] sm:w-[260px] md:top-[6%] md:right-[4%] md:left-auto md:translate-x-0 md:w-[420px] lg:w-[520px] pointer-events-none z-10"
+          className="absolute top-[48px] sm:top-[60px] left-1/2 -translate-x-1/2 w-[200px] sm:w-[220px] md:top-[6%] md:right-[4%] md:left-auto md:translate-x-0 md:w-[380px] lg:w-[480px] pointer-events-none z-10"
           style={{ transformStyle: "preserve-3d" }}
         >
           <div
@@ -1029,16 +855,16 @@ export function HeroCinematic() {
               ref={eagleGlowRef}
               className="absolute -inset-6 rounded-[32px] blur-xl md:blur-2xl"
               style={{
-                background: "radial-gradient(circle at 40% 40%, rgba(78,218,158,0.22), transparent 60%)",
+                background: "radial-gradient(circle at 40% 40%, rgba(78,218,158,0.18), transparent 60%)",
                 transform: "translateZ(-40px)",
-                opacity: 0.9,
+                opacity: 0.6,
               }}
             />
             <div ref={eagleMainRef} style={{ transform: "translateZ(30px)" }}>
               <img
                 src="/eagle-real.png"
                 alt="Águila Viridian"
-                className="w-full h-auto select-none"
+                className="w-full h-auto select-none opacity-80 md:opacity-90"
                 width={520}
                 height={220}
               />
@@ -1052,9 +878,9 @@ export function HeroCinematic() {
             {/* Tag */}
             <p
               ref={tagRef}
-              className="text-viridian font-mono text-sm tracking-[0.2em] uppercase mb-8"
+              className="text-viridian/80 font-mono text-xs sm:text-sm tracking-[0.26em] uppercase mb-6"
             >
-              Viridian Core
+              SISTEMAS DE GESTIÓN PARA PYMES
             </p>
 
             {/* Headline */}
@@ -1069,18 +895,12 @@ export function HeroCinematic() {
               ref={subtextRef}
               className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Para pymes y equipos en Argentina que quieren automatizar cobros, stock y clientes en semanas, sin vueltas.
+              Sistemas web que centralizan clientes, cobros y stock sin planillas ni mensajes perdidos.
             </p>
 
-            {/* Typewriter below subtitle */}
-            <div ref={line2Ref} className="mt-4 text-viridian text-xl md:text-2xl font-semibold">
-              <TypewriterLine
-                phrases={headlinePhrases}
-                className="block text-balance"
-                containerRef={typewriterContainerRef}
-                textRef={typewriterTextRef}
-                onPhraseComplete={(idx) => triggerSurge(idx)}
-              />
+            {/* Pain point line */}
+            <div ref={line2Ref} className="mt-4 text-viridian text-xl md:text-2xl font-semibold text-balance">
+              Datos dispersos en Excel y WhatsApp.
             </div>
 
             {/* CTAs */}
@@ -1098,18 +918,19 @@ export function HeroCinematic() {
                 Pedir demo por WhatsApp
               </a>
               <a
-                href="#casos"
+                href="#demos"
                 className="inline-flex w-full sm:w-auto justify-center items-center gap-2 text-foreground font-medium px-8 py-3.5 rounded-lg transition-all hover:shadow-[0_0_24px_rgba(78,218,158,0.25)]"
                 style={{
                   background: "linear-gradient(135deg, rgba(23,77,58,0.85) 0%, rgba(47,143,102,0.85) 50%, rgba(78,218,158,0.9) 100%)",
                   border: "1px solid rgba(78,218,158,0.25)",
                 }}
               >
-                Ver casos
+                Ver sistemas funcionando
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
-            <p className="text-sm text-white/70 mt-2">Respuesta en el día. Demo real en 10 min.</p>
+            <p className="text-sm text-white/70 mt-2">Demos reales funcionando en negocios. Implementación inicial en días.</p>
+            <p className="text-xs text-muted-foreground/80 mt-1">Gimnasios • Restaurantes • Equipos de servicio</p>
 
             {/* Resultados típicos compactos */}
             <div className="mt-6 w-full max-w-3xl mx-auto">

@@ -1,0 +1,108 @@
+"use client"
+
+import { useMemo, useState } from "react"
+import { motion } from "motion/react"
+import { projects, ProjectCategory } from "@/src/data/projects"
+import { CategoryChips } from "./CategoryChips"
+import { FeaturedProject } from "./FeaturedProject"
+import { ProjectCard } from "./ProjectCard"
+
+const CATEGORY_OPTIONS: ("Todos" | ProjectCategory)[] = [
+  "Todos",
+  "Educación",
+  "Gastronomía",
+  "Fitness",
+  "Municipal",
+  "Servicios",
+  "Comercio",
+]
+
+type Category = (typeof CATEGORY_OPTIONS)[number]
+
+export function ProjectsSection() {
+  const [category, setCategory] = useState<Category>("Todos")
+
+  const featuredProject = useMemo(
+    () => projects.find((project) => project.featured),
+    []
+  )
+
+  const filteredProjects = useMemo(() => {
+    return projects
+      .filter((project) => project.id !== featuredProject?.id)
+      .filter((project) => category === "Todos" || project.category === category)
+  }, [category, featuredProject])
+
+  const shouldShowFeatured =
+    featuredProject && (category === "Todos" || featuredProject.category === category)
+
+  return (
+    <section id="demos" className="relative px-6 py-28">
+      <div
+        className="absolute bottom-0 right-0 h-[520px] w-[520px] opacity-[0.05]"
+        style={{
+          background:
+            "radial-gradient(circle, var(--viridian-glow) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-6xl">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+        >
+          <p className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">
+            Catálogo de soluciones
+          </p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+            Demos listas para mostrar resultados
+          </h2>
+          <p className="mt-3 text-base text-muted-foreground">
+            Filtrá por industria y abrí la demo o pedí la implementación que necesitás.
+          </p>
+          <CategoryChips categories={CATEGORY_OPTIONS} selected={category} onSelect={setCategory} />
+        </motion.div>
+
+        {shouldShowFeatured ? (
+          <motion.div
+            className="mt-14"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <FeaturedProject project={featuredProject} />
+          </motion.div>
+        ) : null}
+
+        <motion.div
+          className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+        >
+          {filteredProjects.map((project) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.45 }}
+            >
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+          {filteredProjects.length === 0 ? (
+            <div className="col-span-full rounded-xl border border-border bg-card/60 p-8 text-center text-muted-foreground">
+              No hay proyectos en esta categoría todavía. Elegí otra o pedí uno a medida.
+            </div>
+          ) : null}
+        </motion.div>
+      </div>
+    </section>
+  )
+}
