@@ -12,6 +12,7 @@ const WHATSAPP_NUMBER = "543751471708"
 
 export function ProjectCard({ project }: { project: Project }) {
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(project.whatsappText)}`
+  const shouldContainImage = project.imageDisplay === "contain"
 
   return (
     <div
@@ -47,15 +48,28 @@ export function ProjectCard({ project }: { project: Project }) {
             <Image
               src={project.image}
               alt={`Captura de ${project.title}`}
-              width={960}
-              height={540}
-              className="h-44 w-full object-cover brightness-[0.96] saturate-110"
+              fill
+              quality={100}
+              unoptimized={shouldContainImage}
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              className={
+                shouldContainImage
+                  ? "object-contain object-center p-2 brightness-[0.99] saturate-105 transition-transform duration-500 ease-out group-hover:scale-[1.01]"
+                  : "object-cover object-top brightness-[0.96] saturate-110 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+              }
               priority={project.featured}
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25" />
+            <div className="h-[220px] md:h-[260px] lg:h-[300px]" />
+            <div
+              className={
+                shouldContainImage
+                  ? "pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/15"
+                  : "pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/25"
+              }
+            />
           </>
         ) : (
-          <div className="flex h-44 w-full items-center justify-center bg-gradient-to-br from-[#0f1f1a] via-[#12271f] to-[#0b1511] text-muted-foreground">
+          <div className="flex h-[220px] w-full items-center justify-center bg-gradient-to-br from-[#0f1f1a] via-[#12271f] to-[#0b1511] text-muted-foreground md:h-[260px] lg:h-[300px]">
             <NotebookText className="h-9 w-9 text-viridian/70" />
           </div>
         )}

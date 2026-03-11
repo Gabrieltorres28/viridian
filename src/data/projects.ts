@@ -19,6 +19,7 @@ export type Project = {
   detailsUrl?: string
   whatsappText: string
   image?: string
+  imageDisplay?: "cover" | "contain"
   featured?: boolean
 }
 
@@ -55,6 +56,7 @@ export const projects: Project[] = [
     demoUrl: "https://saas-menu-digital.vercel.app",
     whatsappText: "Hola, quiero el sistema de Menú Digital con pedidos por WhatsApp.",
     image: "/menu-saas.png",
+    imageDisplay: "contain",
   },
   {
     id: "gymflow",
@@ -71,6 +73,7 @@ export const projects: Project[] = [
     demoUrl: "https://gymflow-beta.vercel.app",
     whatsappText: "Hola, quiero la solución de gestión para gimnasios (GymFlow).",
     image: "/gestorgym.png",
+    imageDisplay: "contain",
   },
   {
     id: "acapulco-burrito",
@@ -108,16 +111,17 @@ export const projects: Project[] = [
     id: "gestor-tramites",
     status: "DEMO FUNCIONAL",
     category: "Municipal",
-    title: "Gestor de Trámites y Vencimientos",
-    subtitle: "Expedientes con recordatorios automáticos y panel de vencimientos.",
+    title: "Portal Municipal + Pagos + Chatbot IA",
+    subtitle: "Landing institucional moderna con accesos a pagos, información pública y asistente para consultas frecuentes.",
     bullets: [
-      "Agenda de vencimientos con avisos automáticos",
-      "Tablero por dependencia y responsable",
-      "Historial centralizado por expediente",
+      "Integración con portales de pago y accesos rápidos",
+      "Secciones institucionales adaptadas a uso ciudadano",
+      "Chatbot con respuestas contextualizadas para consultas comunes",
     ],
-    impactLine: "Menos seguimiento manual y vencimientos al día para el equipo.",
-    demoUrl: "https://gestor-tramites.vercel.app",
-    whatsappText: "Hola, quiero el gestor de trámites con vencimientos automáticos.",
-    image: "/gestor-tramites.png",
+    impactLine: "Más servicios visibles, menos fricción para el vecino y mejor presencia digital del municipio.",
+    demoUrl: "https://municipalidad-elalcazar.vercel.app",
+    whatsappText: "Hola, quiero una solución municipal como el portal con pagos y chatbot IA de El Alcázar.",
+    image: "/elalcazar.png",
+    imageDisplay: "contain",
   },
 ]
