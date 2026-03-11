@@ -4,24 +4,24 @@ import { motion } from "motion/react"
 
 const results = [
   {
-    label: "Ahorro de tiempo",
-    value: "Menos pasos manuales",
-    detail: "Registro y seguimiento en un solo flujo claro.",
+    label: "Operación",
+    value: "Menos fricción",
+    detail: "Procesos más claros y menos dependencia de pasos manuales invisibles.",
   },
   {
-    label: "Errores operativos",
-    value: "Errores más visibles",
-    detail: "Validaciones y campos obligatorios para datos críticos.",
+    label: "Control",
+    value: "Más trazabilidad",
+    detail: "Estados, responsables y decisiones visibles en un sistema centralizado.",
   },
   {
-    label: "Cobros al día",
-    value: "Cobros priorizados",
-    detail: "Alertas y seguimiento de vencimientos en un panel.",
+    label: "Automatización",
+    value: "Más capacidad",
+    detail: "Recordatorios, validaciones y flujos automáticos donde más impacto generan.",
   },
   {
-    label: "Visibilidad",
-    value: "Visibilidad diaria",
-    detail: "Tablero claro de stock y estado de pedidos.",
+    label: "Escala",
+    value: "Base más sólida",
+    detail: "Una estructura digital que soporta crecimiento, nuevos procesos e IA aplicada.",
   },
 ]
 
@@ -53,8 +53,18 @@ export function ResultsSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
         >
-          Qué suele pasar cuando ordenamos cobros, stock y clientes
+          Qué cambia cuando la operación deja de depender de parches
         </motion.h2>
+        <motion.p
+          className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, delay: 0.08 }}
+        >
+          El resultado no es solo más orden administrativo. Es más capacidad de ejecución, mejor visibilidad y una
+          base tecnológica más útil para operar, automatizar y escalar.
+        </motion.p>
       </div>
 
       <div className="relative max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

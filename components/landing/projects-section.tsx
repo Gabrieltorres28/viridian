@@ -25,13 +25,13 @@ const projects = [
     demoAvailable: true,
   },
   {
-    client: "GymFlow",
-    industry: "Fitness",
-    problem: "Seguimiento manual de socios y pagos atrasados.",
-    solution: "Dashboard de socios, pagos y asistencia con alertas.",
-    impact: "Vencimientos y pagos con seguimiento. Lista de socios más ordenada y controlable.",
-    metric: "Métrica a medir: pagos vencidos y socios sin datos",
-    url: "https://gymflow-beta.vercel.app",
+    client: "Viridian Ops",
+    industry: "Servicios",
+    problem: "La operación diaria quedaba repartida entre chats, notas y planillas.",
+    solution: "Panel operativo para centralizar seguimiento, estados y tareas clave.",
+    impact: "Más visibilidad operativa y menos desorden en el control diario del equipo.",
+    metric: "Métrica a medir: tareas demoradas y seguimiento pendiente",
+    url: "https://viridian-ops.vercel.app",
     demoAvailable: true,
   },
   {
@@ -157,7 +157,7 @@ export function ProjectsSection() {
                     className="flex items-center gap-1.5 text-sm font-medium text-foreground bg-viridian/15 hover:bg-viridian/25 px-4 py-2 rounded-lg transition-colors"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
-                    Ver demo
+                    Ver ahora
                   </a>
                   <a
                     href="https://wa.me/543751471708?text=Hola%20quiero%20ver%20la%20demo%20de%20un%20caso%20similar"

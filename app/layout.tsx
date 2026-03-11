@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
 export const metadata: Metadata = {
-  title: 'Viridian Core | Sistemas de Gestion',
-  description: 'Sistemas web de gestion para negocios en Argentina. Control de clientes, pagos, stock y reportes.',
+  title: 'Viridian Core | Sistemas para ordenar operaciones',
+  description: 'Viridian Core diseña sistemas digitales, automatización e inteligencia aplicada para ordenar operaciones reales con control, trazabilidad y escala.',
   generator: 'v0.app',
   icons: {
     icon: [

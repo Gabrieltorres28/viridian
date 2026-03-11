@@ -1,11 +1,16 @@
-export type ProjectStatus = "EN PRODUCCIÓN" | "DEMO FUNCIONAL" | "GRABADO BREVE"
+export type ProjectStatus =
+  | "EN PRODUCCIÓN"
+  | "DEMO FUNCIONAL"
+  | "LISTO PARA ESCALAR"
+  | "SOLUCIÓN ACTIVA"
+  | "VERSIÓN BASE"
+  | "GRABADO BREVE"
 export type ProjectCategory =
   | "Educación"
   | "Gastronomía"
-  | "Restaurante"
-  | "Fitness"
+  | "Operaciones"
+  | "Leads B2B"
   | "Municipal"
-  | "Servicios"
 
 export type Project = {
   id: string
@@ -59,26 +64,26 @@ export const projects: Project[] = [
     imageDisplay: "contain",
   },
   {
-    id: "gymflow",
-    status: "DEMO FUNCIONAL",
-    category: "Fitness",
-    title: "Sistema de Gestión para Gimnasios",
-    subtitle: "Seguimiento de socios, pagos y asistencias con alertas.",
+    id: "viridian-ops",
+    status: "LISTO PARA ESCALAR",
+    category: "Operaciones",
+    title: "Viridian Ops",
+    subtitle: "Panel operativo para centralizar seguimiento interno y procesos clave.",
     bullets: [
-      "Control de pagos, morosidad y vencimientos",
-      "Alertas de asistencia para retener socios",
-      "Autoservicio para altas, bajas y pases de día",
+      "Vista unificada de operaciones, estados y tareas activas",
+      "Seguimiento ordenado para evitar cuellos de botella",
+      "Interfaz pensada para control diario y decisiones rapidas",
     ],
-    impactLine: "Menos fugas de pagos y socios ordenados en un solo panel.",
-    demoUrl: "https://gymflow-beta.vercel.app",
-    whatsappText: "Hola, quiero la solución de gestión para gimnasios (GymFlow).",
-    image: "/gestorgym.png",
+    impactLine: "Mas visibilidad operativa y menos gestion dispersa entre mensajes y planillas.",
+    demoUrl: "https://viridian-ops.vercel.app",
+    whatsappText: "Hola, quiero una solucion operativa como Viridian Ops.",
+    image: "/viridianops.png",
     imageDisplay: "contain",
   },
   {
     id: "acapulco-burrito",
     status: "GRABADO BREVE",
-    category: "Restaurante",
+    category: "Gastronomía",
     title: "KDS + Pedidos para Cocina",
     subtitle: "Flujo de pedidos en tiempo real para equipos de cocina pequeños.",
     bullets: [
@@ -93,8 +98,8 @@ export const projects: Project[] = [
   },
   {
     id: "gruastorres",
-    status: "DEMO FUNCIONAL",
-    category: "Servicios",
+    status: "VERSIÓN BASE",
+    category: "Leads B2B",
     title: "Captación de Leads B2B",
     subtitle: "Landing con priorización automática para equipos comerciales.",
     bullets: [
@@ -109,7 +114,7 @@ export const projects: Project[] = [
   },
   {
     id: "gestor-tramites",
-    status: "DEMO FUNCIONAL",
+    status: "SOLUCIÓN ACTIVA",
     category: "Municipal",
     title: "Portal Municipal + Pagos + Chatbot IA",
     subtitle: "Landing institucional moderna con accesos a pagos, información pública y asistente para consultas frecuentes.",

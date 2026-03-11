@@ -5,6 +5,9 @@ import Image from "next/image"
 const STATUS_STYLES: Record<NonNullable<Project["status"]>, string> = {
   "EN PRODUCCIÓN": "bg-emerald-500/20 text-emerald-100 border-emerald-500/50",
   "DEMO FUNCIONAL": "bg-viridian/15 text-viridian border-viridian/40",
+  "LISTO PARA ESCALAR": "bg-cyan-500/15 text-cyan-200 border-cyan-500/35",
+  "SOLUCIÓN ACTIVA": "bg-blue-500/15 text-blue-200 border-blue-500/35",
+  "VERSIÓN BASE": "bg-sky-500/15 text-sky-200 border-sky-500/35",
   "GRABADO BREVE": "bg-amber-500/15 text-amber-200 border-amber-500/30",
 }
 
@@ -69,9 +72,9 @@ export function FeaturedProject({ project }: { project: Project }) {
                 target="_blank"
                 rel="noreferrer noopener"
                 className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-viridian via-emerald-500 to-viridian px-5 py-2.5 text-sm font-semibold text-background shadow-[0_14px_50px_rgba(78,218,158,0.3)] transition-all hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-viridian focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                aria-label={`Ver demo destacada: ${project.title}`}
+                aria-label={`Ver ahora ${project.title}`}
               >
-                Ver demo
+                Ver ahora
                 <ArrowUpRight className="h-4 w-4" />
               </a>
             ) : null}

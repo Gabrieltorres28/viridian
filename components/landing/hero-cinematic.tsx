@@ -288,9 +288,9 @@ export function HeroCinematic() {
   const eagleGlowRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useRef(false)
   const typicalResults = [
-    { title: "Ahorro", desc: "Operaciones en un solo flujo sin copiar/pegar datos." },
-    { title: "Menos errores", desc: "Validaciones y campos obligatorios para evitar duplicados." },
-    { title: "Stock y cobros", desc: "Estado visible en 1 clic para tomar decisiones al día." },
+    { title: "Más control", desc: "Procesos, estados y responsables visibles en un solo sistema." },
+    { title: "Más velocidad", desc: "Menos tareas manuales y menos tiempo perdido entre herramientas sueltas." },
+    { title: "Más criterio", desc: "Datos, automatización e inteligencia aplicada para ejecutar mejor." },
   ]
 
   // Mantener arrays del tamaño correcto en cada render
@@ -751,7 +751,7 @@ export function HeroCinematic() {
     <div ref={wrapperRef} className="relative overflow-hidden overflow-x-hidden">
       <section
         ref={heroRef}
-        className="relative h-[100svh] md:h-screen w-full overflow-hidden bg-background pt-[64px] sm:pt-[72px] md:pt-0 pb-12 md:pb-0"
+        className="relative min-h-[100svh] md:h-screen w-full overflow-hidden bg-background pt-[64px] sm:pt-[72px] md:pt-0 pb-24 sm:pb-28 md:pb-0"
         style={{ perspective: "1200px" }}
       >
         {/* === Background layers === */}
@@ -873,20 +873,20 @@ export function HeroCinematic() {
         </div>
 
         {/* === Content === */}
-        <div className="relative z-20 isolate flex h-full flex-col px-6 pb-8 md:pb-12">
-          <div className="flex-1 flex flex-col items-center text-center pt-[300px] sm:pt-[320px] md:pt-0 md:justify-center gap-4">
+        <div className="relative z-20 isolate flex min-h-[100svh] md:h-full flex-col px-6 pb-8 md:pb-12">
+          <div className="flex-1 flex flex-col items-center text-center pt-[280px] sm:pt-[320px] md:pt-0 md:justify-center gap-4">
             {/* Tag */}
             <p
               ref={tagRef}
-              className="text-viridian/80 font-mono text-xs sm:text-sm tracking-[0.26em] uppercase mb-6"
+              className="inline-flex items-center rounded-full border border-viridian/30 bg-viridian/10 px-4 py-2 text-[11px] font-mono uppercase tracking-[0.22em] text-viridian shadow-[0_0_24px_rgba(78,218,158,0.12)] backdrop-blur-sm sm:text-xs md:text-sm mb-6"
             >
-              SISTEMAS DE GESTIÓN PARA PYMES
+              SOFTWARE, AUTOMATIZACIÓN E INTELIGENCIA APLICADA
             </p>
 
             {/* Headline */}
             <h1 className="text-[clamp(2.3rem,6vw,3.4rem)] md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight max-w-3xl">
               <span ref={line1Ref} className="block text-balance">
-                Dejá el Excel y el caos operativo.
+                Convertimos caos operativo en infraestructura digital usable.
               </span>
             </h1>
 
@@ -895,12 +895,12 @@ export function HeroCinematic() {
               ref={subtextRef}
               className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Sistemas web que centralizan clientes, cobros y stock sin planillas ni mensajes perdidos.
+              Viridian Core diseña sistemas digitales, automatizaciones y herramientas inteligentes para ordenar procesos reales, dar trazabilidad y ejecutar con más control.
             </p>
 
             {/* Pain point line */}
             <div ref={line2Ref} className="mt-4 text-viridian text-xl md:text-2xl font-semibold text-balance">
-              Datos dispersos en Excel y WhatsApp.
+              Procesos dispersos, decisiones a ciegas y trabajo manual {"->"} un sistema claro, centralizado y escalable.
             </div>
 
             {/* CTAs */}
@@ -915,7 +915,7 @@ export function HeroCinematic() {
                 }}
               >
                 <MessageCircle className="w-4 h-4" />
-                Pedir demo por WhatsApp
+                Solicitar demo
               </a>
               <a
                 href="#demos"
@@ -929,8 +929,9 @@ export function HeroCinematic() {
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
-            <p className="text-sm text-white/70 mt-2">Demos reales funcionando en negocios. Implementación inicial en días.</p>
-            <p className="text-xs text-muted-foreground/80 mt-1">Gimnasios • Restaurantes • Equipos de servicio</p>
+            <p className="text-sm text-white/70 mt-2">
+              No hacemos software decorativo. Construimos sistemas utilizables para operaciones reales.
+            </p>
 
             {/* Resultados típicos compactos */}
             <div className="mt-6 w-full max-w-3xl mx-auto">

@@ -11,9 +11,8 @@ const CATEGORY_OPTIONS: ("Todos" | ProjectCategory)[] = [
   "Todos",
   "Educación",
   "Gastronomía",
-  "Restaurante",
-  "Fitness",
-  "Servicios",
+  "Operaciones",
+  "Leads B2B",
   "Municipal",
 ]
 
@@ -53,13 +52,13 @@ export function ProjectsSection() {
           transition={{ duration: 0.7 }}
         >
           <p className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">
-            Catálogo de soluciones
+            Sistemas en funcionamiento
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Catálogo de soluciones listas para adaptar
+            Software útil, automatización e inteligencia aplicada a casos concretos
           </h2>
           <p className="mt-3 text-base text-muted-foreground">
-            Filtrá por industria y abrí la demo o pedí la implementación que necesitás.
+            Explorá productos operativos, paneles internos, portales y sistemas diseñados para resolver procesos reales.
           </p>
           <CategoryChips
             categories={CATEGORY_OPTIONS}

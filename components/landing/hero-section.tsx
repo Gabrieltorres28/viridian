@@ -44,8 +44,9 @@ export function HeroSection() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <div className="relative z-10 mx-auto max-w-6xl px-6">
         <motion.div
+          className="mx-auto max-w-4xl text-center"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
@@ -56,48 +57,58 @@ export function HeroSection() {
         </motion.div>
 
         <motion.h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight text-balance"
+          className="mx-auto max-w-5xl text-center text-4xl font-bold leading-[1.02] tracking-tight text-foreground text-balance md:text-6xl lg:text-7xl"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
         >
-          Tu negocio no necesita{" "}
+          Tu negocio no necesita mas Excel.
           <br className="hidden md:block" />
-          {"m\u00e1s esfuerzo. "}
           <span className="text-viridian">Necesita un sistema.</span>
         </motion.h1>
 
         <motion.p
-          className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+          className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-muted-foreground md:text-xl"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
         >
-          {"Sistemas web de gesti\u00f3n para negocios en Argentina."}
+          Viridian Core transforma planillas, mensajes y procesos dispersos en una
+          operacion clara, centralizada y trazable.
         </motion.p>
 
         <motion.div
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="mx-auto mt-7 flex w-fit items-center gap-3 rounded-full border border-viridian/20 bg-card/50 px-4 py-2 text-sm font-medium text-viridian shadow-[0_0_40px_rgba(78,218,158,0.08)] backdrop-blur-sm"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
+        >
+          <span className="h-2 w-2 rounded-full bg-viridian shadow-[0_0_14px_rgba(78,218,158,0.7)]" />
+          Excel + WhatsApp + caos operativo -&gt; un solo sistema.
+        </motion.div>
+
+        <motion.div
+          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.45, ease: "easeOut" }}
+          transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
         >
           <a
             href="#demos"
-            className="group flex items-center gap-2 text-foreground font-medium px-8 py-3.5 rounded-lg transition-all hover:shadow-[0_0_30px_rgba(78,218,158,0.3)]"
+            className="group flex items-center gap-2 rounded-lg px-8 py-3.5 font-medium text-foreground transition-all hover:shadow-[0_0_30px_rgba(78,218,158,0.3)]"
             style={{
               background:
                 "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
             }}
           >
-            Ver demos
+            Ver sistemas funcionando
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href="https://wa.me/543751471708"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-foreground font-medium px-8 py-3.5 rounded-lg transition-all hover:shadow-[0_0_24px_rgba(78,218,158,0.25)]"
+            className="flex items-center gap-2 rounded-lg px-8 py-3.5 font-medium text-foreground transition-all hover:shadow-[0_0_24px_rgba(78,218,158,0.25)]"
             style={{
               background:
                 "linear-gradient(135deg, rgba(23,77,58,0.85) 0%, rgba(47,143,102,0.85) 50%, rgba(78,218,158,0.9) 100%)",
@@ -105,8 +116,42 @@ export function HeroSection() {
             }}
           >
             <MessageCircle className="w-4 h-4" />
-            Hablar por WhatsApp
+            Solicitar demo
           </a>
+        </motion.div>
+
+        <motion.div
+          className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.62, ease: "easeOut" }}
+        >
+          <div className="rounded-2xl border border-border/80 bg-card/45 p-5 text-left backdrop-blur-sm">
+            <p className="text-sm font-mono uppercase tracking-[0.18em] text-viridian">
+              Problema
+            </p>
+            <p className="mt-3 text-base font-semibold text-foreground">
+              La operacion se rompe cuando todo vive en Excel, WhatsApp y memoria del equipo.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-viridian/25 bg-card/55 p-5 text-left shadow-[0_0_40px_rgba(78,218,158,0.08)] backdrop-blur-sm">
+            <p className="text-sm font-mono uppercase tracking-[0.18em] text-viridian">
+              Solucion
+            </p>
+            <p className="mt-3 text-base font-semibold text-foreground">
+              Un sistema centralizado que ordena procesos, tareas, pagos y seguimiento.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-border/80 bg-card/45 p-5 text-left backdrop-blur-sm sm:col-span-2 lg:col-span-1">
+            <p className="text-sm font-mono uppercase tracking-[0.18em] text-viridian">
+              Resultado
+            </p>
+            <p className="mt-3 text-base font-semibold text-foreground">
+              Mas control, trazabilidad real y menos tiempo perdido apagando incendios.
+            </p>
+          </div>
         </motion.div>
       </div>
 

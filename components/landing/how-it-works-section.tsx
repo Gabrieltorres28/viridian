@@ -7,26 +7,26 @@ const steps = [
   {
     icon: Stethoscope,
     number: "01",
-    title: "Diagnóstico",
-    time: "10 minutos",
+    title: "Diagnóstico operativo",
+    time: "Relevamiento inicial",
     description:
-      "Analizamos tu negocio, tus procesos actuales y detectamos dónde estás perdiendo tiempo y dinero.",
+      "Mapeamos procesos, fricciones, decisiones críticas y puntos donde hoy dependés de trabajo manual, múltiples herramientas o seguimiento informal.",
   },
   {
     icon: Rocket,
     number: "02",
-    title: "Implementación",
-    time: "48 horas",
+    title: "Diseño del sistema",
+    time: "Arquitectura + implementación",
     description:
-      "Diseñamos y desplegamos tu sistema personalizado, listo para usar con datos reales.",
+      "Definimos la lógica operativa, los flujos, automatizaciones, paneles internos y puntos de control para construir una solución realmente usable.",
   },
   {
     icon: RefreshCw,
     number: "03",
-    title: "Optimización continua",
-    time: "Siempre",
+    title: "Evolución con criterio",
+    time: "Mejora continua",
     description:
-      "Iteramos y mejoramos el sistema en base a tus necesidades reales y los datos que genera.",
+      "Sobre una base sólida sumamos mejoras, automatización e inteligencia aplicada donde generan valor real, no complejidad innecesaria.",
   },
 ]
 
@@ -45,10 +45,14 @@ export function HowItWorksSection() {
             Proceso
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight text-balance">
-            {"Implementaci\u00f3n simple. "}
+            {"De proceso desordenado a sistema ejecutable. "}
             <br className="hidden md:block" />
-            Resultados inmediatos.
+            Sin humo ni complejidad artificial.
           </h2>
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            Diseñamos infraestructura digital para operaciones reales: clara para usar, sólida para crecer y lista
+            para incorporar automatización e inteligencia aplicada cuando hace falta.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

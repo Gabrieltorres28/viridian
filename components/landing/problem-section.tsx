@@ -2,40 +2,40 @@
 
 import { useState } from "react"
 import { motion } from "motion/react"
-import { Users, CreditCard, Package, BarChart3 } from "lucide-react"
+import { Workflow, Bot, Radar, Boxes } from "lucide-react"
 
 const cards = [
   {
-    icon: Users,
-    title: "Control de clientes",
+    icon: Workflow,
+    title: "Procesos repartidos en demasiados lugares",
     description:
-      "Centralizá toda la información de tus clientes, historial de compras y contacto en un solo lugar.",
+      "Planillas, mensajes, notas sueltas y memoria del equipo terminan sosteniendo operaciones que deberían vivir en un sistema.",
     backDetail:
-      "Sin historial compartido los leads se enfrían, se repiten contactos y se pierden renovaciones. Nadie sabe cuál fue el último compromiso ni qué se prometió.",
+      "Cuando cada paso depende de herramientas separadas, nadie tiene una vista completa de lo que pasa. Se duplican tareas, se pierden decisiones y la operación se vuelve frágil.",
   },
   {
-    icon: CreditCard,
-    title: "Registro de pagos",
+    icon: Bot,
+    title: "Trabajo manual que no debería seguir siendo manual",
     description:
-      "Llevá un registro claro de cobros, deudas y pagos pendientes sin planillas de Excel.",
+      "Seguimientos, validaciones, recordatorios y carga de datos consumen tiempo operativo que puede resolverse con automatización bien aplicada.",
     backDetail:
-      "Cobros dispersos y conciliaciones manuales ocultan la mora real: cobranzas llegan tarde, se pierden intereses y tu reputación se resiente.",
+      "Cada tarea repetitiva que sigue en manos del equipo agrega demora, error y desgaste. Automatizar bien no es adornar el proceso: es volverlo ejecutable a escala.",
   },
   {
-    icon: Package,
-    title: "Gestión de stock",
+    icon: Radar,
+    title: "Poca visibilidad para decidir con criterio",
     description:
-      "Controlá tu inventario en tiempo real con alertas de stock bajo y movimientos automáticos.",
+      "Si no hay trazabilidad, estados claros ni datos confiables, las decisiones salen por intuición, urgencia o contexto incompleto.",
     backDetail:
-      "Sin trazabilidad vendés lo que no tenés, entregás tarde y compras de más. Cada error en stock achica el margen y rompe la experiencia del cliente.",
+      "Sin estructura digital usable no sabés qué está frenado, qué venció, qué falta y qué requiere atención. El problema no es solo de orden: es de control operativo.",
   },
   {
-    icon: BarChart3,
-    title: "Reportes financieros claros",
+    icon: Boxes,
+    title: "Sistemas aislados que no acompañan el crecimiento",
     description:
-      "Visualizá ingresos, egresos y márgenes con dashboards claros y accionables.",
+      "Una herramienta suelta puede resolver una parte, pero no alcanza para coordinar equipos, procesos y decisiones en una misma lógica operativa.",
     backDetail:
-      "Cierres tardíos y decisiones a ciegas: no ves contribución por línea, no proyectás flujo y terminas gestionando por intuición en vez de datos.",
+      "Viridian Core no apunta a digitalizar una tarea y nada más. Diseña sistemas que conectan operación, seguimiento y ejecución para que el crecimiento no rompa la estructura.",
   },
 ]
 
@@ -62,13 +62,17 @@ export function ProblemSection() {
           transition={{ duration: 0.7 }}
         >
           <p className="text-viridian font-mono text-sm tracking-[0.2em] uppercase mb-4">
-            El problema
+            Filosofía de trabajo
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight text-balance">
-            {"El problema no es tu negocio. "}
+            {"No hacemos software para decorar procesos. "}
             <br className="hidden md:block" />
-            {"Es la gesti\u00f3n."}
+            {"Construimos sistemas para ejecutarlos mejor."}
           </h2>
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            Viridian Core convierte procesos dispersos en infraestructura digital usable. Combinamos software,
+            automatización e inteligencia aplicada para dar control, visibilidad y capacidad real de ejecución.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

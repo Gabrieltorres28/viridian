@@ -23,23 +23,23 @@ export function CtaSection() {
         transition={{ duration: 0.7 }}
       >
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-6 text-balance">
-          Te muestro una demo con tu caso
+          Diseñemos una base digital más seria para tu operación
         </h2>
         <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-xl mx-auto leading-relaxed">
-          Precio claro después de un diagnóstico corto. Sin comprometer tus operaciones actuales.
+          Revisamos tus procesos, detectamos dónde conviene sistematizar, automatizar o aplicar inteligencia, y te mostramos una propuesta concreta.
         </p>
         <ul className="text-left text-muted-foreground max-w-xl mx-auto space-y-2 mb-10">
           <li className="flex items-start gap-2">
             <span className="text-viridian">•</span>
-            <span>Demo real con tus procesos clave.</span>
+            <span>Diagnóstico claro de tus procesos y puntos críticos.</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-viridian">•</span>
-            <span>Precio claro luego de diagnóstico.</span>
+            <span>Propuesta de sistema, automatización o producto operativo según tu caso.</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-viridian">•</span>
-            <span>Soporte y mantenimiento opcional.</span>
+            <span>Implementación con criterio, evolución y soporte si lo necesitás.</span>
           </li>
         </ul>
 
@@ -53,7 +53,7 @@ export function CtaSection() {
               "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
           }}
         >
-          Pedir demo por WhatsApp
+          Solicitar demo
           <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
         </a>
 
