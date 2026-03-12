@@ -1,96 +1,77 @@
 "use client"
 
 import { motion } from "motion/react"
-import { Stethoscope, Rocket, RefreshCw } from "lucide-react"
 
 const steps = [
   {
-    icon: Stethoscope,
     number: "01",
-    title: "Diagnóstico operativo",
-    time: "Relevamiento inicial",
-    description:
-      "Mapeamos procesos, fricciones, decisiones críticas y puntos donde hoy dependés de trabajo manual, múltiples herramientas o seguimiento informal.",
+    title: "Leemos la operación",
+    description: "Detectamos fricción, dependencia manual, decisiones críticas y qué parte conviene sistematizar primero.",
   },
   {
-    icon: Rocket,
     number: "02",
-    title: "Diseño del sistema",
-    time: "Arquitectura + implementación",
-    description:
-      "Definimos la lógica operativa, los flujos, automatizaciones, paneles internos y puntos de control para construir una solución realmente usable.",
+    title: "Diseñamos el sistema correcto",
+    description: "Definimos flujos, interfaz, estructura de datos, automatizaciones y puntos de control con criterio de producto.",
   },
   {
-    icon: RefreshCw,
     number: "03",
-    title: "Evolución con criterio",
-    time: "Mejora continua",
-    description:
-      "Sobre una base sólida sumamos mejoras, automatización e inteligencia aplicada donde generan valor real, no complejidad innecesaria.",
+    title: "Implementamos y ajustamos",
+    description: "Construimos una base usable, probamos rápido y refinamos donde la utilidad real lo justifica.",
   },
 ]
 
 export function HowItWorksSection() {
   return (
-    <section className="relative py-32 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="proceso" className="relative px-6 py-24 md:py-28">
+      <div className="relative mx-auto max-w-6xl">
         <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
+          className="mx-auto max-w-3xl text-center"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
+          viewport={{ once: false, margin: "-80px", amount: 0.26 }}
+          transition={{ duration: 0.24 }}
         >
-          <p className="text-viridian font-mono text-sm tracking-[0.2em] uppercase mb-4">
-            Proceso
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight text-balance">
-            {"De proceso desordenado a sistema ejecutable. "}
-            <br className="hidden md:block" />
-            Sin humo ni complejidad artificial.
+          <p className="text-sm font-mono uppercase tracking-[0.22em] text-viridian">Proceso</p>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
+            Un proceso corto, ejecutivo y orientado a utilidad real.
           </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Diseñamos infraestructura digital para operaciones reales: clara para usar, sólida para crecer y lista
-            para incorporar automatización e inteligencia aplicada cuando hace falta.
+          <p className="mt-5 text-base leading-7 text-muted-foreground md:text-lg">
+            El objetivo no es producir más pantallas. Es dejar una herramienta que ayude a operar mejor.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step, i) => (
+        <motion.div
+          className="mt-12 grid gap-4 md:grid-cols-3"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
+          }}
+        >
+          {steps.map((step, index) => (
             <motion.div
               key={step.number}
-              className="relative mobile-float"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(18,20,19,0.96)_0%,rgba(12,14,13,0.96)_100%)] p-6"
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.22, delay: index * 0.01 },
+                },
+              }}
             >
-              {/* Connector line */}
-              {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-10 left-[calc(50%+40px)] right-[-calc(50%-40px)] w-full h-px bg-border" />
-              )}
-
-              <div className="text-center">
-                <div className="relative mx-auto w-20 h-20 rounded-full border border-viridian/30 flex items-center justify-center mb-6">
-                  <step.icon className="w-8 h-8 text-viridian" />
-                  <span className="absolute -top-2 -right-2 text-xs font-mono text-viridian-glow bg-background border border-viridian/30 rounded-full w-7 h-7 flex items-center justify-center">
-                    {step.number}
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-semibold text-foreground mb-1">
-                  {step.title}
-                </h3>
-                <p className="text-viridian font-mono text-sm mb-4">
-                  {step.time}
-                </p>
-                <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">
-                  {step.description}
-                </p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">{step.number}</span>
+                <span className="h-px w-10 bg-white/10" />
               </div>
+              <h3 className="mt-6 text-xl font-semibold tracking-tight text-foreground">{step.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{step.description}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

@@ -6,9 +6,9 @@ import { useState } from "react"
 import { Menu, X } from "lucide-react"
 
 const links = [
-  { label: "Soluciones", href: "#soluciones" },
-  { label: "Proceso", href: "#proceso" },
+  { label: "Oferta", href: "#soluciones" },
   { label: "Demos", href: "#demos" },
+  { label: "Proceso", href: "#proceso" },
   { label: "Contacto", href: "#contacto" },
 ]
 
@@ -17,132 +17,109 @@ export function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/90 md:bg-background/85 backdrop-blur-sm md:backdrop-blur-2xl shadow-[0_10px_24px_rgba(0,0,0,0.18)] md:shadow-[0_10px_40px_rgba(0,0,0,0.25)]"
-      initial={{ opacity: 0, y: -20 }}
+      className="fixed inset-x-0 top-0 z-50 border-b border-[#d8e7dc] bg-[linear-gradient(90deg,#eef4ec_0%,#e4eee5_52%,#dae7de_100%)] shadow-[0_12px_30px_rgba(0,0,0,0.08)]"
+      initial={{ opacity: 0, y: -18 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.45 }}
     >
-      <div className="mx-auto flex h-[56px] w-full items-center justify-between px-4 py-2 md:h-auto md:px-8 md:py-5 lg:px-10 xl:px-12">
-        <motion.a
-          id="nav-brand"
-          href="#"
-          className="flex items-center gap-2 md:gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <motion.div
-            animate={{
-              boxShadow: [
-                "0 0 0px rgba(78,218,158,0.0)",
-                "0 0 28px rgba(78,218,158,0.55)",
-                "0 0 0px rgba(78,218,158,0.0)",
-              ],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-            className="rounded-xl"
+      <div className="flex h-[96px] w-full items-center justify-between px-0 sm:px-0.5 md:h-[112px] md:px-1 lg:px-2">
+        <a id="nav-brand" href="#" className="flex items-center">
+          <span
+            className="group relative block h-[64px] w-[236px] shrink-0 overflow-hidden sm:h-[84px] sm:w-[372px] md:h-[96px] md:w-[434px] lg:h-[104px] lg:w-[486px]"
           >
             <Image
               id="nav-logo"
-              src="/eagle-real.png"
+              src="/logo-oficial.png"
               alt="Viridian Core"
-              width={72}
-              height={48}
-              className="select-none w-10 h-10 md:w-[120px] md:h-[70px]"
+              fill
+              sizes="(min-width: 1024px) 486px, (min-width: 768px) 434px, (min-width: 640px) 372px, 236px"
+              className="scale-[1.12] object-cover object-[left_43%] sm:scale-[1.14] sm:object-[left_42%]"
               priority
             />
-          </motion.div>
-          <motion.div
-            className="leading-tight"
-            animate={{
-              textShadow: [
-                "0 0 0px rgba(78,218,158,0.0)",
-                "0 0 14px rgba(78,218,158,0.35)",
-                "0 0 0px rgba(78,218,158,0.0)",
-              ],
-            }}
-            transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut", delay: 0.2 }}
-          >
-            <div id="nav-wordmark" className="text-sm md:text-lg font-semibold tracking-[0.08em] md:tracking-[0.12em] uppercase text-foreground">
-              Viridian
-            </div>
-            <div className="text-xs md:text-sm font-semibold tracking-[0.18em] md:tracking-[0.3em] text-viridian uppercase">
-              Core
-            </div>
-          </motion.div>
-        </motion.a>
+            <span className="pointer-events-none absolute inset-y-[14%] left-[-24%] w-[24%] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.12)_30%,rgba(78,218,158,0.55)_52%,rgba(255,255,255,0.22)_72%,transparent_100%)] blur-[2px] circuit-sweep" />
+            <span className="pointer-events-none absolute inset-y-[22%] left-[-18%] w-[18%] bg-[linear-gradient(90deg,transparent_0%,rgba(78,218,158,0.0)_20%,rgba(78,218,158,0.9)_55%,rgba(255,255,255,0.0)_100%)] opacity-80 blur-[10px] circuit-sweep-soft" />
+          </span>
+        </a>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-6 lg:gap-9">
+        <div className="hidden items-center gap-8 md:flex">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-black/62 transition-colors hover:text-black"
             >
               {link.label}
             </a>
           ))}
           <a
-          href="https://wa.me/543751471708"
+            href="https://wa.me/543751471708?text=Hola%2C%20quiero%20evaluar%20un%20sistema%20para%20mi%20operaci%C3%B3n."
             target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-foreground px-5 py-2 rounded-lg transition-all hover:shadow-[0_0_20px_rgba(78,218,158,0.3)]"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
-            }}
-            aria-label="Contactar por WhatsApp"
+            rel="noreferrer noopener"
+            className="rounded-xl border border-black/8 bg-black px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#111]"
           >
-            Contactar
+            Solicitar propuesta
           </a>
         </div>
 
-        {/* Mobile toggle */}
         <button
-          className="md:hidden text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          className="mr-3 rounded-full border border-black/10 bg-white/55 p-2 text-black backdrop-blur-sm md:hidden"
+          onClick={() => setMobileOpen((value) => !value)}
           aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
         >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <motion.div
-          className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="flex flex-col gap-1 px-6 py-4">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-muted-foreground hover:text-foreground py-2 transition-colors"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-            href="https://wa.me/543751471708"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 text-center font-medium text-foreground px-5 py-2.5 rounded-lg"
-              style={{
-                background:
-                  "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
-              }}
-              onClick={() => setMobileOpen(false)}
-            >
-              Contactar
-            </a>
-          </div>
-        </motion.div>
-      )}
+      {mobileOpen ? (
+        <>
+          <motion.button
+            type="button"
+            aria-label="Cerrar menú"
+            className="fixed inset-0 top-[96px] z-40 bg-[rgba(14,20,16,0.18)] backdrop-blur-md md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setMobileOpen(false)}
+          />
+
+          <motion.div
+            className="absolute inset-x-0 top-full z-50 px-3 pb-3 md:hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.24 }}
+          >
+            <div className="overflow-hidden rounded-[28px] border border-white/30 bg-[linear-gradient(180deg,rgba(245,249,243,0.72)_0%,rgba(232,240,233,0.64)_100%)] shadow-[0_20px_50px_rgba(0,0,0,0.12)] backdrop-blur-2xl">
+              <div className="border-b border-black/6 px-5 py-4">
+                <p className="text-[11px] uppercase tracking-[0.2em] text-viridian">Navegación</p>
+                <p className="mt-2 text-sm text-black/62">Accedé rápido a la oferta, demos y contacto.</p>
+              </div>
+
+              <div className="flex flex-col gap-1 p-3">
+                {links.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-2xl px-4 py-3 text-sm font-medium text-black/72 transition-colors hover:bg-black/[0.04] hover:text-black"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+                <a
+                  href="https://wa.me/543751471708?text=Hola%2C%20quiero%20evaluar%20un%20sistema%20para%20mi%20operaci%C3%B3n."
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="mt-2 rounded-2xl border border-black/8 bg-black px-4 py-3 text-center text-sm font-semibold text-white"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Solicitar propuesta
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      ) : null}
     </motion.nav>
   )
 }

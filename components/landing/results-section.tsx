@@ -2,86 +2,127 @@
 
 import { motion } from "motion/react"
 
-const results = [
+const offerCards = [
   {
-    label: "Operación",
-    value: "Menos fricción",
-    detail: "Procesos más claros y menos dependencia de pasos manuales invisibles.",
+    title: "Sistemas internos",
+    description: "Paneles, flujos y herramientas para ordenar tareas, estados, responsables y decisiones críticas.",
   },
   {
-    label: "Control",
-    value: "Más trazabilidad",
-    detail: "Estados, responsables y decisiones visibles en un sistema centralizado.",
+    title: "Automatización aplicada",
+    description: "Recordatorios, validaciones y pasos automáticos donde hoy el equipo pierde tiempo operativo.",
   },
   {
-    label: "Automatización",
-    value: "Más capacidad",
-    detail: "Recordatorios, validaciones y flujos automáticos donde más impacto generan.",
+    title: "Portales y experiencias",
+    description: "Capas digitales para atención, captación o servicios con una lógica útil detrás, no solo una buena cara.",
   },
   {
-    label: "Escala",
-    value: "Base más sólida",
-    detail: "Una estructura digital que soporta crecimiento, nuevos procesos e IA aplicada.",
+    title: "Herramientas inteligentes",
+    description: "IA integrada con criterio para relevar, asistir o acelerar procesos concretos sin agregar humo.",
   },
+]
+
+const benefits = [
+  "Menos seguimiento manual",
+  "Menos puntos ciegos",
+  "Más trazabilidad real",
+  "Más capacidad de ejecución",
 ]
 
 export function ResultsSection() {
   return (
-    <section id="resultados" className="relative py-28 px-6">
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          background:
-            "radial-gradient(circle at 40% 40%, var(--viridian-glow) 0%, transparent 60%)",
-        }}
-      />
+    <section id="soluciones" className="relative px-6 py-24 md:py-28">
+      <div className="relative mx-auto max-w-6xl">
+        <motion.div
+          className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+          transition={{ duration: 0.32 }}
+        >
+          <div className="max-w-xl">
+            <motion.p
+              className="text-sm font-mono uppercase tracking-[0.22em] text-viridian"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
+              transition={{ duration: 0.2 }}
+            >
+              Oferta principal
+            </motion.p>
+            <motion.h2
+              className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-5xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
+              transition={{ duration: 0.24, delay: 0.03 }}
+            >
+              Una oferta clara: construir sistemas que vuelvan la operación más ejecutable.
+            </motion.h2>
+            <motion.p
+              className="mt-5 text-base leading-7 text-muted-foreground md:text-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
+              transition={{ duration: 0.22, delay: 0.05 }}
+            >
+              No vendemos horas sueltas ni un catálogo de piezas. Diseñamos la capa digital que ordena procesos,
+              reduce fricción y habilita una mejora operativa sostenida.
+            </motion.p>
 
-      <div className="relative max-w-5xl mx-auto text-center mb-14">
-        <motion.p
-          className="text-viridian font-mono text-sm tracking-[0.2em] uppercase mb-3"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4 }}
-        >
-          Resultados típicos
-        </motion.p>
-        <motion.h2
-          className="text-3xl md:text-5xl font-bold text-foreground tracking-tight text-balance"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-        >
-          Qué cambia cuando la operación deja de depender de parches
-        </motion.h2>
-        <motion.p
-          className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, delay: 0.08 }}
-        >
-          El resultado no es solo más orden administrativo. Es más capacidad de ejecución, mejor visibilidad y una
-          base tecnológica más útil para operar, automatizar y escalar.
-        </motion.p>
-      </div>
+            <motion.div
+              className="mt-8 flex flex-wrap gap-3"
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.04, delayChildren: 0.08 } },
+              }}
+            >
+              {benefits.map((item) => (
+                <motion.span
+                  key={item}
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-foreground"
+                  variants={{
+                    hidden: { opacity: 0, y: 14 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.18 } },
+                  }}
+                >
+                  {item}
+                </motion.span>
+              ))}
+            </motion.div>
+          </div>
 
-      <div className="relative max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {results.map((item, idx) => (
           <motion.div
-            key={item.label}
-            className="bg-card border border-border/80 rounded-xl p-6 text-left shadow-[0_8px_28px_rgba(0,0,0,0.18)]"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-70px" }}
-            transition={{ duration: 0.45, delay: idx * 0.05 }}
+            className="grid gap-4 md:grid-cols-2"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.05, delayChildren: 0.06 } },
+            }}
           >
-            <p className="text-sm uppercase tracking-[0.14em] text-viridian font-mono mb-3">{item.label}</p>
-            <p className="text-3xl font-bold text-foreground mb-2">{item.value}</p>
-            <p className="text-sm text-muted-foreground leading-relaxed">{item.detail}</p>
+            {offerCards.map((card, index) => (
+              <motion.div
+                key={card.title}
+                className="rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(18,20,19,0.96)_0%,rgba(12,14,13,0.96)_100%)] p-6"
+                variants={{
+                  hidden: { opacity: 0, y: 24 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.22, delay: index * 0.01 },
+                  },
+                }}
+              >
+                <p className="text-lg font-semibold tracking-tight text-foreground">{card.title}</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{card.description}</p>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
+        </motion.div>
       </div>
     </section>
   )

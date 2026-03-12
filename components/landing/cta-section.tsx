@@ -1,65 +1,99 @@
 "use client"
 
 import { motion } from "motion/react"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, MessageCircle } from "lucide-react"
+
+const nextSteps = [
+  "Revisamos tu operación y detectamos dónde conviene intervenir primero.",
+  "Te mostramos una dirección concreta: sistema, portal, automatización o una combinación útil.",
+  "Si hay encaje, avanzamos sobre una base seria y escalable.",
+]
 
 export function CtaSection() {
   return (
-    <section className="relative py-32 px-6">
-      {/* Viridian glow accent */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, var(--viridian-glow) 0%, transparent 50%)",
-        }}
-      />
-
-      <motion.div
-        className="relative max-w-3xl mx-auto text-center"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7 }}
-      >
-        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-6 text-balance">
-          Diseñemos una base digital más seria para tu operación
-        </h2>
-        <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-xl mx-auto leading-relaxed">
-          Revisamos tus procesos, detectamos dónde conviene sistematizar, automatizar o aplicar inteligencia, y te mostramos una propuesta concreta.
-        </p>
-        <ul className="text-left text-muted-foreground max-w-xl mx-auto space-y-2 mb-10">
-          <li className="flex items-start gap-2">
-            <span className="text-viridian">•</span>
-            <span>Diagnóstico claro de tus procesos y puntos críticos.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-viridian">•</span>
-            <span>Propuesta de sistema, automatización o producto operativo según tu caso.</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-viridian">•</span>
-            <span>Implementación con criterio, evolución y soporte si lo necesitás.</span>
-          </li>
-        </ul>
-
-        <a
-          href="https://wa.me/543751471708?text=Hola%20quiero%20una%20demo%20con%20mi%20caso&source=landing&utm_source=landing&utm_medium=cta_final"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 text-foreground font-medium text-lg px-10 py-4 rounded-lg transition-all hover:shadow-[0_0_40px_rgba(78,218,158,0.35)] mobile-float"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
-          }}
+    <section id="contacto" className="relative px-6 py-24 md:py-32">
+      <div className="relative mx-auto max-w-5xl">
+        <motion.div
+          className="overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(17,19,18,0.98)_0%,rgba(10,12,11,1)_100%)] p-8 md:p-10 lg:p-12"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-90px", amount: 0.22 }}
+          transition={{ duration: 0.28 }}
         >
-          Solicitar demo
-          <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-        </a>
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-60"
+            style={{
+              background:
+                "radial-gradient(circle at top, rgba(78,218,158,0.16) 0%, rgba(78,218,158,0.02) 42%, transparent 74%)",
+            }}
+          />
 
-        {/* Decorative line */}
-        <div className="mt-20 mx-auto w-24 h-px bg-viridian/30" />
-      </motion.div>
+          <div className="relative grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+            <div>
+              <p className="text-sm font-mono uppercase tracking-[0.22em] text-viridian">Cierre</p>
+              <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
+                Si necesitás una base digital más clara, más útil y más seria, conversemos.
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+                El primer paso no es una presentación larga. Es entender la operación, detectar el punto con más
+                retorno y plantear una propuesta concreta.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="https://wa.me/543751471708?text=Hola%2C%20quiero%20contarte%20mi%20operaci%C3%B3n%20y%20evaluar%20un%20sistema."
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-foreground px-6 py-3.5 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Escribir por WhatsApp
+                </a>
+                <a
+                  href="#demos"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.03] px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
+                >
+                  Volver a las demos
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+
+            <motion.div
+              className="rounded-[24px] border border-white/8 bg-white/[0.03] p-5"
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+              transition={{ duration: 0.22, delay: 0.06 }}
+            >
+              <p className="text-xs uppercase tracking-[0.18em] text-viridian">Cómo trabajamos el inicio</p>
+              <motion.ul
+                className="mt-4 space-y-4"
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+                variants={{
+                  hidden: {},
+                  show: { transition: { staggerChildren: 0.05, delayChildren: 0.08 } },
+                }}
+              >
+                {nextSteps.map((step) => (
+                  <motion.li
+                    key={step}
+                    className="border-b border-white/8 pb-4 text-sm leading-6 text-muted-foreground last:border-b-0 last:pb-0"
+                    variants={{
+                      hidden: { opacity: 0, y: 16 },
+                      show: { opacity: 1, y: 0, transition: { duration: 0.18 } },
+                    }}
+                  >
+                    {step}
+                  </motion.li>
+                ))}
+              </motion.ul>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   )
 }

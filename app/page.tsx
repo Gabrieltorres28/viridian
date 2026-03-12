@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/landing/navbar"
-import { HeroCinematic } from "@/components/landing/hero-cinematic"
+import { HeroSection } from "@/components/landing/hero-section"
 import { ProblemSection } from "@/components/landing/problem-section"
 import { HowItWorksSection } from "@/components/landing/how-it-works-section"
 import { ProjectsSection } from "@/src/components/projects/ProjectsSection"
@@ -12,18 +12,12 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background pb-28 sm:pb-0">
       <Navbar />
-      <HeroCinematic />
-      <ProjectsSection />
+      <HeroSection />
       <ResultsSection />
-      <div id="soluciones">
-        <ProblemSection />
-      </div>
-      <div id="proceso">
-        <HowItWorksSection />
-      </div>
-      <div id="contacto">
-        <CtaSection />
-      </div>
+      <ProjectsSection />
+      <ProblemSection />
+      <HowItWorksSection />
+      <CtaSection />
       <Footer />
 
       {/* Sticky mobile CTA for quick WhatsApp demos */}

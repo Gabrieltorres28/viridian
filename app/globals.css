@@ -44,8 +44,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Inter', 'Inter Fallback', sans-serif;
-  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
+  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -101,6 +101,9 @@
     overflow-x: hidden;
     width: 100%;
     position: relative;
+    background-image:
+      linear-gradient(180deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0) 18%),
+      radial-gradient(circle at top, rgba(78,218,158,0.08) 0%, rgba(78,218,158,0.01) 18%, transparent 42%);
   }
 }
 
@@ -121,4 +124,29 @@
 
 .tw-caret {
   animation: twBlink 1s step-end infinite;
+}
+
+@keyframes circuitSweep {
+  0% {
+    transform: translate3d(0, 0, 0) skewX(-18deg);
+    opacity: 0;
+  }
+  14% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate3d(560%, 0, 0) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+.circuit-sweep {
+  animation: circuitSweep 1.65s cubic-bezier(0.22, 0.8, 0.2, 1) 0.2s both;
+}
+
+.circuit-sweep-soft {
+  animation: circuitSweep 1.85s cubic-bezier(0.22, 0.8, 0.2, 1) 0.08s both;
 }

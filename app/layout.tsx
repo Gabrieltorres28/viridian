@@ -1,14 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
-
 export const metadata: Metadata = {
-  title: 'Viridian Core | Sistemas para ordenar operaciones',
-  description: 'Viridian Core diseña sistemas digitales, automatización e inteligencia aplicada para ordenar operaciones reales con control, trazabilidad y escala.',
+  title: 'Viridian Core | Sistemas digitales para operar mejor',
+  description: 'Viridian Core diseña sistemas internos, automatización, portales y herramientas inteligentes para operaciones reales con más control, trazabilidad y criterio técnico.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -41,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className="font-sans antialiased">
         {children}
         <Analytics />
       </body>

@@ -1,170 +1,97 @@
 "use client"
 
-import { useState } from "react"
 import { motion } from "motion/react"
-import { Workflow, Bot, Radar, Boxes } from "lucide-react"
 
-const cards = [
+const proofPoints = [
   {
-    icon: Workflow,
-    title: "Procesos repartidos en demasiados lugares",
-    description:
-      "Planillas, mensajes, notas sueltas y memoria del equipo terminan sosteniendo operaciones que deberían vivir en un sistema.",
-    backDetail:
-      "Cuando cada paso depende de herramientas separadas, nadie tiene una vista completa de lo que pasa. Se duplican tareas, se pierden decisiones y la operación se vuelve frágil.",
+    label: "Señal de credibilidad",
+    title: "Sistemas activos y demos funcionales",
+    description: "La prueba está en productos que ya se pueden recorrer, no en promesas abstractas.",
   },
   {
-    icon: Bot,
-    title: "Trabajo manual que no debería seguir siendo manual",
-    description:
-      "Seguimientos, validaciones, recordatorios y carga de datos consumen tiempo operativo que puede resolverse con automatización bien aplicada.",
-    backDetail:
-      "Cada tarea repetitiva que sigue en manos del equipo agrega demora, error y desgaste. Automatizar bien no es adornar el proceso: es volverlo ejecutable a escala.",
+    label: "Beneficio operativo",
+    title: "Menos dependencia de memoria y chat disperso",
+    description: "Estados, responsables y pasos quedan dentro del sistema en lugar de circular entre mensajes sueltos.",
   },
   {
-    icon: Radar,
-    title: "Poca visibilidad para decidir con criterio",
-    description:
-      "Si no hay trazabilidad, estados claros ni datos confiables, las decisiones salen por intuición, urgencia o contexto incompleto.",
-    backDetail:
-      "Sin estructura digital usable no sabés qué está frenado, qué venció, qué falta y qué requiere atención. El problema no es solo de orden: es de control operativo.",
-  },
-  {
-    icon: Boxes,
-    title: "Sistemas aislados que no acompañan el crecimiento",
-    description:
-      "Una herramienta suelta puede resolver una parte, pero no alcanza para coordinar equipos, procesos y decisiones en una misma lógica operativa.",
-    backDetail:
-      "Viridian Core no apunta a digitalizar una tarea y nada más. Diseña sistemas que conectan operación, seguimiento y ejecución para que el crecimiento no rompa la estructura.",
+    label: "Beneficio de gestión",
+    title: "Más visibilidad para decidir con criterio",
+    description: "Trazabilidad, contexto y puntos de control para ejecutar mejor y detectar fricción antes.",
   },
 ]
 
 export function ProblemSection() {
-  const [flippedId, setFlippedId] = useState<string | null>(null)
-
   return (
-    <section className="relative py-32 px-6">
-      {/* Subtle radial accent */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-[0.04]"
-        style={{
-          background:
-            "radial-gradient(ellipse, var(--viridian-glow) 0%, transparent 70%)",
-        }}
-      />
-
-      <div className="relative max-w-6xl mx-auto">
+    <section className="relative px-6 py-24 md:py-28">
+      <div className="relative mx-auto max-w-6xl">
         <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
+          className="grid gap-8 rounded-[32px] border border-white/8 bg-[linear-gradient(180deg,rgba(15,17,16,0.98)_0%,rgba(10,11,11,0.98)_100%)] p-7 md:p-10 lg:grid-cols-[0.9fr_1.1fr]"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
+          viewport={{ once: false, margin: "-90px", amount: 0.22 }}
+          transition={{ duration: 0.28 }}
         >
-          <p className="text-viridian font-mono text-sm tracking-[0.2em] uppercase mb-4">
-            Filosofía de trabajo
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight text-balance">
-            {"No hacemos software para decorar procesos. "}
-            <br className="hidden md:block" />
-            {"Construimos sistemas para ejecutarlos mejor."}
-          </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            Viridian Core convierte procesos dispersos en infraestructura digital usable. Combinamos software,
-            automatización e inteligencia aplicada para dar control, visibilidad y capacidad real de ejecución.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {cards.map((card, i) => (
-            <motion.div
-              key={card.title}
-              className="group relative bg-card border border-border rounded-xl p-0 transition-all hover:border-viridian/40 mobile-float"
-              initial={{ opacity: 0, y: 40 }}
+          <div className="max-w-xl">
+            <motion.p
+              className="text-sm font-mono uppercase tracking-[0.22em] text-viridian"
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              onMouseEnter={() => setFlippedId(card.title)}
-              onMouseLeave={() => setFlippedId(null)}
+              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
+              transition={{ duration: 0.18 }}
             >
-              <div
-                className="relative h-full min-h-[240px] rounded-xl overflow-hidden"
-                style={{ perspective: "1400px" }}
-              >
-                <div
-                  className="w-full h-full transition-transform duration-600 ease-[cubic-bezier(0.19,0.8,0.32,1)] shadow-[0_12px_40px_rgba(0,0,0,0.35)] rounded-xl"
-                  style={{
-                    transformStyle: "preserve-3d",
-                    transform:
-                      flippedId === card.title
-                        ? "rotateY(180deg)"
-                        : "rotateY(0deg)",
-                  }}
-                >
-                  {/* Cara frontal */}
-                  <div
-                    className="absolute inset-0 p-8 flex flex-col bg-card/90"
-                    style={{
-                      backfaceVisibility: "hidden",
-                      transform: "translateZ(12px)",
-                    }}
-                  >
-                    <div className="w-12 h-12 rounded-lg bg-viridian/10 flex items-center justify-center mb-5">
-                      <card.icon className="w-6 h-6 text-viridian" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-3">
-                      {card.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-none">
-                      {card.description}
-                    </p>
-                    <div className="mt-auto md:hidden">
-                      <button
-                        onClick={() =>
-                          setFlippedId(
-                            flippedId === card.title ? null : card.title,
-                          )
-                        }
-                        className="mt-6 inline-flex items-center text-sm font-medium text-foreground px-4 py-2 rounded-lg"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, rgba(78,218,158,0.95) 0%, rgba(47,143,102,0.92) 50%, rgba(23,77,58,0.9) 100%)",
-                        }}
-                      >
-                        Ver más información
-                      </button>
-                    </div>
-                  </div>
+              Manifiesto breve
+            </motion.p>
+            <motion.h2
+              className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-5xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
+              transition={{ duration: 0.22, delay: 0.03 }}
+            >
+              No construimos software para decorar procesos. Diseñamos sistemas para operarlos mejor.
+            </motion.h2>
+            <motion.p
+              className="mt-5 text-base leading-7 text-muted-foreground md:text-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
+              transition={{ duration: 0.22, delay: 0.05 }}
+            >
+              Viridian Core funciona mejor cuando hay una operación real que necesita orden, criterio técnico y una
+              base digital capaz de sostener crecimiento sin sumar complejidad vacía.
+            </motion.p>
+          </div>
 
-                  {/* Cara trasera */}
-                  <div
-                    className="absolute inset-0 p-8 flex flex-col justify-between"
-                    style={{
-                      backfaceVisibility: "hidden",
-                      transform: "rotateY(180deg) translateZ(12px)",
-                      background:
-                        "linear-gradient(135deg, rgba(23,77,58,0.9) 0%, rgba(47,143,102,0.92) 50%, rgba(78,218,158,0.9) 100%)",
-                      color: "#0a0a0a",
-                      boxShadow: "inset 0 0 18px rgba(0,0,0,0.25)",
-                    }}
-                  >
-                    <div>
-                      <p className="text-sm uppercase tracking-[0.18em] font-mono opacity-80">
-                        Detalle
-                      </p>
-                      <p className="mt-4 text-base leading-relaxed">
-                        {card.backDetail}
-                      </p>
-                    </div>
-                    <div className="text-sm font-semibold tracking-[0.14em] uppercase opacity-80">
-                      Viridian Core
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+          <motion.div
+            className="grid gap-4 md:grid-cols-3"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.05, delayChildren: 0.06 } },
+            }}
+          >
+            {proofPoints.map((point, index) => (
+              <motion.div
+                key={point.title}
+                className="rounded-[24px] border border-white/8 bg-white/[0.025] p-5"
+                variants={{
+                  hidden: { opacity: 0, y: 22 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.22, delay: index * 0.01 },
+                  },
+                }}
+              >
+                <p className="text-xs uppercase tracking-[0.16em] text-viridian">{point.label}</p>
+                <p className="mt-3 text-lg font-semibold tracking-tight text-foreground">{point.title}</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{point.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )
