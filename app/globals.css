@@ -44,7 +44,8 @@
 }
 
 @theme inline {
-  --font-sans: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-manrope);
   --font-mono: "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -98,6 +99,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-inter), "Segoe UI", sans-serif;
+    font-feature-settings: "cv11", "ss03", "ss04";
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
     width: 100%;
     position: relative;
@@ -105,11 +109,29 @@
       linear-gradient(180deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0) 18%),
       radial-gradient(circle at top, rgba(78,218,158,0.08) 0%, rgba(78,218,158,0.01) 18%, transparent 42%);
   }
-  h1, h2, h3 {
+  h1, h2, h3, h4 {
+    font-family: var(--font-manrope), "Segoe UI", sans-serif;
+    font-feature-settings: "ss01", "ss02", "cv10";
+    letter-spacing: -0.035em;
     text-wrap: balance;
+  }
+  h1 {
+    line-height: 0.96;
+  }
+  h2 {
+    line-height: 1.02;
+  }
+  h3, h4 {
+    line-height: 1.08;
   }
   p, li {
     text-wrap: pretty;
+  }
+  p {
+    line-height: 1.65;
+  }
+  a, button, input, textarea, select, label {
+    font-family: var(--font-inter), "Segoe UI", sans-serif;
   }
   section[id] {
     scroll-margin-top: 92px;
@@ -117,6 +139,12 @@
   @media (min-width: 768px) {
     section[id] {
       scroll-margin-top: 108px;
+    }
+    h1 {
+      line-height: 0.92;
+    }
+    h2 {
+      line-height: 0.98;
     }
   }
 }

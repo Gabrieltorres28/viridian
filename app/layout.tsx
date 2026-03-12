@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { inter, manrope } from './fonts'
 
 export const metadata: Metadata = {
   title: 'Viridian Core | Sistemas digitales para operar mejor',
@@ -37,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="font-sans antialiased">
+      <body className={`${inter.variable} ${manrope.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>
