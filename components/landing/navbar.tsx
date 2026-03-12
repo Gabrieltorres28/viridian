@@ -2,26 +2,89 @@
 
 import Image from "next/image"
 import { motion } from "motion/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
 
 const links = [
   { label: "Oferta", href: "#soluciones" },
-  { label: "Demos", href: "#demos" },
+  { label: "Casos", href: "#demos" },
   { label: "Proceso", href: "#proceso" },
   { label: "Contacto", href: "#contacto" },
 ]
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [activeHref, setActiveHref] = useState(links[0].href)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    const updateScrollState = () => {
+      const scrollY = window.scrollY
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+
+      setScrolled(scrollY > 16)
+      setScrollProgress(maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0)
+    }
+
+    updateScrollState()
+    window.addEventListener("scroll", updateScrollState, { passive: true })
+
+    return () => window.removeEventListener("scroll", updateScrollState)
+  }, [])
+
+  useEffect(() => {
+    const sections = links
+      .map((link) => document.querySelector(link.href))
+      .filter((section): section is HTMLElement => section instanceof HTMLElement)
+
+    if (sections.length === 0) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+
+        if (visibleEntry?.target?.id) {
+          setActiveHref(`#${visibleEntry.target.id}`)
+        }
+      },
+      {
+        rootMargin: "-28% 0px -52% 0px",
+        threshold: [0.2, 0.35, 0.5, 0.7],
+      }
+    )
+
+    sections.forEach((section) => observer.observe(section))
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <motion.nav
-      className="fixed inset-x-0 top-0 z-50 border-b border-[#d8e7dc] bg-[linear-gradient(90deg,#eef4ec_0%,#e4eee5_52%,#dae7de_100%)] shadow-[0_12px_30px_rgba(0,0,0,0.08)]"
+      className="fixed inset-x-0 top-0 z-50"
       initial={{ opacity: 0, y: -18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45 }}
     >
+      <motion.div
+        className="relative border-b"
+        animate={{
+          borderColor: scrolled ? "rgba(216,231,220,0.55)" : "rgba(216,231,220,1)",
+          backgroundColor: scrolled ? "rgba(238,244,236,0.78)" : "rgba(0,0,0,0)",
+          boxShadow: scrolled ? "0 12px 30px rgba(0,0,0,0.10)" : "0 12px 30px rgba(0,0,0,0.08)",
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        style={{
+          backdropFilter: scrolled ? "blur(18px)" : "blur(0px)",
+          backgroundImage: scrolled
+            ? "linear-gradient(90deg,rgba(238,244,236,0.76)_0%,rgba(228,238,229,0.74)_52%,rgba(218,231,222,0.72)_100%)"
+            : "linear-gradient(90deg,#eef4ec_0%,#e4eee5_52%,#dae7de_100%)",
+        }}
+      >
       <div className="flex h-[88px] w-full items-center justify-between px-3 sm:h-[96px] sm:px-0.5 md:h-[112px] md:px-1 lg:px-2">
         <a id="nav-brand" href="#" className="flex min-w-0 items-center">
           <span
@@ -46,8 +109,17 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-black/62 transition-colors hover:text-black"
+              className={`relative rounded-full px-3 py-2 text-sm transition-colors ${
+                activeHref === link.href ? "text-black" : "text-black/62 hover:text-black"
+              }`}
             >
+              {activeHref === link.href ? (
+                <motion.span
+                  layoutId="navbar-active-link"
+                  className="absolute inset-0 -z-10 rounded-full border border-black/8 bg-white/65 shadow-[0_8px_18px_rgba(0,0,0,0.06)]"
+                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                />
+              ) : null}
               {link.label}
             </a>
           ))}
@@ -70,6 +142,13 @@ export function Navbar() {
         </button>
       </div>
 
+      <motion.span
+        className="absolute inset-x-0 bottom-0 h-px origin-left bg-[linear-gradient(90deg,#0f766e_0%,#34d399_45%,#99f6e4_100%)]"
+        animate={{ scaleX: scrollProgress }}
+        transition={{ duration: 0.12, ease: "linear" }}
+      />
+      </motion.div>
+
       {mobileOpen ? (
         <>
           <motion.button
@@ -91,7 +170,7 @@ export function Navbar() {
           >
             <div className="overflow-hidden rounded-[28px] border border-white/30 bg-[linear-gradient(180deg,rgba(245,249,243,0.72)_0%,rgba(232,240,233,0.64)_100%)] shadow-[0_20px_50px_rgba(0,0,0,0.12)] backdrop-blur-2xl">
               <div className="border-b border-black/6 px-5 py-4">
-                <p className="text-[11px] uppercase tracking-[0.2em] text-viridian">Navegación</p>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-[#0b5d56]">Navegación</p>
                 <p className="mt-2 text-sm text-black/62">Accedé rápido a la oferta, demos y contacto.</p>
               </div>
 
@@ -100,7 +179,11 @@ export function Navbar() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="rounded-2xl px-4 py-3 text-sm font-medium text-black/72 transition-colors hover:bg-black/[0.04] hover:text-black"
+                    className={`rounded-2xl px-4 py-3 text-sm font-medium transition-colors ${
+                      activeHref === link.href
+                        ? "bg-black/[0.06] text-black"
+                        : "text-black/72 hover:bg-black/[0.04] hover:text-black"
+                    }`}
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
