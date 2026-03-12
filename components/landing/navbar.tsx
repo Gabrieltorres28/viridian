@@ -22,18 +22,18 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45 }}
     >
-      <div className="flex h-[96px] w-full items-center justify-between px-0 sm:px-0.5 md:h-[112px] md:px-1 lg:px-2">
-        <a id="nav-brand" href="#" className="flex items-center">
+      <div className="flex h-[88px] w-full items-center justify-between px-3 sm:h-[96px] sm:px-0.5 md:h-[112px] md:px-1 lg:px-2">
+        <a id="nav-brand" href="#" className="flex min-w-0 items-center">
           <span
-            className="group relative block h-[64px] w-[236px] shrink-0 overflow-hidden sm:h-[84px] sm:w-[372px] md:h-[96px] md:w-[434px] lg:h-[104px] lg:w-[486px]"
+            className="group relative block h-[52px] w-[182px] shrink-0 overflow-hidden sm:h-[84px] sm:w-[372px] md:h-[96px] md:w-[434px] lg:h-[104px] lg:w-[486px]"
           >
             <Image
               id="nav-logo"
               src="/logo-oficial.png"
               alt="Viridian Core"
               fill
-              sizes="(min-width: 1024px) 486px, (min-width: 768px) 434px, (min-width: 640px) 372px, 236px"
-              className="scale-[1.12] object-cover object-[left_43%] sm:scale-[1.14] sm:object-[left_42%]"
+              sizes="(min-width: 1024px) 486px, (min-width: 768px) 434px, (min-width: 640px) 372px, 182px"
+              className="scale-[1.08] object-cover object-[left_43%] sm:scale-[1.14] sm:object-[left_42%]"
               priority
             />
             <span className="pointer-events-none absolute inset-y-[14%] left-[-24%] w-[24%] bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.12)_30%,rgba(78,218,158,0.55)_52%,rgba(255,255,255,0.22)_72%,transparent_100%)] blur-[2px] circuit-sweep" />
@@ -75,7 +75,7 @@ export function Navbar() {
           <motion.button
             type="button"
             aria-label="Cerrar menú"
-            className="fixed inset-0 top-[96px] z-40 bg-[rgba(14,20,16,0.18)] backdrop-blur-md md:hidden"
+            className="fixed inset-0 top-[88px] z-40 bg-[rgba(14,20,16,0.18)] backdrop-blur-md sm:top-[96px] md:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

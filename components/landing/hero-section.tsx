@@ -45,14 +45,14 @@ export function HeroSection() {
         }}
       />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-6xl min-w-0">
         <motion.div
           className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:items-end"
           initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
         >
-          <div className="max-w-4xl">
+          <div className="min-w-0 max-w-4xl">
             <motion.div
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.22em] text-viridian"
               initial={{ opacity: 0, y: 16 }}
@@ -72,12 +72,15 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.div
-              className="mt-4 inline-flex min-h-[40px] items-center rounded-xl border border-viridian/16 bg-viridian/8 px-3 py-2 text-xs font-mono uppercase tracking-[0.16em] text-viridian md:min-h-[48px] md:px-4 md:py-2.5 md:text-sm"
+              className="mt-4 flex min-h-[40px] max-w-full items-center overflow-hidden rounded-xl border border-viridian/16 bg-viridian/8 px-3 py-2 text-xs font-mono uppercase tracking-[0.16em] text-viridian md:min-h-[48px] md:inline-flex md:px-4 md:py-2.5 md:text-sm"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.28, delay: 0.14 }}
             >
-              <TypewriterText words={typedWords} />
+              <span className="truncate md:hidden">Sistemas internos y automatización.</span>
+              <span className="hidden md:inline">
+                <TypewriterText words={typedWords} />
+              </span>
             </motion.div>
 
             <motion.p
@@ -114,7 +117,7 @@ export function HeroSection() {
             </motion.div>
 
             <motion.ul
-              className="mt-6 flex gap-2 overflow-x-auto pb-1 text-xs leading-5 text-foreground [scrollbar-width:none] md:grid md:grid-cols-3 md:overflow-visible md:text-sm md:leading-6"
+              className="mt-6 flex max-w-full gap-2 overflow-x-auto pb-1 text-xs leading-5 text-foreground [scrollbar-width:none] md:grid md:grid-cols-3 md:overflow-visible md:text-sm md:leading-6"
               initial="hidden"
               animate="show"
               variants={{

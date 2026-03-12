@@ -189,63 +189,84 @@ export function ProjectsSection() {
 
         {opsAiProject ? (
           <motion.div
-            className="mt-10 overflow-hidden rounded-[28px] border border-viridian/18 bg-[linear-gradient(180deg,rgba(16,20,18,0.98)_0%,rgba(10,12,11,1)_100%)] sm:mt-14"
+            className="mt-14 sm:mt-16"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={isMobile ? { once: true, margin: "-20px", amount: 0.06 } : { once: false, margin: "-80px", amount: 0.18 }}
             transition={{ duration: isMobile ? 0.2 : 0.26 }}
           >
-            <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
-              <div className="p-6 md:p-8">
-                <p className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">Explorar tu caso</p>
-                <h3 className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-                  ¿Querés contar más sobre tu negocio antes de hablar con nosotros?
-                </h3>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-                  Viridian Ops AI releva tu operación en tiempo real, detecta fricciones y te devuelve
-                  recomendaciones iniciales para pensar un sistema con más criterio.
-                </p>
+            <div className="mb-5 max-w-2xl">
+              <p className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">Ayuda inicial</p>
+              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+                ¿Todavía no tenés claro qué sistema necesita tu operación?
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
+                Antes de hablar de alcance, podés usar Viridian Ops AI para describir tu negocio y recibir una primera
+                lectura operativa.
+              </p>
+            </div>
 
-                <ul className="mt-6 space-y-3">
-                  {opsAiProject.outcomes.map((item) => (
-                    <li key={item} className="text-sm leading-6 text-muted-foreground">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+            <div className="overflow-hidden rounded-[28px] border border-viridian/18 bg-[linear-gradient(180deg,rgba(16,20,18,0.98)_0%,rgba(10,12,11,1)_100%)]">
+              <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
+                <div className="p-6 md:p-8">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full border border-viridian/20 bg-viridian/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-viridian">
+                      Herramienta de diagnóstico
+                    </span>
+                    <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                      Pre-evaluación
+                    </span>
+                  </div>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a
-                    href={opsAiProject.demoUrl}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
-                  >
-                    Probar Viridian Ops AI
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="https://wa.me/543751471708?text=Hola%2C%20quiero%20contar%20m%C3%A1s%20sobre%20mi%20negocio%20y%20evaluar%20un%20sistema."
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    Quiero conversar mi caso
-                  </a>
+                  <h4 className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+                    Viridian Ops AI
+                  </h4>
+                  <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
+                    Releva tu operación en tiempo real, detecta fricciones y devuelve recomendaciones iniciales para
+                    pensar un sistema con más criterio.
+                  </p>
+
+                  <ul className="mt-6 space-y-3">
+                    {opsAiProject.outcomes.map((item) => (
+                      <li key={item} className="text-sm leading-6 text-muted-foreground">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <a
+                      href={opsAiProject.demoUrl}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
+                    >
+                      Probar la herramienta
+                      <ArrowUpRight className="h-4 w-4" />
+                    </a>
+                    <a
+                      href="https://wa.me/543751471708?text=Hola%2C%20quiero%20contar%20m%C3%A1s%20sobre%20mi%20negocio%20y%20evaluar%20un%20sistema."
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      Quiero conversar mi caso
+                    </a>
+                  </div>
                 </div>
-              </div>
 
-              <div className="relative min-h-[260px] border-t border-white/8 bg-black/20 lg:min-h-full lg:border-l lg:border-t-0">
-                {opsAiProject.image ? (
-                  <Image
-                    src={opsAiProject.image}
-                    alt={`Captura de ${opsAiProject.title}`}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className={opsAiProject.imageDisplay === "contain" ? "object-contain p-6" : "object-cover"}
-                  />
-                ) : null}
+                <div className="relative min-h-[260px] border-t border-white/8 bg-black/20 lg:min-h-full lg:border-l lg:border-t-0">
+                  {opsAiProject.image ? (
+                    <Image
+                      src={opsAiProject.image}
+                      alt={`Captura de ${opsAiProject.title}`}
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className={opsAiProject.imageDisplay === "contain" ? "object-contain p-6" : "object-cover"}
+                    />
+                  ) : null}
+                </div>
               </div>
             </div>
           </motion.div>

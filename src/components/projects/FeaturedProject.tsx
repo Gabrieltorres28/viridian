@@ -34,8 +34,8 @@ export function FeaturedProject({ project }: { project: Project }) {
         }}
       />
 
-      <div className="relative grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-        <div className="space-y-6">
+      <div className="relative grid min-w-0 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+        <div className="min-w-0 space-y-6">
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-full border border-viridian/25 bg-viridian/10 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.22em] text-viridian">
               {isProductionCase ? "Produccion real" : "Caso principal"}
