@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const proofPoints = [
   {
@@ -21,6 +22,11 @@ const proofPoints = [
 ]
 
 export function ProblemSection() {
+  const isMobile = useIsMobile()
+  const viewport = isMobile
+    ? { once: true, margin: "-20px", amount: 0.08 }
+    : { once: false, margin: "-90px", amount: 0.22 }
+
   return (
     <section className="relative px-6 py-24 md:py-28">
       <div className="relative mx-auto max-w-6xl">
@@ -28,16 +34,16 @@ export function ProblemSection() {
           className="grid gap-8 rounded-[32px] border border-white/8 bg-[linear-gradient(180deg,rgba(15,17,16,0.98)_0%,rgba(10,11,11,0.98)_100%)] p-7 md:p-10 lg:grid-cols-[0.9fr_1.1fr]"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-90px", amount: 0.22 }}
-          transition={{ duration: 0.28 }}
+          viewport={viewport}
+          transition={{ duration: isMobile ? 0.22 : 0.28 }}
         >
           <div className="max-w-xl">
             <motion.p
               className="text-sm font-mono uppercase tracking-[0.22em] text-viridian"
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
-              transition={{ duration: 0.18 }}
+              viewport={viewport}
+              transition={{ duration: isMobile ? 0.16 : 0.18 }}
             >
               Manifiesto breve
             </motion.p>
@@ -45,8 +51,8 @@ export function ProblemSection() {
               className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-5xl"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
-              transition={{ duration: 0.22, delay: 0.03 }}
+              viewport={viewport}
+              transition={{ duration: isMobile ? 0.18 : 0.22, delay: isMobile ? 0 : 0.03 }}
             >
               No construimos software para decorar procesos. Diseñamos sistemas para operarlos mejor.
             </motion.h2>
@@ -54,8 +60,8 @@ export function ProblemSection() {
               className="mt-5 text-base leading-7 text-muted-foreground md:text-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-80px", amount: 0.28 }}
-              transition={{ duration: 0.22, delay: 0.05 }}
+              viewport={viewport}
+              transition={{ duration: isMobile ? 0.18 : 0.22, delay: isMobile ? 0.02 : 0.05 }}
             >
               Viridian Core funciona mejor cuando hay una operación real que necesita orden, criterio técnico y una
               base digital capaz de sostener crecimiento sin sumar complejidad vacía.
@@ -66,10 +72,15 @@ export function ProblemSection() {
             className="grid gap-4 md:grid-cols-3"
             initial="hidden"
             whileInView="show"
-            viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+            viewport={viewport}
             variants={{
               hidden: {},
-              show: { transition: { staggerChildren: 0.05, delayChildren: 0.06 } },
+              show: {
+                transition: {
+                  staggerChildren: isMobile ? 0.02 : 0.05,
+                  delayChildren: isMobile ? 0.02 : 0.06,
+                },
+              },
             }}
           >
             {proofPoints.map((point, index) => (
@@ -81,7 +92,7 @@ export function ProblemSection() {
                   show: {
                     opacity: 1,
                     y: 0,
-                    transition: { duration: 0.22, delay: index * 0.01 },
+                    transition: { duration: isMobile ? 0.18 : 0.22, delay: isMobile ? 0 : index * 0.01 },
                   },
                 }}
               >

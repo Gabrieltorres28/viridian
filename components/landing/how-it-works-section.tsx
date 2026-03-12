@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "motion/react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const steps = [
   {
@@ -21,6 +22,11 @@ const steps = [
 ]
 
 export function HowItWorksSection() {
+  const isMobile = useIsMobile()
+  const viewport = isMobile
+    ? { once: true, margin: "-20px", amount: 0.08 }
+    : { once: false, margin: "-80px", amount: 0.22 }
+
   return (
     <section id="proceso" className="relative px-6 py-24 md:py-28">
       <div className="relative mx-auto max-w-6xl">
@@ -28,8 +34,8 @@ export function HowItWorksSection() {
           className="mx-auto max-w-3xl text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-80px", amount: 0.26 }}
-          transition={{ duration: 0.24 }}
+          viewport={viewport}
+          transition={{ duration: isMobile ? 0.18 : 0.24 }}
         >
           <p className="text-sm font-mono uppercase tracking-[0.22em] text-viridian">Proceso</p>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
@@ -44,10 +50,15 @@ export function HowItWorksSection() {
           className="mt-12 grid gap-4 md:grid-cols-3"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+          viewport={viewport}
           variants={{
             hidden: {},
-            show: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
+            show: {
+              transition: {
+                staggerChildren: isMobile ? 0.02 : 0.05,
+                delayChildren: isMobile ? 0.02 : 0.05,
+              },
+            },
           }}
         >
           {steps.map((step, index) => (
@@ -59,7 +70,7 @@ export function HowItWorksSection() {
                 show: {
                   opacity: 1,
                   y: 0,
-                  transition: { duration: 0.22, delay: index * 0.01 },
+                  transition: { duration: isMobile ? 0.18 : 0.22, delay: isMobile ? 0 : index * 0.01 },
                 },
               }}
             >

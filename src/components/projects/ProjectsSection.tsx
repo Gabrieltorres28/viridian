@@ -4,6 +4,7 @@ import { motion } from "motion/react"
 import { projects, ProjectGroup } from "@/src/data/projects"
 import { FeaturedProject } from "./FeaturedProject"
 import { ProjectCard } from "./ProjectCard"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const GROUP_COPY: Record<
   ProjectGroup,
@@ -40,6 +41,10 @@ const GROUP_ORDER: ProjectGroup[] = [
 ]
 
 export function ProjectsSection() {
+  const isMobile = useIsMobile()
+  const viewport = isMobile
+    ? { once: true, margin: "-20px", amount: 0.08 }
+    : { once: false, margin: "-80px", amount: 0.24 }
   const featuredProject = projects.find((project) => project.featured)
 
   return (
@@ -57,8 +62,8 @@ export function ProjectsSection() {
           className="mx-auto max-w-3xl text-center"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-80px", amount: 0.24 }}
-          transition={{ duration: 0.28 }}
+          viewport={viewport}
+          transition={{ duration: isMobile ? 0.22 : 0.28 }}
         >
           <p className="text-sm font-mono uppercase tracking-[0.22em] text-viridian">Sistemas reales</p>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
@@ -75,8 +80,8 @@ export function ProjectsSection() {
             className="mt-14"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px", amount: 0.18 }}
-            transition={{ duration: 0.3, delay: 0.04 }}
+            viewport={isMobile ? { once: true, margin: "-20px", amount: 0.06 } : { once: false, margin: "-100px", amount: 0.18 }}
+            transition={{ duration: isMobile ? 0.22 : 0.3, delay: isMobile ? 0.02 : 0.04 }}
           >
             <FeaturedProject project={featuredProject} />
           </motion.div>
@@ -92,8 +97,8 @@ export function ProjectsSection() {
                 key={group}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "-80px", amount: 0.18 }}
-                transition={{ duration: 0.24, delay: groupIndex * 0.02 }}
+                viewport={isMobile ? { once: true, margin: "-20px", amount: 0.06 } : { once: false, margin: "-80px", amount: 0.18 }}
+                transition={{ duration: isMobile ? 0.2 : 0.24, delay: isMobile ? 0 : groupIndex * 0.02 }}
               >
                 <div className="mb-8 flex flex-col gap-3 md:max-w-3xl">
                   <p className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">
@@ -111,10 +116,15 @@ export function ProjectsSection() {
                   className="grid grid-cols-1 gap-6 lg:grid-cols-2"
                   initial="hidden"
                   whileInView="show"
-                  viewport={{ once: false, margin: "-80px", amount: 0.18 }}
+                  viewport={isMobile ? { once: true, margin: "-20px", amount: 0.06 } : { once: false, margin: "-80px", amount: 0.18 }}
                   variants={{
                     hidden: {},
-                    show: { transition: { staggerChildren: 0.05, delayChildren: 0.04 } },
+                    show: {
+                      transition: {
+                        staggerChildren: isMobile ? 0.02 : 0.05,
+                        delayChildren: isMobile ? 0.02 : 0.04,
+                      },
+                    },
                   }}
                 >
                   {groupProjects.map((project) => (
@@ -122,7 +132,7 @@ export function ProjectsSection() {
                       key={project.id}
                       variants={{
                         hidden: { opacity: 0, y: 28 },
-                        show: { opacity: 1, y: 0, transition: { duration: 0.22 } },
+                        show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.16 : 0.22 } },
                       }}
                     >
                       <ProjectCard project={project} />

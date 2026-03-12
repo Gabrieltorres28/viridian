@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react"
 import { ArrowRight, MessageCircle } from "lucide-react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 const nextSteps = [
   "Revisamos tu operación y detectamos dónde conviene intervenir primero.",
@@ -10,6 +11,11 @@ const nextSteps = [
 ]
 
 export function CtaSection() {
+  const isMobile = useIsMobile()
+  const viewport = isMobile
+    ? { once: true, margin: "-20px", amount: 0.08 }
+    : { once: false, margin: "-90px", amount: 0.22 }
+
   return (
     <section id="contacto" className="relative px-6 py-24 md:py-32">
       <div className="relative mx-auto max-w-5xl">
@@ -17,8 +23,8 @@ export function CtaSection() {
           className="overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(17,19,18,0.98)_0%,rgba(10,12,11,1)_100%)] p-8 md:p-10 lg:p-12"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-90px", amount: 0.22 }}
-          transition={{ duration: 0.28 }}
+          viewport={viewport}
+          transition={{ duration: isMobile ? 0.22 : 0.28 }}
         >
           <div
             className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-60"
@@ -63,18 +69,23 @@ export function CtaSection() {
               className="rounded-[24px] border border-white/8 bg-white/[0.03] p-5"
               initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-80px", amount: 0.22 }}
-              transition={{ duration: 0.22, delay: 0.06 }}
+              viewport={viewport}
+              transition={{ duration: isMobile ? 0.18 : 0.22, delay: isMobile ? 0.02 : 0.06 }}
             >
               <p className="text-xs uppercase tracking-[0.18em] text-viridian">Cómo trabajamos el inicio</p>
               <motion.ul
                 className="mt-4 space-y-4"
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: false, margin: "-80px", amount: 0.22 }}
+                viewport={viewport}
                 variants={{
                   hidden: {},
-                  show: { transition: { staggerChildren: 0.05, delayChildren: 0.08 } },
+                  show: {
+                    transition: {
+                      staggerChildren: isMobile ? 0.02 : 0.05,
+                      delayChildren: isMobile ? 0.02 : 0.08,
+                    },
+                  },
                 }}
               >
                 {nextSteps.map((step) => (
@@ -83,7 +94,7 @@ export function CtaSection() {
                     className="border-b border-white/8 pb-4 text-sm leading-6 text-muted-foreground last:border-b-0 last:pb-0"
                     variants={{
                       hidden: { opacity: 0, y: 16 },
-                      show: { opacity: 1, y: 0, transition: { duration: 0.18 } },
+                      show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.16 : 0.18 } },
                     }}
                   >
                     {step}
