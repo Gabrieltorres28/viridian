@@ -1,6 +1,7 @@
 export type ProjectStatus =
   | "EN PRODUCCIÓN"
   | "DEMO FUNCIONAL"
+  | "IA EN ACCIÓN"
   | "LISTO PARA ESCALAR"
   | "SOLUCIÓN ACTIVA"
   | "VERSIÓN BASE"
@@ -8,6 +9,7 @@ export type ProjectStatus =
 export type ProjectCategory =
   | "Educación"
   | "Gastronomía"
+  | "IA"
   | "Operaciones"
   | "Leads B2B"
   | "Municipal"
@@ -33,8 +35,8 @@ export const projects: Project[] = [
     id: "isipp",
     status: "EN PRODUCCIÓN",
     category: "Educación",
-    title: "Portal de Inscripciones ISIPP",
-    subtitle: "Inscripciones y consultas centralizadas con derivación automática.",
+    title: "Sitio Oficial del Instituto Superior de Informatica Puerto Piray",
+    subtitle: "Sitio institucional con inscripciones y consultas centralizadas con derivación automática.",
     bullets: [
       "Formularios guiados por carrera con validaciones",
       "Derivación automática al área correcta",
@@ -61,6 +63,23 @@ export const projects: Project[] = [
     demoUrl: "https://saas-menu-digital.vercel.app",
     whatsappText: "Hola, quiero el sistema de Menú Digital con pedidos por WhatsApp.",
     image: "/menu-saas.png",
+    imageDisplay: "contain",
+  },
+  {
+    id: "viridian-ia",
+    status: "IA EN ACCIÓN",
+    category: "IA",
+    title: "Viridian Ops AI",
+    subtitle: "Chat de diagnóstico para describir tu negocio y detectar mejoras operativas y automatizaciones.",
+    bullets: [
+      "Conversación guiada para entender cómo funciona el negocio",
+      "Sugerencias de automatización según procesos, cuellos de botella y tareas repetitivas",
+      "Propuestas de cambios concretos para ordenar operación, ventas o atención",
+    ],
+    impactLine: "Convierte una descripción informal del negocio en oportunidades claras de mejora con IA aplicada.",
+    demoUrl: "https://viridian-ai-three.vercel.app",
+    whatsappText: "Hola, quiero una solucion como Viridian Ops AI para analizar mi negocio y sugerir automatizaciones.",
+    image: "/viridian-ia.png",
     imageDisplay: "contain",
   },
   {

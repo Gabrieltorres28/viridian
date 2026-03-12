@@ -11,6 +11,7 @@ const CATEGORY_OPTIONS: ("Todos" | ProjectCategory)[] = [
   "Todos",
   "Educación",
   "Gastronomía",
+  "IA",
   "Operaciones",
   "Leads B2B",
   "Municipal",

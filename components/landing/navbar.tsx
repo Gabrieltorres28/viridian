@@ -22,7 +22,7 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 md:px-6 py-2 md:py-5 h-[56px] md:h-auto">
+      <div className="mx-auto flex h-[56px] w-full items-center justify-between px-4 py-2 md:h-auto md:px-8 md:py-5 lg:px-10 xl:px-12">
         <motion.a
           id="nav-brand"
           href="#"
