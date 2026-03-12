@@ -105,6 +105,20 @@
       linear-gradient(180deg, rgba(255,255,255,0.015) 0%, rgba(255,255,255,0) 18%),
       radial-gradient(circle at top, rgba(78,218,158,0.08) 0%, rgba(78,218,158,0.01) 18%, transparent 42%);
   }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p, li {
+    text-wrap: pretty;
+  }
+  section[id] {
+    scroll-margin-top: 92px;
+  }
+  @media (min-width: 768px) {
+    section[id] {
+      scroll-margin-top: 108px;
+    }
+  }
 }
 
 @keyframes vcDash {

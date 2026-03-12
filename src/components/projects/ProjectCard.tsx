@@ -38,17 +38,17 @@ export function ProjectCard({ project }: { project: Project }) {
               }
               priority={project.featured}
             />
-            <div className="h-[180px] sm:h-[200px]" />
+            <div className="h-[136px] sm:h-[180px]" />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/25" />
           </>
         ) : (
-          <div className="flex h-[180px] items-center justify-center sm:h-[200px]">
+          <div className="flex h-[136px] items-center justify-center sm:h-[180px]">
             <NotebookText className="h-9 w-9 text-viridian/65" />
           </div>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
+      <div className="flex flex-1 flex-col gap-3 p-3.5 sm:p-5">
         <div className="flex flex-wrap items-center gap-2">
           <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
             {project.group}
@@ -59,13 +59,13 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold tracking-tight text-foreground">{project.title}</h3>
-          <p className="mt-2 text-sm uppercase tracking-[0.14em] text-viridian">{project.systemType}</p>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">{project.summary}</p>
+          <h3 className="text-[1.02rem] font-semibold tracking-tight text-foreground sm:text-xl">{project.title}</h3>
+          <p className="mt-1.5 text-[12px] uppercase tracking-[0.14em] text-viridian sm:text-sm">{project.systemType}</p>
+          <p className="mt-2.5 text-sm leading-6 text-muted-foreground">{project.solves}</p>
         </div>
 
         <ul className="space-y-2">
-          {project.outcomes.slice(0, 3).map((item) => (
+          {project.outcomes.slice(0, 1).map((item) => (
             <li key={item} className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-viridian" />
               <span>{item}</span>
@@ -73,13 +73,15 @@ export function ProjectCard({ project }: { project: Project }) {
           ))}
         </ul>
 
-        <div className="mt-auto flex flex-wrap items-center gap-3 pt-2">
+        <p className="text-sm font-medium text-viridian">{project.impactLine}</p>
+
+        <div className="mt-auto flex flex-col gap-2 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
           {project.demoUrl ? (
             <a
               href={project.demoUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
             >
               {primaryCtaLabel}
               <ArrowUpRight className="h-4 w-4" />
@@ -91,15 +93,13 @@ export function ProjectCard({ project }: { project: Project }) {
               href={whatsappLink}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
             >
               <MessageCircle className="h-4 w-4" />
               Pedir walkthrough
             </a>
           ) : null}
         </div>
-
-        <p className="text-sm font-medium text-viridian">{project.impactLine}</p>
       </div>
     </article>
   )

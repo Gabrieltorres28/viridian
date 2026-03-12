@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react"
 import Image from "next/image"
-import { ArrowUpRight, CheckCircle2, MessageCircle } from "lucide-react"
+import { CheckCircle2 } from "lucide-react"
 import { projects, ProjectGroup } from "@/src/data/projects"
 import { FeaturedProject } from "./FeaturedProject"
 import { ProjectCard } from "./ProjectCard"
@@ -34,16 +34,20 @@ export function ProjectsSection() {
   const highlightedProjects = ["gestor-tramites", "gruastorres"]
     .map((id) => projects.find((project) => project.id === id))
     .filter((project): project is (typeof projects)[number] => Boolean(project))
-  const opsAiProject = projects.find((project) => project.id === "viridian-ops-ai")
   const secondaryProjects = projects.filter(
     (project) =>
       project.id !== productionProject?.id &&
       !highlightedProjects.some((item) => item.id === project.id) &&
-      project.id !== opsAiProject?.id,
+      project.id !== "viridian-ops-ai",
   )
+  const proofStrip = [
+    "Casos reales con pantallas visibles",
+    "Estados claros: producción, MVP o demo funcional",
+    "Sistemas pensados para operación, no para vender humo",
+  ]
 
   return (
-    <section id="demos" className="relative px-6 py-16 md:py-32">
+    <section id="demos" className="relative px-4 py-14 sm:px-6 sm:py-16 md:py-22">
       <div
         className="absolute inset-x-0 top-0 h-72 opacity-40"
         style={{
@@ -54,24 +58,49 @@ export function ProjectsSection() {
 
       <div className="relative mx-auto max-w-6xl">
         <motion.div
-          className="mx-auto max-w-3xl text-center"
+          className="mx-auto max-w-4xl text-center"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: isMobile ? 0.22 : 0.28 }}
         >
           <p className="text-sm font-mono uppercase tracking-[0.22em] text-viridian">Sistemas reales</p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:mt-4 md:text-5xl">
-            Casos reales para evaluar la calidad del sistema, no solo el diseño.
+          <h2 className="mt-3 text-[1.72rem] font-semibold leading-[1.04] tracking-tight text-foreground sm:text-[2.3rem] md:mt-4 md:text-5xl">
+            Casos visibles para entender qué tipo de sistema construye Viridian Core.
           </h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground md:mt-4 md:text-lg md:leading-7">
-            Primero mostramos producto funcionando. Después hablamos de adaptación y alcance.
+            Producción real, demos funcionales y MVPs operativos para ver cómo resolvemos atención, operación y
+            trazabilidad antes de hablar de propuesta.
           </p>
+        </motion.div>
+
+        <motion.div
+          className="mt-6 hidden gap-2.5 sm:grid md:grid-cols-3"
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: isMobile ? 0.03 : 0.05, delayChildren: 0.04 } },
+          }}
+        >
+          {proofStrip.map((item) => (
+            <motion.div
+              key={item}
+              className="rounded-[18px] border border-white/8 bg-white/[0.03] px-3.5 py-3 text-sm leading-5 text-muted-foreground"
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                show: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.16 : 0.22 } },
+              }}
+            >
+              {item}
+            </motion.div>
+          ))}
         </motion.div>
 
         {productionProject ? (
           <motion.div
-            className="mt-8 md:mt-14"
+            className="mt-6 md:mt-12"
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={isMobile ? { once: true, margin: "-20px", amount: 0.06 } : { once: false, margin: "-100px", amount: 0.18 }}
@@ -82,7 +111,7 @@ export function ProjectsSection() {
         ) : null}
 
         <motion.div
-          className="mt-6 grid grid-cols-1 gap-5 lg:mt-8 lg:grid-cols-2 lg:gap-6"
+          className="mt-4 grid grid-cols-1 gap-3.5 sm:gap-5 lg:mt-6 lg:grid-cols-2 lg:gap-6"
           initial="hidden"
           whileInView="show"
           viewport={isMobile ? { once: true, margin: "-20px", amount: 0.06 } : { once: false, margin: "-80px", amount: 0.18 }}
@@ -111,7 +140,7 @@ export function ProjectsSection() {
 
         {secondaryProjects.length > 0 ? (
           <motion.div
-            className="mt-10 rounded-[28px] border border-white/8 bg-white/[0.02] p-5 sm:mt-14 sm:p-6"
+            className="mt-7 rounded-[24px] border border-white/8 bg-white/[0.02] p-3.5 sm:mt-12 sm:p-6"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={isMobile ? { once: true, margin: "-20px", amount: 0.06 } : { once: false, margin: "-80px", amount: 0.18 }}
@@ -119,21 +148,22 @@ export function ProjectsSection() {
           >
             <div className="max-w-2xl">
               <p className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">Más casos</p>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground">
-                Sistemas para restaurantes, pedidos y cocina.
+              <h3 className="mt-2.5 text-[1.45rem] font-semibold tracking-tight text-foreground sm:text-2xl">
+                Más ejemplos de operación diaria y atención con menos fricción.
               </h3>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Casos orientados a carta digital, ingreso de pedidos y seguimiento interno en operación gastronómica.
+              <p className="mt-2.5 text-sm leading-6 text-muted-foreground">
+                Casos orientados a pedidos, cocina y consulta recurrente donde el problema es el desorden operativo, no
+                la falta de una web linda.
               </p>
             </div>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
               {secondaryProjects.map((project) => (
                 <article
                   key={project.id}
                   className="overflow-hidden rounded-[22px] border border-white/8 bg-[linear-gradient(180deg,rgba(18,20,19,0.96)_0%,rgba(12,14,13,0.96)_100%)]"
                 >
-                  <div className="relative h-[160px] border-b border-white/8 bg-black/20">
+                  <div className="relative h-[148px] border-b border-white/8 bg-black/20 sm:h-[160px]">
                     {project.image ? (
                       <Image
                         src={project.image}
@@ -146,7 +176,7 @@ export function ProjectsSection() {
                       />
                     ) : null}
                   </div>
-                  <div className="p-5">
+                  <div className="p-4 sm:p-5">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                         {GROUP_COPY[project.group].eyebrow}
@@ -155,11 +185,11 @@ export function ProjectsSection() {
                         {project.status}
                       </span>
                     </div>
-                    <h4 className="mt-4 text-lg font-semibold text-foreground">{project.title}</h4>
-                    <p className="mt-2 text-sm uppercase tracking-[0.14em] text-viridian">{project.systemType}</p>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{project.summary}</p>
-                    <ul className="mt-4 space-y-2">
-                      {project.outcomes.slice(0, 2).map((item) => (
+                    <h4 className="mt-3 text-base font-semibold text-foreground sm:text-lg">{project.title}</h4>
+                    <p className="mt-1.5 text-[12px] uppercase tracking-[0.14em] text-viridian sm:text-sm">{project.systemType}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{project.solves}</p>
+                    <ul className="mt-3 space-y-2">
+                      {project.outcomes.slice(0, 1).map((item) => (
                         <li key={item} className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
                           <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-viridian" />
                           <span>{item}</span>
@@ -167,13 +197,13 @@ export function ProjectsSection() {
                       ))}
                     </ul>
                     <p className="mt-3 text-sm font-medium text-viridian">{project.impactLine}</p>
-                    <div className="mt-4 flex flex-wrap gap-3">
+                    <div className="mt-3 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
                       {project.demoUrl ? (
                         <a
                           href={project.demoUrl}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
+                          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
                         >
                           Ver caso
                         </a>
@@ -183,100 +213,15 @@ export function ProjectsSection() {
                           href={`https://wa.me/543751471708?text=${encodeURIComponent(project.whatsappText)}`}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
+                          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
                         >
                           Pedir referencia
                         </a>
-                      ) : null}
+                        ) : null}
                     </div>
                   </div>
                 </article>
               ))}
-            </div>
-          </motion.div>
-        ) : null}
-
-        {opsAiProject ? (
-          <motion.div
-            className="mt-14 sm:mt-16"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={isMobile ? { once: true, margin: "-20px", amount: 0.06 } : { once: false, margin: "-80px", amount: 0.18 }}
-            transition={{ duration: isMobile ? 0.2 : 0.26 }}
-          >
-            <div className="mb-5 max-w-2xl">
-              <p className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">Ayuda inicial</p>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-                ¿Todavía no tenés claro qué sistema necesita tu operación?
-              </h3>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
-                Antes de hablar de alcance, podés usar Viridian Ops AI para describir tu negocio y recibir una primera
-                lectura operativa.
-              </p>
-            </div>
-
-            <div className="overflow-hidden rounded-[28px] border border-viridian/18 bg-[linear-gradient(180deg,rgba(16,20,18,0.98)_0%,rgba(10,12,11,1)_100%)]">
-              <div className="grid gap-0 lg:grid-cols-[0.95fr_1.05fr]">
-                <div className="p-6 md:p-8">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full border border-viridian/20 bg-viridian/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-viridian">
-                      Herramienta de diagnóstico
-                    </span>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                      Pre-evaluación
-                    </span>
-                  </div>
-
-                  <h4 className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-                    Viridian Ops AI
-                  </h4>
-                  <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-                    Releva tu operación en tiempo real, detecta fricciones y devuelve recomendaciones iniciales para
-                    pensar un sistema con más criterio.
-                  </p>
-
-                  <ul className="mt-6 space-y-3">
-                    {opsAiProject.outcomes.map((item) => (
-                      <li key={item} className="text-sm leading-6 text-muted-foreground">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                    <a
-                      href={opsAiProject.demoUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
-                    >
-                      Probar la herramienta
-                      <ArrowUpRight className="h-4 w-4" />
-                    </a>
-                    <a
-                      href="https://wa.me/543751471708?text=Hola%2C%20quiero%20contar%20m%C3%A1s%20sobre%20mi%20negocio%20y%20evaluar%20un%20sistema."
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
-                    >
-                      <MessageCircle className="h-4 w-4" />
-                      Quiero conversar mi caso
-                    </a>
-                  </div>
-                </div>
-
-                <div className="relative min-h-[260px] border-t border-white/8 bg-black/20 lg:min-h-full lg:border-l lg:border-t-0">
-                  {opsAiProject.image ? (
-                    <Image
-                      src={opsAiProject.image}
-                      alt={`Captura de ${opsAiProject.title}`}
-                      fill
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className={opsAiProject.imageDisplay === "contain" ? "object-contain p-6" : "object-cover"}
-                    />
-                  ) : null}
-                </div>
-              </div>
             </div>
           </motion.div>
         ) : null}

@@ -2,6 +2,7 @@ import { Navbar } from "@/components/landing/navbar"
 import { HeroSection } from "@/components/landing/hero-section"
 import { HowItWorksSection } from "@/components/landing/how-it-works-section"
 import { ProjectsSection } from "@/src/components/projects/ProjectsSection"
+import { OpsAiSection } from "@/components/landing/ops-ai-section"
 import { CtaSection } from "@/components/landing/cta-section"
 import { Footer } from "@/components/landing/footer"
 import { ResultsSection } from "@/components/landing/results-section"
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <ProjectsSection />
       <ResultsSection />
+      <OpsAiSection />
       <HowItWorksSection />
       <CtaSection />
       <Footer />

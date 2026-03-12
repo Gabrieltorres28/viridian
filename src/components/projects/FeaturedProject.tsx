@@ -20,7 +20,7 @@ export function FeaturedProject({ project }: { project: Project }) {
   return (
     <article
       id={project.id}
-      className={`relative overflow-hidden rounded-[28px] p-6 shadow-[0_28px_100px_rgba(0,0,0,0.38)] md:p-8 lg:p-10 ${
+      className={`relative overflow-hidden rounded-[26px] p-3.5 shadow-[0_28px_100px_rgba(0,0,0,0.38)] sm:p-6 md:p-8 lg:p-9 ${
         isProductionCase
           ? "border border-viridian/25 bg-[linear-gradient(180deg,rgba(17,21,19,0.98)_0%,rgba(10,12,11,0.96)_100%)]"
           : "border border-white/10 bg-[linear-gradient(180deg,rgba(17,19,18,0.98)_0%,rgba(10,12,11,0.96)_100%)]"
@@ -34,11 +34,11 @@ export function FeaturedProject({ project }: { project: Project }) {
         }}
       />
 
-      <div className="relative grid min-w-0 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-        <div className="min-w-0 space-y-6">
+      <div className="relative grid min-w-0 gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-8">
+        <div className="min-w-0 space-y-4">
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-full border border-viridian/25 bg-viridian/10 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.22em] text-viridian">
-              {isProductionCase ? "Produccion real" : "Caso principal"}
+              {isProductionCase ? "Producción real" : "Caso principal"}
             </span>
             <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-muted-foreground">
               {project.group}
@@ -48,12 +48,12 @@ export function FeaturedProject({ project }: { project: Project }) {
             </span>
           </div>
 
-          <div className="space-y-3">
-            <p className="text-sm uppercase tracking-[0.16em] text-muted-foreground">{project.systemType}</p>
-            <h3 className="max-w-2xl text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+          <div className="space-y-2.5">
+            <p className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground sm:text-sm">{project.systemType}</p>
+            <h3 className="max-w-2xl text-[1.58rem] font-semibold leading-[1.05] tracking-tight text-foreground sm:text-[2.1rem] md:text-4xl">
               {project.title}
             </h3>
-            <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
               {project.summary}
             </p>
             {isProductionCase ? (
@@ -63,15 +63,15 @@ export function FeaturedProject({ project }: { project: Project }) {
             ) : null}
           </div>
 
-          <div className="grid gap-4 rounded-[24px] border border-white/8 bg-white/[0.03] p-5 md:grid-cols-[0.95fr_1.05fr]">
+          <div className="grid gap-3 rounded-[22px] border border-white/8 bg-white/[0.03] p-3.5 sm:p-5 md:grid-cols-[0.95fr_1.05fr]">
             <div>
               <p className="text-xs uppercase tracking-[0.18em] text-viridian">Qué resuelve</p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{project.solves}</p>
+              <p className="mt-2.5 text-sm leading-6 text-muted-foreground">{project.solves}</p>
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.18em] text-viridian">Qué cambia</p>
-              <ul className="mt-3 space-y-3">
-                {project.outcomes.map((item) => (
+              <ul className="mt-2.5 space-y-2.5">
+                {project.outcomes.slice(0, 2).map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-viridian" />
                     <span>{item}</span>
@@ -81,13 +81,13 @@ export function FeaturedProject({ project }: { project: Project }) {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center">
             {project.demoUrl ? (
               <a
                 href={project.demoUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-2 rounded-xl bg-foreground px-5 py-3 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-foreground px-5 py-3 text-sm font-semibold text-background transition-transform hover:-translate-y-0.5"
               >
                 Ver sistema
                 <ArrowUpRight className="h-4 w-4" />
@@ -99,7 +99,7 @@ export function FeaturedProject({ project }: { project: Project }) {
                 href={whatsappLink}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:border-viridian/35 hover:text-viridian"
               >
                 <MessageCircle className="h-4 w-4" />
                 Pedir algo similar
@@ -110,7 +110,7 @@ export function FeaturedProject({ project }: { project: Project }) {
           <p className="text-sm font-medium text-viridian">{project.impactLine}</p>
         </div>
 
-        <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,18,17,1)_0%,rgba(11,13,12,1)_100%)]">
+        <div className="relative overflow-hidden rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,18,17,1)_0%,rgba(11,13,12,1)_100%)]">
           {project.image ? (
             <>
               <Image
@@ -120,15 +120,15 @@ export function FeaturedProject({ project }: { project: Project }) {
                 height={860}
                 className={
                   shouldContainImage
-                    ? "h-full w-full object-contain p-4 brightness-[0.98]"
-                    : "h-full w-full object-cover object-top"
+                    ? "h-full max-h-[220px] w-full object-contain p-3 brightness-[0.98] sm:max-h-[460px] sm:p-5"
+                    : "h-full max-h-[220px] w-full object-cover object-top sm:max-h-[460px]"
                 }
                 priority
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
             </>
           ) : (
-            <div className="flex min-h-[320px] items-center justify-center">
+            <div className="flex min-h-[180px] items-center justify-center sm:min-h-[320px]">
               <NotebookText className="h-10 w-10 text-viridian/70" />
             </div>
           )}
