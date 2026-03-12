@@ -1,21 +1,28 @@
 "use client"
 
 import { motion } from "motion/react"
+import { Bot, SearchCheck, Workflow } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 const steps = [
   {
     number: "01",
+    icon: SearchCheck,
+    duration: "24-48 hs",
     title: "Leemos la operación",
     description: "Ubicamos fricción, cuellos de botella y el punto más rentable para intervenir.",
   },
   {
     number: "02",
+    icon: Workflow,
+    duration: "3-5 dias",
     title: "Definimos la base",
     description: "Ordenamos flujo, datos y automatizaciones sin inflar alcance.",
   },
   {
     number: "03",
+    icon: Bot,
+    duration: "1-2 semanas",
     title: "Implementamos y ajustamos",
     description: "Salimos con una herramienta usable y refinamos sobre uso real.",
   },
@@ -47,7 +54,7 @@ export function HowItWorksSection() {
         </motion.div>
 
         <motion.div
-          className="mt-12 grid gap-4 md:grid-cols-3"
+          className="relative mt-14"
           initial="hidden"
           whileInView="show"
           viewport={viewport}
@@ -55,33 +62,49 @@ export function HowItWorksSection() {
             hidden: {},
             show: {
               transition: {
-                staggerChildren: isMobile ? 0.02 : 0.05,
-                delayChildren: isMobile ? 0.02 : 0.05,
+                staggerChildren: isMobile ? 0.03 : 0.08,
+                delayChildren: isMobile ? 0.03 : 0.08,
               },
             },
           }}
         >
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              className="rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(18,20,19,0.96)_0%,rgba(12,14,13,0.96)_100%)] p-6"
-              variants={{
-                hidden: { opacity: 0, y: 24 },
-                show: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: isMobile ? 0.18 : 0.22, delay: isMobile ? 0 : index * 0.01 },
-                },
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">{step.number}</span>
-                <span className="h-px w-10 bg-white/10" />
-              </div>
-              <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground">{step.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">{step.description}</p>
-            </motion.div>
-          ))}
+          <div className="absolute left-[23px] top-6 bottom-6 w-px bg-white/10 md:left-0 md:right-0 md:top-[35px] md:bottom-auto md:h-px md:w-auto">
+            <div className="h-full w-full bg-[linear-gradient(180deg,rgba(13,148,136,0)_0%,rgba(13,148,136,0.75)_18%,rgba(13,148,136,0.75)_82%,rgba(13,148,136,0)_100%)] md:bg-[linear-gradient(90deg,rgba(13,148,136,0)_0%,rgba(13,148,136,0.75)_18%,rgba(13,148,136,0.75)_82%,rgba(13,148,136,0)_100%)]" />
+          </div>
+
+          <div className="grid gap-10 md:grid-cols-3 md:gap-8">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.number}
+                className="relative pl-16 md:pl-0"
+                variants={{
+                  hidden: { opacity: 0, y: 24 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: isMobile ? 0.18 : 0.24, delay: isMobile ? 0 : index * 0.02 },
+                  },
+                }}
+              >
+                <div className="absolute left-0 top-0 md:relative md:left-auto md:top-auto">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-viridian/30 bg-background text-viridian shadow-[0_0_0_6px_rgba(7,10,9,0.9)]">
+                    <step.icon className="h-5 w-5" strokeWidth={2.1} />
+                  </div>
+                </div>
+
+                <div className="md:pt-20">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono uppercase tracking-[0.24em] text-viridian">{step.number}</span>
+                    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                      {step.duration}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-xl font-semibold tracking-tight text-foreground">{step.title}</h3>
+                  <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">{step.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
