@@ -2,7 +2,6 @@ export type ProjectStatus =
   | "EN PRODUCCIÓN"
   | "DEMO FUNCIONAL"
   | "IA EN ACCIÓN"
-  | "LISTO PARA ESCALAR"
   | "SOLUCIÓN ACTIVA"
   | "VERSIÓN BASE"
   | "GRABADO BREVE"
@@ -10,7 +9,6 @@ export type ProjectCategory =
   | "Educación"
   | "Gastronomía"
   | "IA"
-  | "Operaciones"
   | "Leads B2B"
   | "Municipal"
 
@@ -80,23 +78,6 @@ export const projects: Project[] = [
     demoUrl: "https://viridian-ai-three.vercel.app",
     whatsappText: "Hola, quiero una solucion como Viridian Ops AI para analizar mi negocio y sugerir automatizaciones.",
     image: "/viridian-ia.png",
-    imageDisplay: "contain",
-  },
-  {
-    id: "viridian-ops",
-    status: "LISTO PARA ESCALAR",
-    category: "Operaciones",
-    title: "Viridian Ops",
-    subtitle: "Panel operativo para centralizar seguimiento interno y procesos clave.",
-    bullets: [
-      "Vista unificada de operaciones, estados y tareas activas",
-      "Seguimiento ordenado para evitar cuellos de botella",
-      "Interfaz pensada para control diario y decisiones rapidas",
-    ],
-    impactLine: "Mas visibilidad operativa y menos gestion dispersa entre mensajes y planillas.",
-    demoUrl: "https://viridian-ops.vercel.app",
-    whatsappText: "Hola, quiero una solucion operativa como Viridian Ops.",
-    image: "/viridianops.png",
     imageDisplay: "contain",
   },
   {

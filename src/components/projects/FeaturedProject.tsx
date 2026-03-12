@@ -5,7 +5,7 @@ import Image from "next/image"
 const STATUS_STYLES: Record<NonNullable<Project["status"]>, string> = {
   "EN PRODUCCIÓN": "bg-emerald-500/20 text-emerald-100 border-emerald-500/50",
   "DEMO FUNCIONAL": "bg-viridian/15 text-viridian border-viridian/40",
-  "LISTO PARA ESCALAR": "bg-cyan-500/15 text-cyan-200 border-cyan-500/35",
+  "IA EN ACCIÓN": "bg-fuchsia-500/15 text-fuchsia-200 border-fuchsia-500/35",
   "SOLUCIÓN ACTIVA": "bg-blue-500/15 text-blue-200 border-blue-500/35",
   "VERSIÓN BASE": "bg-sky-500/15 text-sky-200 border-sky-500/35",
   "GRABADO BREVE": "bg-amber-500/15 text-amber-200 border-amber-500/30",

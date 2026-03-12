@@ -25,16 +25,6 @@ const projects = [
     demoAvailable: true,
   },
   {
-    client: "Viridian Ops",
-    industry: "Servicios",
-    problem: "La operación diaria quedaba repartida entre chats, notas y planillas.",
-    solution: "Panel operativo para centralizar seguimiento, estados y tareas clave.",
-    impact: "Más visibilidad operativa y menos desorden en el control diario del equipo.",
-    metric: "Métrica a medir: tareas demoradas y seguimiento pendiente",
-    url: "https://viridian-ops.vercel.app",
-    demoAvailable: true,
-  },
-  {
     client: "Acapulco Burrito",
     industry: "Restaurante",
     problem: "Tickets de cocina se traspapelaban y demoraban entregas.",
