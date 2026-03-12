@@ -26,6 +26,7 @@ export type Project = {
   image?: string
   imageDisplay?: "cover" | "contain"
   featured?: boolean
+  hideWhatsappCta?: boolean
 }
 
 export const projects: Project[] = [
@@ -79,6 +80,7 @@ export const projects: Project[] = [
     whatsappText: "Hola, quiero una solucion como Viridian Ops AI para analizar mi negocio y sugerir automatizaciones.",
     image: "/viridian-ia.png",
     imageDisplay: "contain",
+    hideWhatsappCta: true,
   },
   {
     id: "acapulco-burrito",

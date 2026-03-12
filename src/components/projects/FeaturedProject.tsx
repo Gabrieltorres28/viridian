@@ -79,16 +79,18 @@ export function FeaturedProject({ project }: { project: Project }) {
               </a>
             ) : null}
 
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-2 rounded-lg border border-viridian/50 px-5 py-2.5 text-sm font-semibold text-viridian transition-colors hover:border-viridian hover:bg-viridian/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-viridian focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              aria-label={`Quiero este sistema destacado: ${project.title}`}
-            >
-              <MessageCircle className="h-4 w-4" />
-              Quiero este sistema
-            </a>
+            {!project.hideWhatsappCta ? (
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-2 rounded-lg border border-viridian/50 px-5 py-2.5 text-sm font-semibold text-viridian transition-colors hover:border-viridian hover:bg-viridian/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-viridian focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                aria-label={`Quiero este sistema destacado: ${project.title}`}
+              >
+                <MessageCircle className="h-4 w-4" />
+                Quiero este sistema
+              </a>
+            ) : null}
 
             {project.detailsUrl ? (
               <a
