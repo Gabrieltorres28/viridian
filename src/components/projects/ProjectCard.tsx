@@ -15,7 +15,8 @@ const WHATSAPP_NUMBER = "543751471708"
 export function ProjectCard({ project }: { project: Project }) {
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(project.whatsappText)}`
   const shouldContainImage = project.imageDisplay === "contain"
-  const primaryCtaLabel = project.id === "gestor-tramites" ? "Ver portal" : "Ver demo"
+  const primaryCtaLabel =
+    project.id === "gestor-tramites" ? "Ver portal" : project.id === "gruastorres" ? "Ver MVP" : "Ver demo"
 
   return (
     <article

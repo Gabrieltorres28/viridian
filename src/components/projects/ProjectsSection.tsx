@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react"
 import Image from "next/image"
-import { ArrowUpRight, MessageCircle } from "lucide-react"
+import { ArrowUpRight, CheckCircle2, MessageCircle } from "lucide-react"
 import { projects, ProjectGroup } from "@/src/data/projects"
 import { FeaturedProject } from "./FeaturedProject"
 import { ProjectCard } from "./ProjectCard"
@@ -120,14 +120,14 @@ export function ProjectsSection() {
             <div className="max-w-2xl">
               <p className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">Más casos</p>
               <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground">
-                Casos de gastronomía y operación en mostrador.
+                Sistemas para restaurantes, pedidos y cocina.
               </h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Sistemas más compactos para pedidos, cocina y coordinación en contextos de alta rotación.
+                Casos orientados a carta digital, ingreso de pedidos y seguimiento interno en operación gastronómica.
               </p>
             </div>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
               {secondaryProjects.map((project) => (
                 <article
                   key={project.id}
@@ -156,7 +156,16 @@ export function ProjectsSection() {
                       </span>
                     </div>
                     <h4 className="mt-4 text-lg font-semibold text-foreground">{project.title}</h4>
+                    <p className="mt-2 text-sm uppercase tracking-[0.14em] text-viridian">{project.systemType}</p>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">{project.summary}</p>
+                    <ul className="mt-4 space-y-2">
+                      {project.outcomes.slice(0, 2).map((item) => (
+                        <li key={item} className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-viridian" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                     <p className="mt-3 text-sm font-medium text-viridian">{project.impactLine}</p>
                     <div className="mt-4 flex flex-wrap gap-3">
                       {project.demoUrl ? (

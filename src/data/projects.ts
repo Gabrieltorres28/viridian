@@ -88,7 +88,7 @@ export const projects: Project[] = [
   },
   {
     id: "acapulco-burrito",
-    title: "Kitchen Dispatch",
+    title: "Panel de Cocina",
     group: "Operaciones",
     status: "Caso grabado",
     systemType: "Panel de cocina con estados y seguimiento de tickets",
@@ -101,7 +101,7 @@ export const projects: Project[] = [
     ],
     impactLine: "Más control en cocina sin agregar complejidad innecesaria.",
     demoUrl: "https://acapulco-burrito.vercel.app",
-    whatsappText: "Hola, quiero un panel de cocina con estados como Kitchen Dispatch.",
+    whatsappText: "Hola, quiero un panel de cocina con estados como este caso.",
     image: "/acapulco-burrito.png",
   },
   {
