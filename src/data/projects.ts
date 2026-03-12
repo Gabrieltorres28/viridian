@@ -69,7 +69,7 @@ export const projects: Project[] = [
   },
   {
     id: "menu-digital",
-    title: "Menu Flow",
+    title: "Pedidos Centralizados",
     group: "Operaciones",
     status: "Demo funcional",
     systemType: "Menu digital con pedidos centralizados por WhatsApp",
@@ -82,7 +82,7 @@ export const projects: Project[] = [
     ],
     impactLine: "Menos ruido operativo cuando la demanda sube.",
     demoUrl: "https://saas-menu-digital.vercel.app",
-    whatsappText: "Hola, quiero un sistema de pedidos centralizados por WhatsApp como Menu Flow.",
+    whatsappText: "Hola, quiero un sistema de pedidos centralizados por WhatsApp como este caso.",
     image: "/menu-saas.png",
     imageDisplay: "contain",
   },

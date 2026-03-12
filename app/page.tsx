@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/landing/navbar"
 import { HeroSection } from "@/components/landing/hero-section"
-import { ProblemSection } from "@/components/landing/problem-section"
 import { HowItWorksSection } from "@/components/landing/how-it-works-section"
 import { ProjectsSection } from "@/src/components/projects/ProjectsSection"
 import { CtaSection } from "@/components/landing/cta-section"
@@ -13,9 +12,8 @@ export default function Home() {
     <main className="min-h-screen bg-background pb-28 sm:pb-0">
       <Navbar />
       <HeroSection />
-      <ResultsSection />
       <ProjectsSection />
-      <ProblemSection />
+      <ResultsSection />
       <HowItWorksSection />
       <CtaSection />
       <Footer />

@@ -12,7 +12,7 @@ export function Footer() {
               Software studio para operaciones, portales y automatización aplicada.
             </p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Diseñamos sistemas digitales útiles para ordenar procesos, reducir fricción y ejecutar con más criterio.
+              Sistemas digitales para operaciones reales.
             </p>
           </div>
 

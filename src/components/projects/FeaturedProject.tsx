@@ -15,11 +15,16 @@ const WHATSAPP_NUMBER = "543751471708"
 export function FeaturedProject({ project }: { project: Project }) {
   const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(project.whatsappText)}`
   const shouldContainImage = project.imageDisplay === "contain"
+  const isProductionCase = project.status === "En producción"
 
   return (
     <article
       id={project.id}
-      className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(17,19,18,0.98)_0%,rgba(10,12,11,0.96)_100%)] p-6 shadow-[0_28px_100px_rgba(0,0,0,0.38)] md:p-8 lg:p-10"
+      className={`relative overflow-hidden rounded-[28px] p-6 shadow-[0_28px_100px_rgba(0,0,0,0.38)] md:p-8 lg:p-10 ${
+        isProductionCase
+          ? "border border-viridian/25 bg-[linear-gradient(180deg,rgba(17,21,19,0.98)_0%,rgba(10,12,11,0.96)_100%)]"
+          : "border border-white/10 bg-[linear-gradient(180deg,rgba(17,19,18,0.98)_0%,rgba(10,12,11,0.96)_100%)]"
+      }`}
     >
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-40 opacity-60"
@@ -33,7 +38,7 @@ export function FeaturedProject({ project }: { project: Project }) {
         <div className="space-y-6">
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-full border border-viridian/25 bg-viridian/10 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.22em] text-viridian">
-              Caso principal
+              {isProductionCase ? "Produccion real" : "Caso principal"}
             </span>
             <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-muted-foreground">
               {project.group}
@@ -51,6 +56,11 @@ export function FeaturedProject({ project }: { project: Project }) {
             <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
               {project.summary}
             </p>
+            {isProductionCase ? (
+              <p className="max-w-2xl text-sm font-medium text-viridian">
+                Caso activo con uso real. No es un concepto ni un demo armado para vender.
+              </p>
+            ) : null}
           </div>
 
           <div className="grid gap-4 rounded-[24px] border border-white/8 bg-white/[0.03] p-5 md:grid-cols-[0.95fr_1.05fr]">

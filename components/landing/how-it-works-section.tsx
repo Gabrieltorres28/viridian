@@ -7,17 +7,17 @@ const steps = [
   {
     number: "01",
     title: "Leemos la operación",
-    description: "Detectamos fricción, dependencia manual, decisiones críticas y qué parte conviene sistematizar primero.",
+    description: "Ubicamos fricción, cuellos de botella y el punto más rentable para intervenir.",
   },
   {
     number: "02",
-    title: "Diseñamos el sistema correcto",
-    description: "Definimos flujos, interfaz, estructura de datos, automatizaciones y puntos de control con criterio de producto.",
+    title: "Definimos la base",
+    description: "Ordenamos flujo, datos y automatizaciones sin inflar alcance.",
   },
   {
     number: "03",
     title: "Implementamos y ajustamos",
-    description: "Construimos una base usable, probamos rápido y refinamos donde la utilidad real lo justifica.",
+    description: "Salimos con una herramienta usable y refinamos sobre uso real.",
   },
 ]
 
@@ -39,10 +39,10 @@ export function HowItWorksSection() {
         >
           <p className="text-sm font-mono uppercase tracking-[0.22em] text-viridian">Proceso</p>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
-            Un proceso corto, ejecutivo y orientado a utilidad real.
+            Proceso corto. Decisiones claras. Utilidad real.
           </h2>
-          <p className="mt-5 text-base leading-7 text-muted-foreground md:text-lg">
-            El objetivo no es producir más pantallas. Es dejar una herramienta que ayude a operar mejor.
+          <p className="mt-4 text-base leading-7 text-muted-foreground md:text-lg">
+            Sin consultoría inflada ni rondas eternas de discovery.
           </p>
         </motion.div>
 
@@ -78,7 +78,7 @@ export function HowItWorksSection() {
                 <span className="text-sm font-mono uppercase tracking-[0.2em] text-viridian">{step.number}</span>
                 <span className="h-px w-10 bg-white/10" />
               </div>
-              <h3 className="mt-6 text-xl font-semibold tracking-tight text-foreground">{step.title}</h3>
+              <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground">{step.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{step.description}</p>
             </motion.div>
           ))}

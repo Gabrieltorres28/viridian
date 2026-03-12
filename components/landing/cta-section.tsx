@@ -4,11 +4,7 @@ import { motion } from "motion/react"
 import { ArrowRight, MessageCircle } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
 
-const nextSteps = [
-  "Revisamos tu operación y detectamos dónde conviene intervenir primero.",
-  "Te mostramos una dirección concreta: sistema, portal, automatización o una combinación útil.",
-  "Si hay encaje, avanzamos sobre una base seria y escalable.",
-]
+const nextSteps = ["Revisión operativa inicial.", "Dirección concreta de sistema.", "Propuesta para avanzar."]
 
 export function CtaSection() {
   const isMobile = useIsMobile()
@@ -38,11 +34,10 @@ export function CtaSection() {
             <div>
               <p className="text-sm font-mono uppercase tracking-[0.22em] text-viridian">Cierre</p>
               <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
-                Si necesitás una base digital más clara, más útil y más seria, conversemos.
+                Si hay una operación para ordenar, hablemos.
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
-                El primer paso no es una presentación larga. Es entender la operación, detectar el punto con más
-                retorno y plantear una propuesta concreta.
+              <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+                Vemos el caso, mostramos un enfoque concreto y definimos si tiene sentido construirlo.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
